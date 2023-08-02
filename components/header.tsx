@@ -15,6 +15,7 @@ import {
     Text
 } from "@chakra-ui/react";
 import Link from "next/link";
+import {getWindowWidth} from "../scripts/getWidth";
 
 // breakpoint is 850px
 // desktop menu is LightMenuDesktop
@@ -23,19 +24,12 @@ import Link from "next/link";
 // link array for title text
 const pages = [
     {id: 1, name: "product", page: "/product"},
-    {id: 2, name: "Software", page: "/"},
-    {id: 3, name: "blog", page: "/"},
-    {id: 4, name: "release", page: "/"}
+    {id: 2, name: "about", page: "/about"}
 ];
 
 export default function VARIUSHeader() {
-    const [width, setWidth] = useState<number>(0);
-    useEffect(() => {
-        setWidth(window.innerWidth);
-        window.addEventListener("resize", () => {
-            setWidth(window.innerWidth);
-        });
-    }, [width]);
+    const width:number = getWindowWidth();
+    const dpadding = width > 990 ? "10vh" : "3vh";
 
     const ResponseHeaderLayout = () => {
         if (width > 850) {
@@ -45,7 +39,7 @@ export default function VARIUSHeader() {
         }
     };
     return (
-        <Box bg={"#000012"} color={"#fff"} p={3}>
+        <Box bg={"#000012"} color={"#fff"} p={3} pl={dpadding} pr={dpadding}>
             <Flex>
                 <Flex w={"50%"} p={3} alignContent={"center"}>
                     <Link href={"/"}>

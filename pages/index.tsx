@@ -23,10 +23,12 @@ const Home = () => {
                         <div style={{
                             fontFamily: `REM`,
                             fontSize: 40,
-                            wordBreak: "break-all",
+                            wordBreak: "keep-all",
                         }}>
-                            Easy make Web3 and <br/>
-                            Metaverse Application Frameworks.
+                            Easy make Web3 <wbr/>
+                            and
+                            Metaverse <wbr/>
+                            Application Frameworks.
                         </div>
                     </Box>
                 </Container>
