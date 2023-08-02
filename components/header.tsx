@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import {
     Box,
     Button,
@@ -16,6 +16,18 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 
+// breakpoint is 850px
+// desktop menu is LightMenuDesktop
+// mobile menu is LightMenu
+
+// link array for title text
+const pages = [
+    {id: 1, name: "product", page: "/product"},
+    {id: 2, name: "Software", page: "/"},
+    {id: 3, name: "blog", page: "/"},
+    {id: 4, name: "release", page: "/"}
+];
+
 export default function VARIUSHeader() {
     const [width, setWidth] = useState<number>(0);
     useEffect(() => {
@@ -25,6 +37,13 @@ export default function VARIUSHeader() {
         });
     }, [width]);
 
+    const ResponseHeaderLayout = () => {
+        if (width > 850) {
+            return <LightMenuDesktop/>;
+        } else {
+            return <LightMenu/>;
+        }
+    };
     return (
         <Box bg={"#000012"} color={"#fff"} p={3}>
             <Flex>
@@ -34,16 +53,16 @@ export default function VARIUSHeader() {
                     </Link>
                 </Flex>
                 <Flex w={"50%"} justifyContent={"flex-end"} alignItems={"center"}>
-                    <LightMenu />
+                    <ResponseHeaderLayout/>
                 </Flex>
-                
+
             </Flex>
         </Box>
     )
 };
 
 const LightMenu = () => {
-    const { isOpen, onOpen, onClose } = useDisclosure();
+    const {isOpen, onOpen, onClose} = useDisclosure();
     const btnRef = React.useRef()
     return (
         <Box>
@@ -56,16 +75,30 @@ const LightMenu = () => {
                 onClose={onClose}
                 finalFocusRef={btnRef}
             >
-                <DrawerOverlay />
-                <DrawerContent 
-                backgroundColor={"#000016"}
-                color={"#fff"}>
-                    <DrawerCloseButton />
+                <DrawerOverlay/>
+                <DrawerContent
+                    backgroundColor={"#000016"}
+                    color={"#fff"}>
+                    <DrawerCloseButton/>
                     <DrawerHeader>Menu</DrawerHeader>
 
                     <DrawerBody>
-                        <Text>Product</Text>
-                        <Text>メニュー作ってるなう</Text>
+                        {
+                            pages.map(
+                                linkvalue => {
+                                    return (
+                                        <div key={linkvalue.id}>
+                                            <Link as={`/${linkvalue.name}`}
+                                                  href={`${linkvalue.page}`} style={{
+                                                padding: 10
+                                            }}>
+                                                {linkvalue.name}
+                                            </Link>
+                                        </div>
+                                    );
+                                }
+                            )
+                        }
                     </DrawerBody>
 
                     <DrawerFooter>
@@ -79,37 +112,28 @@ const LightMenu = () => {
     )
 };
 
-const LightMenuDesktop = () => {
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    const btnRef = React.useRef()
+
+// for desktop link element
+// map and array
+function LightMenuDesktop() {
     return (
-        <Box w={"50%"}>
-            <Button ref={btnRef} colorScheme='teal' onClick={onOpen}>
-                Open
-            </Button>
-            <Drawer
-                isOpen={isOpen}
-                placement='right'
-                onClose={onClose}
-                finalFocusRef={btnRef}
-            >
-                <DrawerOverlay />
-                <DrawerContent>
-                    <DrawerCloseButton />
-                    <DrawerHeader>Create your account</DrawerHeader>
-
-                    <DrawerBody>
-                        <Input placeholder='Type here...' />
-                    </DrawerBody>
-
-                    <DrawerFooter>
-                        <Button variant='outline' mr={3} onClick={onClose}>
-                            Cancel
-                        </Button>
-                        <Button colorScheme='blue'>Save</Button>
-                    </DrawerFooter>
-                </DrawerContent>
-            </Drawer>
-        </Box>
+        <>
+            {
+                pages.map(
+                    linkvalue => {
+                        return (
+                            <div key={linkvalue.id}>
+                                <Link as={`/${linkvalue.name}`}
+                                      href={`${linkvalue.page}`} style={{
+                                          padding: 10
+                                        }}>
+                                    {linkvalue.name}
+                                </Link>
+                            </div>
+                        );
+                    }
+                )
+            }
+        </>
     )
 };
