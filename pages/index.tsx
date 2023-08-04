@@ -9,7 +9,6 @@ const Home = () => {
         <MainLayout>
             <HMeta pageTitle={"DevHome"} pageImg={"/header.png"}/>
             <Box p={6}>
-                <link href="https://fonts.googleapis.com/css2?family=REM:wght@500&display=swap" rel="stylesheet"></link>
                 <Container maxW={"container.xl"} background={"#fff"} color={"#000021"} pt={16} pb={16}>
                     <div style={{
                         fontFamily: `REM`,

@@ -24,7 +24,8 @@ import {getWindowWidth} from "../scripts/getWidth";
 // link array for title text
 const pages = [
     {id: 1, name: "product", page: "/product"},
-    {id: 2, name: "about", page: "/about"}
+    {id: 2, name: "about", page: "/about"},
+    {id: 3, name: "release", page: "/release"}
 ];
 
 export default function VARIUSHeader() {

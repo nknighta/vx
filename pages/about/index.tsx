@@ -3,6 +3,7 @@ import HMeta from "components/headmeta";
 import MainLayout from "layout/main";
 import {Box, Container, Flex, Text} from "@chakra-ui/react";
 import {getWindowWidth} from "scripts/getWidth";
+import GitHome from "../../components/fetchgithub";
 
 const Home = () => {
     const width: number = getWindowWidth();
@@ -66,6 +67,7 @@ const Home = () => {
                     width={400}
                     height={0}/>
             </Flex>
+            <GitHome/>
         </MainLayout>
     );
 };
