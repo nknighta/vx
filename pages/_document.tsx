@@ -26,8 +26,8 @@ const MyDocument = () => {
             </Head>
             <body style={{
                 height: "auto",
-                background: "#000021",
-                color: "#fff",
+                background: "#bbbbdd",
+                color: "#000021",
             }}>
                 <Main/>
                 <NextScript/>
@@ -58,7 +58,7 @@ const Footer = () => {
             }}>
                 <Box>
                     <Box>
-                        Nknight AMAMIYA © 2023 - {year}
+                        Nknight AMAMIYA © {year}
                     </Box>
                     <Link href={"https://github.com/nknighta/"}>
                         <Text p={5}>
@@ -73,6 +73,11 @@ const Footer = () => {
                     <Link href={"https://youtube.com/@ama_p213/"}>
                         <Text p={5}>
                             Youtube
+                        </Text>
+                    </Link>
+                    <Link href={"https://varius.technology/"}>
+                        <Text p={5}>
+                            Main Site
                         </Text>
                     </Link>
                 </Box>

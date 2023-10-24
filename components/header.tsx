@@ -23,7 +23,8 @@ import {getWindowWidth} from "../scripts/getWidth";
 
 // link array for title text
 const pages = [
-    {id: 1, name: "software", page: "/software"},
+    {id: 1, name: "Home", page: "/software"},
+    {id: 2, name: "Dev.ver", page: "/software"},
 ];
 
 export default function VARIUSHeader() {
@@ -42,11 +43,11 @@ export default function VARIUSHeader() {
             <Flex>
                 <Flex w={"50%"} p={3} alignContent={"center"}>
                     <Link href={"/"}>
-                        <Text fontSize={"xl"}>VARIUS projects.</Text>
+                        <Text fontSize={"xl"}>{"<VARIUS Teamlog/>"}</Text>
                     </Link>
                 </Flex>
                 <Flex w={"50%"} justifyContent={"flex-end"} alignItems={"center"}>
-                    <ResponseHeaderLayout/>
+                    
                 </Flex>
 
             </Flex>
@@ -81,7 +82,7 @@ const LightMenu = () => {
                                 linkvalue => {
                                     return (
                                         <div key={linkvalue.id}>
-                                            <Link as={`/${linkvalue.name}`}
+                                            <Link as={`${linkvalue.name}`}
                                                   href={`${linkvalue.page}`} style={{
                                                 padding: 10
                                             }}>

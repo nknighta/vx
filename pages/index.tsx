@@ -1,20 +1,35 @@
 import { ReactNode } from "react";
-import ThreeBox from "components/threebox";
 import Layout from "layout/main";
-import IndexElementLayout from "layout/indexpage/indexElementLayout";
-import { GltfLoadElement } from "../components/gltfLoadElement";
-import { Center } from "@chakra-ui/react";
+import { Box, Center, Text } from "@chakra-ui/react";
 import HMeta from "components/headmeta";
+import { getWindowWidth } from "../scripts/getWidth";
 const Home = () => {
+    const width: number = getWindowWidth();
+    const dpadding = width > 990 ? "10vh" : "3vh";
+    const mode = width > 990 ? "flex" : "block";
     return (
         <>
-            <HMeta pageTitle="Home"
-                pageDescription="VARIUS development team"
+            <HMeta pageTitle="Teamlog"
+                pageDescription="VARIUS development team blog"
                 pageImg={"/header.png"} />
             <link href="https://fonts.googleapis.com/css2?family=REM:wght@500&display=swap" rel="stylesheet"></link>
-            <ThreeBox />
-            <IndexElementLayout />
-            <GltfLoadElement />
+            <Box p={2}>
+                <Text fontFamily={"REM"} fontSize={33} pl={dpadding} pt={10} pb={10}>
+                    VARIUS Team official blog
+                </Text>
+                <Box h={100} pl={dpadding} fontSize={30}>
+                    development
+                </Box>
+                <Box h={100} pl={dpadding}  fontSize={30}>
+                    business
+                </Box>
+                <Box h={100} pl={dpadding}  fontSize={30}>
+                    design
+                </Box>
+                <Box h={100} pl={dpadding} fontSize={30}>
+                    new technology
+                </Box>
+            </Box>
         </>
     );
 };
@@ -23,9 +38,6 @@ Home.getLayout = (page: ReactNode) => {
     return (
         <Layout>
             <Home />
-            <Center p={10} fontSize={20}>
-                make platform, stay tune...
-            </Center>
         </Layout>
     )
 };
