@@ -37,6 +37,14 @@ export default function VARIUSHeader() {
             return <LightMenu/>;
         }
     };
+
+    const Account = () => {
+        return (
+            <>
+                Account
+            </>
+        )
+    };
     return (
         <Box bg={"#000012"} color={"#fff"} p={3} pl={dpadding} pr={dpadding}>
             <Flex>
@@ -46,7 +54,9 @@ export default function VARIUSHeader() {
                     </Link>
                 </Flex>
                 <Flex w={"50%"} justifyContent={"flex-end"} alignItems={"center"}>
-                    <ResponseHeaderLayout/>
+                    <div>
+                        <Account/>
+                    </div>
                 </Flex>
 
             </Flex>

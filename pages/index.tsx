@@ -14,7 +14,6 @@ const Home = () => {
             <link href="https://fonts.googleapis.com/css2?family=REM:wght@500&display=swap" rel="stylesheet"></link>
             <ThreeBox />
             <IndexElementLayout />
-            <GltfLoadElement />
         </>
     );
 };
@@ -23,9 +22,6 @@ Home.getLayout = (page: ReactNode) => {
     return (
         <Layout>
             <Home />
-            <Center p={10} fontSize={20}>
-                make platform, stay tune...
-            </Center>
         </Layout>
     )
 };
