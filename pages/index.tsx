@@ -1,11 +1,6 @@
-<<<<<<< HEAD
-import { ReactNode } from "react";
+
 import ThreeBox from "components/threebox";
-import Layout from "layout/main";
 import IndexElementLayout from "layout/indexpage/indexElementLayout";
-import { GltfLoadElement } from "../components/gltfLoadElement";
-import { Center } from "@chakra-ui/react";
-import HMeta from "components/headmeta";
 const Home = () => {
     return (
         <>
@@ -16,7 +11,7 @@ const Home = () => {
             <ThreeBox />
             <IndexElementLayout />
         </>
-=======
+    );
 import {GltfLoadElement} from "components/gltfLoadElement";
 import HMeta from "components/headmeta";
 import MainLayout from "layout/main";
@@ -75,34 +70,6 @@ const Home = () => {
                 </Box>
             </Box>
         </MainLayout>
->>>>>>> 281172ba5c13b86e33d1c36c5851d271d50837c2
     );
 };
-
-const WorksBasicElement = ({children, workstitle}: { children: any, workstitle: string }) => {
-    const width:number = getWindowWidth();
-    const dpadding:number = width > 850 ? 60 : 0;
-    return (
-<<<<<<< HEAD
-        <Layout>
-            <Home />
-        </Layout>
-=======
-        <div style={{
-            marginTop: 30,
-            marginBottom: 30,
-            marginLeft: dpadding,
-            marginRight: dpadding,
-        }}>
-            <Text fontFamily={"rem"} fontSize={29} textAlign={"center"} p={4}>
-                {workstitle}
-            </Text>
-            <Text fontSize={23} textAlign={"center"} p={4} >
-                {children}
-            </Text>
-        </div>
->>>>>>> 281172ba5c13b86e33d1c36c5851d271d50837c2
-    )
-};
-
 export default Home;
