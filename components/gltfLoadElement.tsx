@@ -16,12 +16,10 @@ function Model(prop: { src: string }) {
 export const GltfLoadElement = () => {
     return (
         <div style={{
-            width: "100%",
             height: "30vh",
-            position: "relative",
         }}>
             <Canvas style={{
-                height: "100%",
+                height: "30vh",
             }}>
                 <OrbitControls/>
                 <ambientLight intensity={0.9} />

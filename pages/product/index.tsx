@@ -1,22 +1,3 @@
-<<<<<<< HEAD
-import { ReactNode } from "react";
-import ThreeBox from "components/threebox";
-import Layout from "layout/main";
-import IndexElementLayout from "layout/indexpage/indexElementLayout";
-import { GltfLoadElement } from "../components/gltfLoadElement";
-import { Center } from "@chakra-ui/react";
-import HMeta from "components/headmeta";
-const Home = () => {
-    return (
-        <>
-            <HMeta pageTitle="Home"
-                pageDescription="VARIUS development team"
-                pageImg={"/header.png"} />
-            <link href="https://fonts.googleapis.com/css2?family=REM:wght@500&display=swap" rel="stylesheet"></link>
-            <ThreeBox />
-            <IndexElementLayout />
-        </>
-=======
 import {GltfLoadElement} from "components/gltfLoadElement";
 import HMeta from "components/headmeta";
 import MainLayout from "layout/main";
@@ -26,8 +7,9 @@ import {getWindowWidth} from "scripts/getWidth";
 const Home = () => {
     return (
         <MainLayout>
-            <HMeta pageTitle={"DevHome"} pageImg={"/header.png"}/>
-            <Box p={6}>
+            <HMeta pageTitle={"Product"} pageImg={"/header.png"}/>
+
+                <link href="https://fonts.googleapis.com/css2?family=REM:wght@500&display=swap" rel="stylesheet"></link>
                 <Container maxW={"container.xl"} background={"#fff"} color={"#000021"} pt={16} pb={16}>
                     <div style={{
                         fontFamily: `REM`,
@@ -35,34 +17,26 @@ const Home = () => {
                         paddingTop: 20,
                         paddingBottom: 20,
                     }}>
-                        Welcome web3 development experience.
+                        Product
                     </div>
-                    <Box>
-                        <div style={{
-                            fontFamily: `REM`,
-                            fontSize: 40,
-                            wordBreak: "keep-all",
-                        }}>
-                            Easy make Web3 <wbr/>
-                            and
-                            Metaverse <wbr/>
-                            Application Frameworks.
-                        </div>
-                    </Box>
                 </Container>
                 <Box p={10}/>
-                <GltfLoadElement/>
-                <Box p={10}/>
+            <Box p={6}>
                 <Box>
-                    <Text fontFamily={"rem"} fontSize={29} textAlign={"center"} p={4}>
-                        Works
-                    </Text>
                     <Container maxW={"container.xl"} background={"#ffffff43"} fontFamily={"rem"} fontSize={29}
                                textAlign={"center"}>
                         Application
                     </Container>
                     <WorksBasicElement workstitle={"V - official App"}>
                         V is Official App for VX and ЯealtyX.
+                    </WorksBasicElement>
+
+                    <WorksBasicElement workstitle={"VX - Global Web3 Platform"}>
+                        VX is Global Web3 Platform.
+                    </WorksBasicElement>
+
+                    <WorksBasicElement workstitle={"XC - Powerfull Backend"}>
+                        Powerful distributed PaaS and SaaS development environment for Web3 applications
                     </WorksBasicElement>
 
                     <Container maxW={"container.xl"} background={"#ffffff43"} fontFamily={"rem"} fontSize={29}
@@ -75,7 +49,6 @@ const Home = () => {
                 </Box>
             </Box>
         </MainLayout>
->>>>>>> 281172ba5c13b86e33d1c36c5851d271d50837c2
     );
 };
 
@@ -83,11 +56,6 @@ const WorksBasicElement = ({children, workstitle}: { children: any, workstitle: 
     const width:number = getWindowWidth();
     const dpadding:number = width > 850 ? 60 : 0;
     return (
-<<<<<<< HEAD
-        <Layout>
-            <Home />
-        </Layout>
-=======
         <div style={{
             marginTop: 30,
             marginBottom: 30,
@@ -101,7 +69,6 @@ const WorksBasicElement = ({children, workstitle}: { children: any, workstitle: 
                 {children}
             </Text>
         </div>
->>>>>>> 281172ba5c13b86e33d1c36c5851d271d50837c2
     )
 };
 

@@ -23,7 +23,13 @@ import {getWindowWidth} from "../scripts/getWidth";
 
 // link array for title text
 const pages = [
+<<<<<<< HEAD
     {id: 1, name: "software", page: "/software"},
+=======
+    {id: 1, name: "product", page: "/product"},
+    {id: 2, name: "about", page: "/about"},
+    {id: 3, name: "release", page: "/release"}
+>>>>>>> 281172ba5c13b86e33d1c36c5851d271d50837c2
 ];
 
 export default function VARIUSHeader() {
@@ -37,6 +43,7 @@ export default function VARIUSHeader() {
             return <LightMenu/>;
         }
     };
+<<<<<<< HEAD
 
     const Account = () => {
         return (
@@ -45,6 +52,8 @@ export default function VARIUSHeader() {
             </>
         )
     };
+=======
+>>>>>>> 281172ba5c13b86e33d1c36c5851d271d50837c2
     return (
         <Box bg={"#000012"} color={"#fff"} p={3} pl={dpadding} pr={dpadding}>
             <Flex>
@@ -54,9 +63,13 @@ export default function VARIUSHeader() {
                     </Link>
                 </Flex>
                 <Flex w={"50%"} justifyContent={"flex-end"} alignItems={"center"}>
+<<<<<<< HEAD
                     <div>
                         <Account/>
                     </div>
+=======
+                    <ResponseHeaderLayout/>
+>>>>>>> 281172ba5c13b86e33d1c36c5851d271d50837c2
                 </Flex>
 
             </Flex>

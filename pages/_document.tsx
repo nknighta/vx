@@ -10,6 +10,7 @@ const MyDocument = () => {
         <Html>
             <Analytics />
             <Head>
+<<<<<<< HEAD
                 <title>VARIUS</title>
                 <meta name="viewport" content="width=device-width,initial-scale=1.0" />
                 <meta name="description" content={"VARIUS"} />
@@ -23,6 +24,9 @@ const MyDocument = () => {
                 <meta name="twitter:card" content="summary_large_image"/>
                 <meta name="twitter:site" content="@ama_dev_1"/>
                 <link rel="icon" href={"https://dev.varius.technology/favicon.ico"} sizes="any" />
+=======
+                <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+>>>>>>> 281172ba5c13b86e33d1c36c5851d271d50837c2
             </Head>
             <body style={{
                 height: "auto",
