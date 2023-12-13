@@ -6,7 +6,7 @@ import Link from "next/link";
 const Home = () => {
     const router = useRouter();
     useEffect(() => {
-        router.push("https://varius.technology/");
+        router.push("https://dev.varius.technology/");
     }, []);
     return (
         <>
