@@ -1,7 +1,7 @@
 import {Html,Main,NextScript,Head} from "next/document";
 import React, {useEffect} from "react";
 import { Analytics } from '@vercel/analytics/react';
-import HMeta from "components/headmeta";
+import HMeta from "components/header";
 
 const MyDocument = () => {
     // test mode
