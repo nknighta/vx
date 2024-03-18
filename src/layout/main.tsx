@@ -9,7 +9,6 @@ import {
     Text,
 } from "@chakra-ui/react";
 import { getWindowWidth } from "scripts/getWidth";
-import pack from "../package.json";
 
 const Layout = ({ children }) => {
     const width = getWindowWidth();
