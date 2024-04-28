@@ -10,11 +10,7 @@ const Layout = ({ children }) => {
     return (
         <div>
             <ChakraProvider theme={theme}>
-                <VARIUSHeader />
-                <WagmiConfig config={config}>{children}</WagmiConfig>
-                <footer>
-                    <Footer />
-                </footer>
+                {children}
             </ChakraProvider>
         </div>
     );
