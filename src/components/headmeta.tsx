@@ -18,7 +18,7 @@ const HMeta: React.FC<MetaProps> = ({ pageTitle, pageDescription, pagePath, page
     const defaultDescription = 'Web3 development';
     const title = pageTitle ? `${pageTitle} | ${defaultTitle}` : defaultTitle;
     const description = pageDescription ? pageDescription : defaultDescription;
-    const url = `https://dev.varius.technology${pagePath == undefined ? '/' : pagePath}`;
+    const url = `https://varius.technology${pagePath == undefined ? '/' : pagePath}`;
     const imgWidth = pageImgWidth ? pageImgWidth : 1280;
     const imgHeight = pageImgHeight ? pageImgHeight : 640;
     //const imgx = require("/images/favicon.ico");
@@ -68,7 +68,7 @@ const HMeta: React.FC<MetaProps> = ({ pageTitle, pageDescription, pagePath, page
             <meta property="twitter:description" content="VARIUS development" />
             <meta
                 name='twitter:image'
-                content={`https://dev.varius.technology${pageImg}`}
+                content={`https://media.varius.technology${pageImg}`}
             />
             <meta
                 name='twitter:card'

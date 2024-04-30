@@ -15,13 +15,11 @@ import {
 import {HamburgerIcon} from '@chakra-ui/icons';
 import NextLink from 'next/link';
 import Image from "next/image";
-import {useSession} from "next-auth/react";
 import {useRouter} from "next/router";
 
 const LightMenu = () => {
     const router = useRouter();
     const {isOpen, onOpen, onClose} = useDisclosure();
-    const {data: session} = useSession();
     const { auth } = router.query;
     return (
         <Box>
@@ -53,22 +51,6 @@ const LightMenu = () => {
                             h={100}
                             p={2}
                         >
-                            {!session || auth == undefined ? (<div>
-                                no sign in yet?
-                                    <NextLink
-                                        href={'/dashboard'}
-                                        onClick={onClose}>
-                                        Sign In
-                                    </NextLink>
-                            </div>) : (
-                                <Image
-                                    src={`${session?.user?.image}`}
-                                    alt={"account image"}
-                                    style={{
-                                        borderRadius: "50px",
-                                    }}
-                                    width={50} height={50}/>
-                            )}
                         </Box>
                         <Divider marginY={6}/>
                         <Box m={'7px'}>

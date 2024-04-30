@@ -68,7 +68,12 @@ const Layout = ({ children }: any) => {
                                     Wiki - GitHub
                                 </Link>
                             </Text>
-                            ===
+
+                            <Text p={'3px 0'} width={"50%"}>
+                                <Link href={'/blog'}>
+                                    Blog
+                                </Link>
+                            </Text>
                         </Box>
                     </GridItem>
                     <GridItem>

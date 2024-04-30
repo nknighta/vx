@@ -12,12 +12,10 @@ import { Icon } from '@chakra-ui/react';
 // mobile menu is LightMenu
 import { BiWalletAlt } from 'react-icons/bi';
 import LightMenu from './hmenu';
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 
 export default function VARIUSHeader() {
     const router = useRouter();
-    const { data: session } = useSession();
     return (
         <Flex
             w={"100%"}
@@ -55,24 +53,6 @@ export default function VARIUSHeader() {
                     onClick={() => {
                         router.push('/dashboard');
                     }}>
-                    {session ? (
-                        <Image
-                            src={`${session?.user?.image}`}
-                            alt={"user icon"}
-                            width={100}
-                            height={100}
-                            style={{
-                                borderRadius: "50px",
-                            }}
-                        />
-                    ) : (
-                        <Icon
-                            as={BiWalletAlt}
-                            color={'#6a17a1'}
-                            w={6}
-                            h={6}
-                        />
-                    )}
                 </button>
             </Flex>
 

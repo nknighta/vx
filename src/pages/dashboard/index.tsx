@@ -28,7 +28,7 @@ export default function Dash({
                         {Object.values(providers).map((provider) => (
                             <div key={provider.name}>
                                 <Button
-                                    onClick={() => signIn(provider.id)}
+                                    onClick={() => signIn()}
                                     bg={"#000"}
                                     color={"#fff"}
                                     w={150}>
