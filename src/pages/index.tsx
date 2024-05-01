@@ -29,66 +29,7 @@ export default function Home (){
                 pagePath='/'
                 pageImg={'/api/og?title=VX-WEB3'}
             />
-            <Box h={700}>
-                <LazyComponent />
-            </Box>
-            <Center fontSize={35}>feature</Center>
-            <Center >
-                <Grid>
-                    <Box
-                        m={8}
-                        w={400}
-                        h={200}
-                    >
-                        <Box
-                            w={400}
-                            h={200}
-                            borderBottom={"1px solid #7654ff"}
-                            borderRight={"1px solid transparent"}
-                            position={"absolute"}
-                        >
-                            <Box p={2} />
-                            <Center>
-                                <Image
-                                    src='check.svg'
-                                    width={100}
-                                    height={100}
-                                    alt='learn web3'
-                                />
-                            </Center>
-                            <Box p={2} />
-                            <Center>Learn Web3 development</Center>
-                        </Box>
-                    </Box>
-
-                    <Box
-                        m={8}
-                        w={400}
-                        h={200}
-                    >
-                        <Box
-                            w={400}
-                            content=''
-                            h={200}
-                            borderBottom={"1px solid #7654ff"}
-                            borderRight={"1px solid transparent"}
-                            position={"absolute"}
-                        >
-                            <Box p={2} />
-                            <Center>
-                                <Image
-                                    src='app.svg'
-                                    width={100}
-                                    height={100}
-                                    alt='learn web3'
-                                />
-                            </Center>
-                            <Box p={2} />
-                            <Center>Create App using VX</Center>
-                        </Box>
-                    </Box>
-                </Grid>
-            </Center>
+            <LazyComponent />
         </Layout>
     );
 };
