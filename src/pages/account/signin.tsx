@@ -6,6 +6,7 @@ import type {
   InferGetServerSidePropsType,
 } from "next";
 import { useEffect } from "react";
+import HMeta from "components/headmeta";
 
 export default function Component({
   providers,
@@ -19,11 +20,31 @@ export default function Component({
   }, [session])
   return (
     <>
+      <HMeta pageTitle='Sign In' pageDescription='VARIUS development team' pagePath='/account/signin' pageImg={'/api/og?title=Sign+In'} />
       {Object.values(providers).map((provider) => (
         <div key={provider.name}>
-          <div onClick={() => signIn(provider.id)}>
+          <button
+            style={{
+              backgroundColor: '#000',
+              color: 'white',
+              padding: '0.5rem',
+              margin: '0.5rem',
+              border: 'none',
+              borderRadius: '0.25rem',
+              cursor: 'pointer',
+            }}
+            onClick={() => signIn(provider.id)}>
             {provider.name}
-          </div>
+          </button>
+        </div>
+      ))}
+      {Object.values(providers).map((provider) => (
+        <div key={provider.name}>
+          <p>{provider.name}</p>
+          <p>{provider.id}</p>
+          <p>{provider.type}</p>
+          <p>{provider.signinUrl}</p>
+          <p>{provider.callbackUrl}</p>
         </div>
       ))}
     </>

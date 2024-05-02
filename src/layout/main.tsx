@@ -11,6 +11,17 @@ const Layout = ({ children }: any) => {
 
     return (
         <>
+            <header
+                style={{
+                    margin: '0 auto',
+                    background: '#000000',
+                }}>
+                <pre>
+                    <Link href="/">
+                        <AiFillGithub /> varius
+                    </Link>
+                </pre>
+            </header>
             {process.env.NODE_ENV == "development" ? (
                 <>
                     debug mode
@@ -30,8 +41,9 @@ const Layout = ({ children }: any) => {
                     margin: '0 auto',
                     padding: '8.2vh 30px 10vh 30px',
                     background: '#000000',
+                    color: '#ffffff',
                 }}>
-                
+                (c) 2024- varius
             </footer>
         </>
     );

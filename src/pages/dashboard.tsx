@@ -1,12 +1,12 @@
 import HMeta from "components/headmeta";
 import Layout from "layout/main";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSession, signOut } from "next-auth/react"
 import Image from 'next/image';
 import { useRouter } from "next/router";
 
 export default function Dash() {
-    const { data: session } = useSession();
+    const { data: session } = useSession({ required: true });
     const router = useRouter();
     // redirect to signin page if no session
     useEffect(() => {
@@ -26,8 +26,15 @@ export default function Dash() {
                     />
                     <div>
                         <h1>Dashboard</h1>
-                        <p>You are signed in as {session.user?.name} </p>
-                        <Image src={session.user?.image as string} alt={session.user?.name as string} width={50} height={50} />
+                        <p>name: {session.user?.name} </p>
+                        <Image
+                            src={session.user?.image as string}
+                            alt={session.user?.name as string}
+                            width={100}
+                            height={100} 
+                            style={{borderRadius: '50%'}}
+                            />
+                        <p>email: {session.user?.email}</p>
                         <button onClick={() => signOut()}>Sign out</button>
                     </div>
                 </>

@@ -3,8 +3,8 @@ import fs from 'fs';
 import matter from 'gray-matter';
 import Link from "next/link";
 import HMeta from 'components/headmeta';
-import { Text, Box, Badge, Image, SimpleGrid } from '@chakra-ui/react';
 import { getWindowWidth } from 'scripts/getWidth';
+import Image from "next/image";
 
 export default function Post({ posts }) {
   
@@ -20,33 +20,26 @@ export default function Post({ posts }) {
       background: '#000000',
     }}>
       <HMeta pageTitle={"Blog and Release "} pageDescription={"official blog and other"} pageImg={'/api/og?title=Blog'} />
-      <SimpleGrid columns={[3, null, 0]} minChildWidth='350px' spacing='10px'>
+      <div>
         {posts.map((post) => (
-            <Box
-              maxW={380}
-              bg={"brand.300"}
-              borderRadius={"lg"}
-              overflow={"hidden"}
-              m={2}>
+            <div>
               <Link href={`/blog/${post.slug}`} key={post.slug}>
                 <Image src={`https://media.varius.technology/api/og?title=${post.frontMatter.title}&description=${post.frontMatter.description}`}
-                  width={"100%"}
+                  width={400}
                   height={200}
                   alt={`${post.frontMatter.description}-preview.png`} />
-                <Box p={1}>
-                  <Box>
-                    <Badge borderRadius='full' px='2' colorScheme='teal'>
+                  <div>
+                    <div>
                       Blog
-                    </Badge>
-                    <Text m={1}>{post.frontMatter.title}</Text>
-                    <Text m={1}>{post.frontMatter.description}</Text>
-                    <Text m={1}>{post.frontMatter.date}</Text>
-                  </Box>
-                </Box>
+                    </div>
+                    <p>{post.frontMatter.title}</p>
+                    <p>{post.frontMatter.description}</p>
+                    <p>{post.frontMatter.date}</p>
+                  </div>
               </Link>
-            </Box>
+            </div>
         ))}
-      </SimpleGrid>
+      </div>
     </div>
   );
 }

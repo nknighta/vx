@@ -1,13 +1,12 @@
 import { ComponentType, useEffect } from 'react';
 import Layout from 'layout/main';
 import HMeta from 'components/headmeta';
-import { Center, Box, Grid } from '@chakra-ui/react';
 import dynamic from "next/dynamic"
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
-export default function Home (){
+export default function Home() {
     const { data: session } = useSession();
     const LazyComponent: ComponentType<{}> = dynamic(() => import('../components/threebox'), {
         loading: () => <Loading />,
@@ -30,6 +29,9 @@ export default function Home (){
                 pageImg={'/api/og?title=VX-WEB3'}
             />
             <LazyComponent />
+            <div>
+                AUTH_URL: {process.env.AUTH_URL}
+            </div>
         </Layout>
     );
 };
