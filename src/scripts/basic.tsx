@@ -1,2 +1,2 @@
-export const bascicdocspath = `src/posts`;
-export const bascicpath = `src`;
+export const bascicdocspath = `src/posts`
+export const bascicpath = `src`

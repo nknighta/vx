@@ -1,26 +1,33 @@
-import { useSession, signIn, getProviders, signOut } from "next-auth/react"
-import { getServerSession } from "next-auth/next";
-import { useRouter } from "next/router"
+import { useSession, signIn, getProviders } from 'next-auth/react'
+import { useRouter } from 'next/router'
 import type {
   GetServerSidePropsContext,
   InferGetServerSidePropsType,
-} from "next";
-import { useEffect } from "react";
-import HMeta from "components/headmeta";
+} from 'next'
+import { useEffect } from 'react'
+import HMeta from 'components/headmeta'
+import { PrismaClient } from '@prisma/client'
 
 export default function Component({
   providers,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const { data: session } = useSession();
-  const router = useRouter();
+  const { data: session } = useSession()
+  const router = useRouter()
+  const prisma = new PrismaClient()
   useEffect(() => {
     if (session) {
-      router.push("/dashboard")
+      router.push('/dashboard')
     }
+    //else if {}
   }, [session])
   return (
     <>
-      <HMeta pageTitle='Sign In' pageDescription='VARIUS development team' pagePath='/account/signin' pageImg={'/api/og?title=Sign+In'} />
+      <HMeta
+        pageTitle="Sign In"
+        pageDescription="VARIUS development team"
+        pagePath="/account/signin"
+        pageImg={'/api/og?title=Sign+In'}
+      />
       {Object.values(providers).map((provider) => (
         <div key={provider.name}>
           <button
@@ -33,28 +40,19 @@ export default function Component({
               borderRadius: '0.25rem',
               cursor: 'pointer',
             }}
-            onClick={() => signIn(provider.id)}>
+            onClick={() => signIn(provider.id)}
+          >
             {provider.name}
           </button>
-        </div>
-      ))}
-      {Object.values(providers).map((provider) => (
-        <div key={provider.name}>
-          <p>{provider.name}</p>
-          <p>{provider.id}</p>
-          <p>{provider.type}</p>
-          <p>{provider.signinUrl}</p>
-          <p>{provider.callbackUrl}</p>
         </div>
       ))}
     </>
   )
 }
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-
-  const providers = await getProviders();
+  const providers = await getProviders()
 
   return {
     props: { providers: providers ?? [] },
-  };
+  }
 }

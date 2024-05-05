@@ -1,3 +1,15 @@
 # vx 
 
-web3 platform for app developers
+Welcome VX README :D
+
+## description
+
+web3 layer2 and content platform for app developers and creaters.
+
+## version
+
+- format
+(ex.)x.x.x-a1-< RANDOM TEXT >
+
+current
+0.3.6-a2-7nh3
