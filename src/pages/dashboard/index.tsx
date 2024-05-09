@@ -1,12 +1,12 @@
-import HMeta from 'components/headmeta'
-import Layout from 'layout/main'
+import HMeta from '../../components/headmeta'
+import Layout from '../../layout/main'
 import React, { useEffect, useState } from 'react'
 import { useSession, signOut } from 'next-auth/react'
 import Image from 'next/image'
 import { PrismaClient } from '@prisma/client'
 import { useRouter } from 'next/router'
 
-export default function Dash(account) {
+export default function Dash({ data}: { data : any[]}){
   const { data: session } = useSession({ required: true })
   const router = useRouter()
   // redirect to signin page if no session
@@ -44,22 +44,3 @@ export default function Dash(account) {
   }
 }
 
-export async function getServerSideProps() {
-  // get all users from database
-  const prisma = new PrismaClient()
-  const users = await prisma.account.findMany()
-  // map users to get only id, name, email, image
-  const data = users.map((user) => {
-    return {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      image: user.image,
-    }
-  })
-  return {
-    props: {
-      account: data,
-    },
-  }
-}

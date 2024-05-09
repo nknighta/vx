@@ -10,3 +10,14 @@ export const getWindowWidth = () => {
   }, [width])
   return width
 }
+
+export const getWindowHight = () => {
+  const [height, setHeight] = useState<number>(0);
+  useEffect(() => {
+    setHeight(window.innerHeight)
+    window.addEventListener('resize', () => {
+      setHeight(window.innerHeight)
+    })
+  }, [height])
+  return height
+}

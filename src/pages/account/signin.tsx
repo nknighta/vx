@@ -4,9 +4,9 @@ import type {
   GetServerSidePropsContext,
   InferGetServerSidePropsType,
 } from 'next'
-import { useEffect } from 'react'
-import HMeta from 'components/headmeta'
+import HMeta from '../../components/headmeta';
 import { PrismaClient } from '@prisma/client'
+import Layout from 'layout/main';
 
 export default function Component({
   providers,
@@ -14,39 +14,46 @@ export default function Component({
   const { data: session } = useSession()
   const router = useRouter()
   const prisma = new PrismaClient()
-  useEffect(() => {
-    if (session) {
-      router.push('/dashboard')
-    }
-    //else if {}
-  }, [session])
+  if (session) {
+    router.push('/dashboard')
+  }
   return (
-    <>
+    <Layout>
       <HMeta
         pageTitle="Sign In"
         pageDescription="VARIUS development team"
         pagePath="/account/signin"
         pageImg={'/api/og?title=Sign+In'}
       />
-      {Object.values(providers).map((provider) => (
-        <div key={provider.name}>
-          <button
-            style={{
-              backgroundColor: '#000',
-              color: 'white',
-              padding: '0.5rem',
-              margin: '0.5rem',
-              border: 'none',
-              borderRadius: '0.25rem',
-              cursor: 'pointer',
-            }}
-            onClick={() => signIn(provider.id)}
-          >
-            {provider.name}
-          </button>
-        </div>
-      ))}
-    </>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+        height: '100vh',
+      }}>
+        <h1>Sign In</h1>
+        with
+        {Object.values(providers).map((provider) => (
+          <div key={provider.name}>
+            <button
+              style={{
+                backgroundColor: '#333',
+                color: 'white',
+                padding: '0.7rem 2.1rem',
+                border: 'none',
+                borderRadius: '0.25rem',
+                cursor: 'pointer',
+                fontSize: '1rem',
+              }}
+              onClick={() => signIn(provider.id, { callbackUrl: "/dashboard" })}
+            >
+              {provider.name}
+            </button>
+          </div>
+        ))}
+      </div>
+    </Layout>
   )
 }
 export async function getServerSideProps(context: GetServerSidePropsContext) {

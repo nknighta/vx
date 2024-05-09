@@ -12,4 +12,4 @@ web3 layer2 and content platform for app developers and creaters.
 (ex.)x.x.x-a1-< RANDOM TEXT >
 
 current
-0.3.6-a2-7nh3
+0.3.6-a3-dqP5

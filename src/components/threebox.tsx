@@ -5,7 +5,7 @@ import { getWindowWidth } from 'scripts/getWidth'
 
 const TestBox = ({ props }: any) => {
   const mesh = useRef<THREE.Mesh>(null!)
-  useFrame(() => (mesh.current.rotation.x = mesh.current.rotation.y += 0.008))
+  useFrame(() => (mesh.current.rotation.y = mesh.current.rotation.z = mesh.current.rotation.x += 0.003))
 
   return (
     <mesh {...props} ref={mesh}>
@@ -22,37 +22,23 @@ const ThreeBox = () => {
       style={{
         display: 'flex',
         justifyContent: 'center',
-        position: 'relative',
+        position: 'fixed',
         height: '600px',
+        width: '100%',
+        zIndex: -1,
       }}
     >
       <Canvas
         style={{
-          height: '600px',
+          height: '900px',
           width: '100%',
         }}
       >
         <ambientLight />
-        <color attach="background" args={['#000011']} />
+        <color attach="background" args={['#000']} />
         <pointLight position={[-90, 0, -30]} />
         <TestBox />
       </Canvas>
-      <div
-        style={{
-          position: 'absolute',
-          width: '100%',
-          height: '50vh',
-          fontSize: '4.3rem',
-          display: 'flex',
-          justifyContent: 'flex-end',
-          alignItems: 'center',
-          padding: widh > 968 ? '0 10vw' : '0 1vw',
-          margin: 30,
-          color: '#fff',
-        }}
-      >
-        Welcome Web3 development.
-      </div>
     </div>
   )
 }

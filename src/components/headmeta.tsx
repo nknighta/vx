@@ -42,7 +42,7 @@ const HMeta: React.FC<MetaProps> = ({
       <meta property="og:type" content="website" />
       <meta
         property="og:image"
-        content={`https://media.varius.technology${pageImg}`}
+        content={`https://media.varius.technology${pageImg}&description=${description}`}
       />
       <meta property="og:image:width" content={String(imgWidth)} />
       <meta property="og:image:height" content={String(imgHeight)} />
@@ -50,14 +50,14 @@ const HMeta: React.FC<MetaProps> = ({
       <meta property="twitter:description" content="VARIUS development" />
       <meta
         name="twitter:image"
-        content={`https://media.varius.technology${pageImg}`}
+        content={`https://media.varius.technology${pageImg}&description=${description}`}
       />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@ama_dev_1" />
       <meta name="twitter:title" content={title} />
       <link
         rel="icon"
-        href={'https://dev.varius.technology/favicon.ico'}
+        href={'https://varius.technology/favicon.ico'}
         sizes="any"
       />
       <link rel="canonical" href={url} />

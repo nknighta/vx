@@ -2,12 +2,11 @@ import { ComponentType, useEffect } from 'react'
 import Layout from 'layout/main'
 import HMeta from 'components/headmeta'
 import dynamic from 'next/dynamic'
-import Image from 'next/image'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 
 export default function Home() {
-  const { data: session } = useSession()
+  const { data: session } = useSession();
   const LazyComponent: ComponentType<{}> = dynamic(
     () => import('../components/threebox'),
     {
