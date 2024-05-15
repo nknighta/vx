@@ -6,7 +6,7 @@ import HMeta from 'components/headmeta'
 import { getWindowWidth } from 'scripts/getWidth'
 import Image from 'next/image'
 
-export default function Post({ posts }) {
+export default function Post({ posts }: any) {
   //sm: "30em",
   //md: "48em",
   //lg: "62em",
