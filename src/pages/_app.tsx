@@ -1,5 +1,6 @@
-import { ReactElement, ReactNode, useEffect } from 'react'
+import { ReactElement, ReactNode } from 'react'
 import { NextPage } from 'next'
+import Script from "next/script";
 import type { AppProps } from 'next/app'
 import './global.css'
 import { SessionProvider } from 'next-auth/react'
@@ -22,11 +23,13 @@ export default function App({
       return page
     })
   return getLayout(
-    <SessionProvider session={session}>
+    <>
       {process.env.NODE_ENV === 'development' ? (
-        <script src="http://localhost:8097"></script>
+          <>
+            <Script src="http://localhost:8097"></Script>
+          </>
       ) : ("")}
       <Component {...pageProps} />
-    </SessionProvider>,
+    </>,
   )
 }

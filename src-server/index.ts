@@ -1,8 +1,11 @@
-
-const { createServer } = require('http')
-const { parse } = require('url')
-const next = require('next')
-
+// using sample code from https://nextjs.org/docs/pages/building-your-application/configuring/custom-server
+import { createServer } from "http";
+import { authBasicHandler } from "./auth/basic";
+import { parse } from "url";
+import { z } from "zod";
+import { authGithubHandler } from "./auth/github";
+//const next = require('next')
+import next from 'next'
 const dev = process.env.NODE_ENV !== 'production'
 const hostname = 'localhost'
 const port = 3000
@@ -15,8 +18,10 @@ app.prepare().then(() => {
     try {
       // Be sure to pass `true` as the second argument to `url.parse`.
       // This tells it to parse the query portion of the URL.
-      const parsedUrl = parse(req.url, true)
-      const { pathname, query } = parsedUrl
+      const pz = z.string();
+      const url = pz.parse(req.url);
+      const parsedUrl = parse(url, true)
+      const { pathname } = parsedUrl
       if (pathname === '/hello') {
         res.statusCode = 200
         res.setHeader('Content-Type', 'application/json')
@@ -24,8 +29,9 @@ app.prepare().then(() => {
       } else if (pathname === '/auth') {
         console.log('Request:', req.url)
         authBasicHandler(res, req, pathname)
-      }
-      else {
+      } else if (pathname === '/auth/github') {
+        authGithubHandler(res, req)
+      } else {
         await handle(req, res, parsedUrl)
       }
     } catch (err) {
@@ -44,32 +50,3 @@ app.prepare().then(() => {
 })
 
 // authriztion handler for basic
-async function authBasicHandler(res, req, basedPath) {
-  try {
-    const auth = req.headers.authorization
-    if (!auth) {
-      res.statusCode = 401
-      res.setHeader('WWW-Authenticate', 'Basic realm="Secure Area"')
-      res.end('Access denied')
-      return
-    }
-    const [username, password] = Buffer.from(auth.split(' ')[1], 'base64')
-      .toString()
-      .split(':')
-    if (username === 'admin' || password === 'password') {
-      res.statusCode = 200
-      res.end('OK')
-    }  else {
-      res.statusCode = 403
-      res.end('Access denied')
-    }
-  } catch (err) { 
-    console.error('Error occurred handling', req.url, err)
-    res.statusCode = 500
-    res.end('internal server error')
-  }
-  //const data = { name: 'auth', value: 'true' }
-  //res.statusCode = 200
-  //res.setHeader('Content-Type', 'application/json')
-  //res.end(JSON.stringify(data))
-}

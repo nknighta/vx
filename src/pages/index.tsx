@@ -8,7 +8,6 @@ import popstyle from '../styles/popup.module.sass'
 import { getWindowHight } from 'scripts/getWidth'
 
 export default function Home() {
-  const { data: session } = useSession();
   const LazyComponent: ComponentType<{}> = dynamic(
     () => import('../components/threebox'),
     {
@@ -16,14 +15,7 @@ export default function Home() {
       ssr: false,
     },
   )
-  const router = useRouter()
-  useEffect(() => {
-    if (session) {
-      router.push('/?auth=true')
-    } else {
-      router.push('/')
-    }
-  }, [session])
+  const router = useRouter();
   //appEnv
   return (
     <Layout>

@@ -9,7 +9,6 @@ const Layout = ({ children }: any) => {
   const width = getWindowWidth();
   const height = getWindowHight();
   const isMobile: boolean = width > 960 ? false : true
-  const { data: session } = useSession();
 
   return (
     <>
@@ -57,14 +56,10 @@ const Layout = ({ children }: any) => {
             padding: '3px 0',
           }}>
           <VLink page='/' text='Home' />
-          {session ? (
-            <>
+
               <VLink page='/dashboard' text='dashboard' />
               <VLink page='/dashboard/project' text='Project' />
-            </>
-          ) : (
             <VLink page='/account/signin' text='Signin' />
-          )}
           <AiFillGithub />
           © 2024 - nknighta
         </div>
