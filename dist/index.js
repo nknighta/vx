@@ -35,64 +35,57 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var express_1 = __importDefault(require("express"));
-var next_1 = __importDefault(require("next"));
-var dev = process.env.NODE_ENV === "development";
+var createServer = require('http').createServer;
+var parse = require('url').parse;
+var next = require('next');
+var dev = process.env.NODE_ENV !== 'production';
+var hostname = 'localhost';
 var port = 3000;
-var port2 = 3001;
-var app = (0, next_1.default)({ dev: dev });
+// when using middleware `hostname` and `port` must be provided below
+var app = next({ dev: dev, hostname: hostname, port: port });
 var handle = app.getRequestHandler();
-(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var server, e_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, app.prepare()];
-            case 1:
-                _a.sent();
-                server = (0, express_1.default)();
-                server.all("*", function (req, res) {
-                    return handle(req, res);
-                });
-                server.listen(port, function () {
-                    console.log("http://$127.0.0.1:".concat(port));
-                });
-                return [3 /*break*/, 3];
-            case 2:
-                e_1 = _a.sent();
-                console.error(e_1);
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
+app.prepare().then(function () {
+    createServer(function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+        var parsedUrl, pathname, query, err_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 5, , 6]);
+                    parsedUrl = parse(req.url, true);
+                    pathname = parsedUrl.pathname, query = parsedUrl.query;
+                    if (!(pathname === '/hello')) return [3 /*break*/, 1];
+                    res.statusCode = 200;
+                    res.setHeader('Content-Type', 'application/json');
+                    res.end(JSON.stringify({ message: 'Hello World' }));
+                    return [3 /*break*/, 4];
+                case 1:
+                    if (!(pathname === '/auth')) return [3 /*break*/, 2];
+                    console.log('Request:', req.url);
+                    res.statusCode = 200;
+                    res.setHeader('Content-Type', 'application/json');
+                    res.end(JSON.stringify({ message: 'auth' }));
+                    return [3 /*break*/, 4];
+                case 2: return [4 /*yield*/, handle(req, res, parsedUrl)];
+                case 3:
+                    _a.sent();
+                    _a.label = 4;
+                case 4: return [3 /*break*/, 6];
+                case 5:
+                    err_1 = _a.sent();
+                    console.error('Error occurred handling', req.url, err_1);
+                    res.statusCode = 500;
+                    res.end('internal server error');
+                    return [3 /*break*/, 6];
+                case 6: return [2 /*return*/];
+            }
+        });
+    }); })
+        .once('error', function (err) {
+        console.error(err);
+        process.exit(1);
+    })
+        .listen(port, function () {
+        console.log("> Ready on http://".concat(hostname, ":").concat(port));
     });
-}); })();
-(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var server, e_2;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, app.prepare()];
-            case 1:
-                _a.sent();
-                server = (0, express_1.default)();
-                server.all("*", function (req, res) {
-                    return handle(req, res);
-                });
-                server.listen(port2, function () {
-                    console.log("http://$127.0.0.1:".concat(port2));
-                });
-                return [3 /*break*/, 3];
-            case 2:
-                e_2 = _a.sent();
-                console.error(e_2);
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
-    });
-}); })();
+});

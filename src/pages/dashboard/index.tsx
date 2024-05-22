@@ -71,9 +71,6 @@ export default function Dash() {
               <DisplayInfo context="username" value={username} style={dashstyle.dash_container_text} />
             </div>
             <div>
-              aaa
-            </div>
-            <div>
               <button onClick={() => signOut()}>Sign out</button>
             </div>
           </div>

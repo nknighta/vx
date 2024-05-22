@@ -23,6 +23,9 @@ export default function App({
     })
   return getLayout(
     <SessionProvider session={session}>
+      {process.env.NODE_ENV === 'development' ? (
+        <script src="http://localhost:8097"></script>
+      ) : ("")}
       <Component {...pageProps} />
     </SessionProvider>,
   )

@@ -39,60 +39,41 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.authhandler = void 0;
 var express_1 = __importDefault(require("express"));
-var next_1 = __importDefault(require("next"));
-var dev = process.env.NODE_ENV === "development";
-var port = 3000;
-var port2 = 3001;
-var app = (0, next_1.default)({ dev: dev });
-var handle = app.getRequestHandler();
-(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var server, e_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, app.prepare()];
-            case 1:
-                _a.sent();
-                server = (0, express_1.default)();
-                server.all("*", function (req, res) {
-                    return handle(req, res);
+function authhandler() {
+    return __awaiter(this, void 0, void 0, function () {
+        var router;
+        return __generator(this, function (_a) {
+            try {
+                router = (0, express_1.default)();
+                router.get('/auth', function (req, res, next) {
+                    if (req.headers['authorization']) { // <1>
+                        var authorization = req.headers['authorization'];
+                        var pieces = authorization.split(/\s+/g); // <2>
+                        var type = pieces[0];
+                        if (type === 'Basic') { // <3>
+                            var buffer = Buffer.from(pieces[1], 'base64');
+                            var credentials = buffer.toString();
+                            var _a = credentials.split(':'), username = _a[0], password = _a[1];
+                            if (username === 'username' && password === 'password') { // <4>
+                                next(); // <5>
+                                return;
+                            }
+                        }
+                    }
+                    res.set('WWW-Authenticate', 'Basic realm="realm"'); // <6>
+                    res.status(401).end();
                 });
-                server.listen(port, function () {
-                    console.log("".concat(port, "\u3067\u8D77\u52D5\u4E2D"));
+                router.get('/', function (req, res) {
+                    res.send({ ok: true });
                 });
-                return [3 /*break*/, 3];
-            case 2:
-                e_1 = _a.sent();
-                console.error(e_1);
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
+            }
+            catch (err) {
+                console.error(err);
+            }
+            return [2 /*return*/];
+        });
     });
-}); })();
-(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var server, e_2;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, app.prepare()];
-            case 1:
-                _a.sent();
-                server = (0, express_1.default)();
-                server.all("*", function (req, res) {
-                    return handle(req, res);
-                });
-                server.listen(port2, function () {
-                    console.log("".concat(port, "\u3067\u8D77\u52D5\u4E2D"));
-                });
-                return [3 /*break*/, 3];
-            case 2:
-                e_2 = _a.sent();
-                console.error(e_2);
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
-    });
-}); })();
+}
+exports.authhandler = authhandler;

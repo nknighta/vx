@@ -1,9 +1,11 @@
-import { ComponentType, useEffect } from 'react'
+import { ComponentType, useEffect, useState, memo } from 'react'
 import Layout from 'layout/main'
 import HMeta from 'components/headmeta'
 import dynamic from 'next/dynamic'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
+import popstyle from '../styles/popup.module.sass'
+import { getWindowHight } from 'scripts/getWidth'
 
 export default function Home() {
   const { data: session } = useSession();
@@ -22,6 +24,10 @@ export default function Home() {
       router.push('/')
     }
   }, [session])
+  console.log(`process.env.runMode: ${process.env.runMode}`)
+  console.log(`process.env.apiBase: ${process.env.apiBase}`)
+  console.log(`process.env.ENV_TEST: ${process.env.ENV_TEST}`)
+  //appEnv
   return (
     <Layout>
       <HMeta
@@ -31,6 +37,7 @@ export default function Home() {
         pageImg={'/api/og?title=VX-WEB3'}
       />
       <LazyComponent />
+      <MemoCookieAcceptPopUp />
     </Layout>
   )
 }
@@ -48,5 +55,35 @@ function Loading(): JSX.Element {
     >
       {'>_ : '}Loading...
     </div>
+  )
+}
+const MemoCookieAcceptPopUp = memo(CookieAcceptPopUp);
+
+function CookieAcceptPopUp() {
+  const [isPopup, setIsPopUp] = useState(false);
+  const height = getWindowHight();
+  const router = useRouter();
+  let auth = router.query.auth;
+  useEffect(() => {
+    if (auth) {
+      setIsPopUp(false);
+    } else {
+      setIsPopUp(true);
+    }
+  }, [auth]);
+  return (
+    <>
+      <div className={popstyle.baseddisplay}>
+        {isPopup ? (
+          <div  className={popstyle.main} 
+          style={{
+            top: `${height - height * 0.27}px`,
+            left: `10px`,
+          }}>
+            this page uses cookies to improve your experience, by continuing to use this page you accept the use of cookies
+          </div>
+        ) : ""}
+      </div>
+    </>
   )
 }

@@ -11,7 +11,6 @@ const Layout = ({ children }: any) => {
   const isMobile: boolean = width > 960 ? false : true
   const { data: session } = useSession();
 
-  //const
   return (
     <>
       <header
@@ -50,12 +49,25 @@ const Layout = ({ children }: any) => {
         style={{
           top: height - 100,
         }}>
-          <div className={stylebase.fstyle__inside}>
-            <VLink page='/' text='Home' />
-            <VLink page={session ? "/dashboard" : "/account/signin"} text={session ? 'Dashboard' : "Signin"} />
-            <VLink page='/dashboard/project' text='Project' />
-            © 2024 - nknighta
-          </div>
+        <div
+          className={stylebase.fstyle__inside}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            padding: '3px 0',
+          }}>
+          <VLink page='/' text='Home' />
+          {session ? (
+            <>
+              <VLink page='/dashboard' text='dashboard' />
+              <VLink page='/dashboard/project' text='Project' />
+            </>
+          ) : (
+            <VLink page='/account/signin' text='Signin' />
+          )}
+          <AiFillGithub />
+          © 2024 - nknighta
+        </div>
       </footer>
     </>
   )

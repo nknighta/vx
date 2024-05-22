@@ -5,6 +5,7 @@
 /node_modules
 /prisma/migrations
 /.vercel
+/env
 
 .env
 ``` 

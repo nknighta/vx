@@ -1,0 +1,19 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: next-app
+    container_name: next-app
+    env_file:
+      - .env
+    volumes:
+      - ./src:/app/src
+      - ./public:/app/public
+      - node_modules:/app/node_modules
+    restart: always
+    tty: true
+    stdin_open: true
+
+volumes:
+  node_modules:
