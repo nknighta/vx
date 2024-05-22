@@ -24,9 +24,6 @@ export default function Home() {
       router.push('/')
     }
   }, [session])
-  console.log(`process.env.runMode: ${process.env.runMode}`)
-  console.log(`process.env.apiBase: ${process.env.apiBase}`)
-  console.log(`process.env.ENV_TEST: ${process.env.ENV_TEST}`)
   //appEnv
   return (
     <Layout>

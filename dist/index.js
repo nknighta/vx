@@ -35,7 +35,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 var createServer = require('http').createServer;
 var parse = require('url').parse;
 var next = require('next');
@@ -62,9 +61,7 @@ app.prepare().then(function () {
                 case 1:
                     if (!(pathname === '/auth')) return [3 /*break*/, 2];
                     console.log('Request:', req.url);
-                    res.statusCode = 200;
-                    res.setHeader('Content-Type', 'application/json');
-                    res.end(JSON.stringify({ message: 'auth' }));
+                    authBasicHandler(res, req, pathname);
                     return [3 /*break*/, 4];
                 case 2: return [4 /*yield*/, handle(req, res, parsedUrl)];
                 case 3:
@@ -89,3 +86,18 @@ app.prepare().then(function () {
         console.log("> Ready on http://".concat(hostname, ":").concat(port));
     });
 });
+function authBasicHandler(res, req, basedPath) {
+    return __awaiter(this, void 0, void 0, function () {
+        var data;
+        return __generator(this, function (_a) {
+            data = [
+                { name: 'auth', value: 'true' },
+                { name: 'path', value: basedPath }
+            ];
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(data));
+            return [2 /*return*/];
+        });
+    });
+}
