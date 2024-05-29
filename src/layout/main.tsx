@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { AiFillGithub } from 'react-icons/ai'
 import { getWindowWidth, getWindowHight } from '../scripts/getWidth'
 import VLink from 'components/link'
-import { useSession } from 'next-auth/react'
 import stylebase from '../styles/style.module.sass'
 const Layout = ({ children }: any) => {
   const width = getWindowWidth();

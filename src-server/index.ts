@@ -4,7 +4,7 @@ import { authBasicHandler } from "./auth/basic";
 import { parse } from "url";
 import { z } from "zod";
 import { authGithubHandler } from "./auth/github";
-//const next = require('next')
+import { authCallbackHandler } from "./auth/callbacked";
 import next from 'next'
 const dev = process.env.NODE_ENV !== 'production'
 const hostname = 'localhost'
@@ -29,9 +29,13 @@ app.prepare().then(() => {
       } else if (pathname === '/auth') {
         console.log('Request:', req.url)
         authBasicHandler(res, req, pathname)
-      } else if (pathname === '/auth/github') {
+      } else if (pathname === '/auth/github/') {
         authGithubHandler(res, req)
-      } else {
+      } else if (pathname === '/auth/callback/') {
+        console.log('Request:', req.url)
+        authCallbackHandler(res, req)
+      }
+      else {
         await handle(req, res, parsedUrl)
       }
     } catch (err) {

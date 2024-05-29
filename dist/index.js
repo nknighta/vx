@@ -45,7 +45,7 @@ var basic_1 = require("./auth/basic");
 var url_1 = require("url");
 var zod_1 = require("zod");
 var github_1 = require("./auth/github");
-//const next = require('next')
+var callbacked_1 = require("./auth/callbacked");
 var next_1 = __importDefault(require("next"));
 var dev = process.env.NODE_ENV !== 'production';
 var hostname = 'localhost';
@@ -59,7 +59,7 @@ app.prepare().then(function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 6, , 7]);
+                    _a.trys.push([0, 7, , 8]);
                     pz = zod_1.z.string();
                     url = pz.parse(req.url);
                     parsedUrl = (0, url_1.parse)(url, true);
@@ -68,28 +68,33 @@ app.prepare().then(function () {
                     res.statusCode = 200;
                     res.setHeader('Content-Type', 'application/json');
                     res.end(JSON.stringify({ message: 'Hello World' }));
-                    return [3 /*break*/, 5];
+                    return [3 /*break*/, 6];
                 case 1:
                     if (!(pathname === '/auth')) return [3 /*break*/, 2];
                     console.log('Request:', req.url);
                     (0, basic_1.authBasicHandler)(res, req, pathname);
-                    return [3 /*break*/, 5];
+                    return [3 /*break*/, 6];
                 case 2:
-                    if (!(pathname === '/auth/github')) return [3 /*break*/, 3];
+                    if (!(pathname === '/auth/github/')) return [3 /*break*/, 3];
                     (0, github_1.authGithubHandler)(res, req);
-                    return [3 /*break*/, 5];
-                case 3: return [4 /*yield*/, handle(req, res, parsedUrl)];
-                case 4:
+                    return [3 /*break*/, 6];
+                case 3:
+                    if (!(pathname === '/auth/callback/')) return [3 /*break*/, 4];
+                    console.log('Request:', req.url);
+                    (0, callbacked_1.authCallbackHandler)(res, req);
+                    return [3 /*break*/, 6];
+                case 4: return [4 /*yield*/, handle(req, res, parsedUrl)];
+                case 5:
                     _a.sent();
-                    _a.label = 5;
-                case 5: return [3 /*break*/, 7];
-                case 6:
+                    _a.label = 6;
+                case 6: return [3 /*break*/, 8];
+                case 7:
                     err_1 = _a.sent();
                     console.error('Error occurred handling', req.url, err_1);
                     res.statusCode = 500;
                     res.end('internal server error');
-                    return [3 /*break*/, 7];
-                case 7: return [2 /*return*/];
+                    return [3 /*break*/, 8];
+                case 8: return [2 /*return*/];
             }
         });
     }); })

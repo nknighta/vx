@@ -17,7 +17,7 @@ export async function authBasicHandler(res, req, basedPath) {
             // success authentication
             res.statusCode = 200
             res.setHeader('author', 'vx team')
-            res.end(`OK Welcome to the ${username}!`)
+            res.end(JSON.stringify({ message: 'Hello World', status: 'success' }))
             return
         }
         else {

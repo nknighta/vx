@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export async function authGithubHandler(res, req) {
+export async function authCallbackHandler(res, req) {
     const pst = z.string();
     const serverkey = process.env.GITHUB_KEY;
     const key_str = pst.parse(serverkey);
