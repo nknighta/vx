@@ -13,7 +13,7 @@ export default function Signin() {
         />
         <div>
           <h1>Signin</h1>
-          <a href='https://github.com/login/oauth/authorize?scope=user,repo&client_id=Iv1.f70fe782834c0370&redirect_uri=http://localhost:3000/auth/callback'>github</a> 
+          <a href='https://github.com/login/oauth/authorize?scope=user,repo&client_id=Iv1.f70fe782834c0370&redirect_uri=http://varius.technology:3003/auth/callback'>github</a> 
         </div>
       </Layout>
     </>

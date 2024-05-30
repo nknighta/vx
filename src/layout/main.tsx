@@ -55,8 +55,7 @@ const Layout = ({ children }: any) => {
             padding: '3px 0',
           }}>
           <VLink page='/' text='Home' />
-
-              <VLink page='/dashboard' text='dashboard' />
+              <VLink page="https://github.com/login/oauth/authorize?scope=user,repo&client_id=Iv1.f70fe782834c0370&redirect_uri=http://varius.technology:3003/auth/callback" text='dashboard' />
               <VLink page='/dashboard/project' text='Project' />
             <VLink page='/account/signin' text='Signin' />
           <AiFillGithub />
@@ -67,4 +66,5 @@ const Layout = ({ children }: any) => {
   )
 }
 
+// https://github.com/login/oauth/authorize?scope=user,repo&client_id=Iv1.f70fe782834c0370&redirect_uri=http://varius.technology:3003/dashboard`
 export default Layout

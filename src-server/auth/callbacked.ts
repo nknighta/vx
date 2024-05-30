@@ -28,7 +28,7 @@ export async function authCallbackHandler(res, req, url) {
             const str = match_live[1];
             const hashedp = hash.update(str);
             res.writeHead(301, {
-                Location: `http://localhost:3000/dashboard?user=${data.login}&authcode=${hashedp.digest('hex')}`
+                Location: `http://varius.technology:3003/dashboard?user=${data.login}&authcode=${hashedp.digest('hex')}`
             });
             res.end(JSON.stringify({
                 message: "vx v0.5",

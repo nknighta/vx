@@ -49,7 +49,7 @@ var callbacked_1 = require("./auth/callbacked");
 var next_1 = __importDefault(require("next"));
 var dev = process.env.NODE_ENV !== 'production';
 var hostname = 'localhost';
-var port = 3000;
+var port = 3003;
 // when using middleware `hostname` and `port` must be provided below
 var app = (0, next_1.default)({ dev: dev, hostname: hostname, port: port });
 var handle = app.getRequestHandler();

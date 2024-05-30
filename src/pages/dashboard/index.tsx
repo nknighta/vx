@@ -29,10 +29,9 @@ export default function Dash({queryParam}: Props) {
   const [userid, setUerId] = useState<string>("")
   const [userimage, setImage] = useState<string>("")
   const user = router.query.user
-  console.log(`http://localhost:3000/auth/github/?user=${user}`)
   useEffect(() => {
     const fetchdata = async () => {
-      const data = await fetch(`http://localhost:3000/auth/github/?user=${user}`);
+      const data = await fetch(`http://varius.technology:3003/auth/github/?user=${user}`);
       return data.json()
     }
     fetchdata()
