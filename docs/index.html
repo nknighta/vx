@@ -11,14 +11,22 @@
 </header>
 
 <body>
-    <div class="linkcontainer">
-        <a href="https://varius.technology">home</a>
-        <a href="https://github.com/nknighta/vx">repo</a>
+    <div class="main_c">
+        <div class="linkcontainer">
+            early access
+        </div>
+        <div class="linkcontainer">
+            <div class="linkcontainer_s">
+                <a href="https://varius.technology">official</a>
+                <a href="https://github.com/nknighta/vx" target="_blank">repo</a>
+                <a href="#" class="getbtn">get started</a>
+            </div>
+        </div>
     </div>
+    <footer>
+        <p>(c) 2024 nknight amamiya</p>
+    </footer>
 </body>
-<footer>
-    <p>(c) 2024 nknight amamiya</p>
-</footer>
 <style>
     header {
         background-color: #7845ff;
@@ -37,17 +45,28 @@
         font-family: Arial, sans-serif;
         background-color: #0f000f;
         color: #ddd;
-        line-height: 1.6;
+        line-height: 1.4;
+    }
+
+    .main_c {
+        height: 60vh;
     }
 
     .linkcontainer {
-        background-color: #7845ff;
         color: #fff;
         height: 220px;
+        padding: 3vh 0;
+        width: 500px;
+        margin: auto;
+    }
+
+    .linkcontainer_s {
+        background-color: #7845ff;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        padding: 3vh;
     }
 
     .linkcontainer a {
@@ -60,6 +79,13 @@
         color: #fff;
         text-decoration: none;
         padding: 10px;
+    }
+
+    .getbtn {
+        background-color: #0f000f;
+        color: #7845ff;
+        padding: 10px 20px;
+        border-radius: 5px;
     }
 </style>
 

@@ -1,11 +1,14 @@
 import { z } from "zod";
 
-export async function authGithubHandler(res, req) {
+export async function authGithubHandler(res, req, url) {
     const pst = z.string();
     const serverkey = process.env.GITHUB_KEY;
     const key_str = pst.parse(serverkey);
     //const datajsonformatted
-    fetch("https://api.github.com/user", {
+    
+    const match_live = url.match(/user=([^&]*)/);
+    const giturl = `https://api.github.com/users/${match_live[1]}`;
+    fetch(giturl, {
         headers: {
             Authorization: `Bearer ${key_str}`,
             "X-GitHub-Api-Version": "2022-11-28",
@@ -19,7 +22,9 @@ export async function authGithubHandler(res, req) {
         })
         .then(data => {
             res.setHeader("Content-Type", "application/json");
+
             res.end(JSON.stringify({
+                user: match_live[1],
                 message: "vx v0.5",
                 id: data.login,
                 name: data.name,
@@ -32,7 +37,9 @@ export async function authGithubHandler(res, req) {
             res.end(JSON.stringify({
                 message: "vx v0.5",
                 error: "faild to fetch data from github",
+                url : giturl
             }));
         });
     res.statusCode = 200;
 }
+

@@ -76,12 +76,12 @@ app.prepare().then(function () {
                     return [3 /*break*/, 6];
                 case 2:
                     if (!(pathname === '/auth/github/')) return [3 /*break*/, 3];
-                    (0, github_1.authGithubHandler)(res, req);
+                    (0, github_1.authGithubHandler)(res, req, url);
                     return [3 /*break*/, 6];
                 case 3:
                     if (!(pathname === '/auth/callback/')) return [3 /*break*/, 4];
                     console.log('Request:', req.url);
-                    (0, callbacked_1.authCallbackHandler)(res, req);
+                    (0, callbacked_1.authCallbackHandler)(res, req, url);
                     return [3 /*break*/, 6];
                 case 4: return [4 /*yield*/, handle(req, res, parsedUrl)];
                 case 5:

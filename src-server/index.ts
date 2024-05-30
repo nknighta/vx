@@ -30,10 +30,10 @@ app.prepare().then(() => {
         console.log('Request:', req.url)
         authBasicHandler(res, req, pathname)
       } else if (pathname === '/auth/github/') {
-        authGithubHandler(res, req)
+        authGithubHandler(res, req, url)
       } else if (pathname === '/auth/callback/') {
         console.log('Request:', req.url)
-        authCallbackHandler(res, req)
+        authCallbackHandler(res, req, url)
       }
       else {
         await handle(req, res, parsedUrl)

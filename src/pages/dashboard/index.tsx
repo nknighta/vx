@@ -5,9 +5,14 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import dashstyle from '../../styles/dashboard.module.sass'
 import { getWindowWidth } from 'scripts/getWidth'
+import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 // dash_container
 
-export default function Dash() {
+type Props = {
+  queryParam: string
+}
+
+export default function Dash({queryParam}: Props) {
   const router = useRouter();
   const width = getWindowWidth();
   const [isMobile, setIsMobile] = useState<boolean>(false);
@@ -23,23 +28,25 @@ export default function Dash() {
   const [useremail, setEmail] = useState<string>("")
   const [userid, setUerId] = useState<string>("")
   const [userimage, setImage] = useState<string>("")
-
+  const user = router.query.user
+  console.log(`http://localhost:3000/auth/github/?user=${user}`)
   useEffect(() => {
     const fetchdata = async () => {
-      const data = await fetch(`http://localhost:3000/auth/github`);
+      const data = await fetch(`http://localhost:3000/auth/github/?user=${user}`);
       return data.json()
     }
-    fetchdata().then((data) => {
-      setName(data.name)
-      if (data.email == null) {
-        data.email = "<email is not set.>"
-      }
-      setEmail(data.email)
-      setUerId(data.id)
-      setImage(data.image)
-    })
+    fetchdata()
+      .then((data) => {
+        setName(data.name)
+        if (data.email == null) {
+          data.email = "<email is not set.>"
+        }
+        setEmail(data.email)
+        setUerId(data.id)
+        setImage(data.image)
+      })
   }, [])
-
+  //console.log(queryParam.match(/user=([^&]*)/))
   // redirect to signin page if no session
   return (
     <Layout>
@@ -57,7 +64,7 @@ export default function Dash() {
               borderRadius: "50%",
               border: "1px solid #000",
               margin: "0 auto",
-            }}/>
+            }} />
           </div>
           <div>
             <DisplayInfo context="usernid" value={username} style={dashstyle.dash_container_text} />
@@ -66,6 +73,7 @@ export default function Dash() {
           </div>
         </div>
       </div>
+      <p>{user}</p>
     </Layout>
   )
 }
@@ -79,4 +87,15 @@ const DisplayInfo = (props: { context: string, value: string, style: any }) => {
       </p>
     </div>
   )
+}
+
+export const getServerSideProps = (
+  context: GetServerSidePropsContext
+): GetServerSidePropsResult<Props> => {
+  const queryParam = context.query.queryParam?.toString() || ' '
+  return {
+    props: {
+      queryParam: queryParam
+    }
+  }
 }
