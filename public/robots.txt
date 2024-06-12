@@ -1,9 +1,0 @@
-# *
-User-agent: *
-Allow: /
-
-# Host
-Host: https://dev.varius.technology/
-
-# Sitemaps
-Sitemap: https://dev.varius.technology/sitemap.xml
