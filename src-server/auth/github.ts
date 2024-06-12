@@ -1,9 +1,6 @@
-import { z } from "zod";
 
 export async function authGithubHandler(res, req, url) {
-    const pst = z.string();
-    const serverkey = process.env.GITHUB_KEY;
-    const key_str = pst.parse(serverkey);
+    const key_str = process.env.GITHUB_TOKEN;
     //const datajsonformatted
     
     const match_live = url.match(/user=([^&]*)/);
@@ -18,7 +15,7 @@ export async function authGithubHandler(res, req, url) {
             if (!response.ok) {
                 throw new Error(`Network response was not ok: ${response.status}`);
             }
-            return response.json(); // レスポンスがJSON形式の場合
+            return response.json();
         })
         .then(data => {
             res.setHeader("Content-Type", "application/json");
@@ -36,7 +33,7 @@ export async function authGithubHandler(res, req, url) {
         .catch(error => {
             res.end(JSON.stringify({
                 message: "vx v0.5",
-                error: "faild to fetch data from github",
+                error: error.message,
                 url : giturl
             }));
         });

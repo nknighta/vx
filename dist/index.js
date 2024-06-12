@@ -46,20 +46,20 @@ var url_1 = require("url");
 var zod_1 = require("zod");
 var github_1 = require("./auth/github");
 var callbacked_1 = require("./auth/callbacked");
+var index_1 = require("./w3/index");
 var next_1 = __importDefault(require("next"));
 var dev = process.env.NODE_ENV !== 'production';
-var hostname = 'localhost';
-var port = 3000;
 // when using middleware `hostname` and `port` must be provided below
-var app = (0, next_1.default)({ dev: dev, hostname: hostname, port: port });
+var app = (0, next_1.default)({ dev: dev });
 var handle = app.getRequestHandler();
+// Get command line arguments
 app.prepare().then(function () {
     (0, http_1.createServer)(function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var pz, url, parsedUrl, pathname, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 7, , 8]);
+                    _a.trys.push([0, 13, , 14]);
                     pz = zod_1.z.string();
                     url = pz.parse(req.url);
                     parsedUrl = (0, url_1.parse)(url, true);
@@ -68,33 +68,50 @@ app.prepare().then(function () {
                     res.statusCode = 200;
                     res.setHeader('Content-Type', 'application/json');
                     res.end(JSON.stringify({ message: 'Hello World' }));
-                    return [3 /*break*/, 6];
+                    return [3 /*break*/, 12];
                 case 1:
-                    if (!(pathname === '/auth')) return [3 /*break*/, 2];
+                    if (!(pathname === '/auth')) return [3 /*break*/, 3];
                     console.log('Request:', req.url);
-                    (0, basic_1.authBasicHandler)(res, req, pathname);
-                    return [3 /*break*/, 6];
+                    return [4 /*yield*/, (0, basic_1.authBasicHandler)(res, req, pathname)];
                 case 2:
-                    if (!(pathname === '/auth/github/')) return [3 /*break*/, 3];
-                    (0, github_1.authGithubHandler)(res, req, url);
-                    return [3 /*break*/, 6];
-                case 3:
-                    if (!(pathname === '/auth/callback/')) return [3 /*break*/, 4];
-                    console.log('Request:', req.url);
-                    (0, callbacked_1.authCallbackHandler)(res, req, url);
-                    return [3 /*break*/, 6];
-                case 4: return [4 /*yield*/, handle(req, res, parsedUrl)];
-                case 5:
                     _a.sent();
-                    _a.label = 6;
-                case 6: return [3 /*break*/, 8];
+                    return [3 /*break*/, 12];
+                case 3:
+                    if (!(pathname === '/auth/github/')) return [3 /*break*/, 5];
+                    return [4 /*yield*/, (0, github_1.authGithubHandler)(res, req, url)];
+                case 4:
+                    _a.sent();
+                    return [3 /*break*/, 12];
+                case 5:
+                    if (!(pathname === '/auth/callback/')) return [3 /*break*/, 7];
+                    console.log('Request:', req.url);
+                    return [4 /*yield*/, (0, callbacked_1.authCallbackHandler)(res, req, url)];
+                case 6:
+                    _a.sent();
+                    return [3 /*break*/, 12];
                 case 7:
+                    if (!(pathname == '/w3/core/')) return [3 /*break*/, 9];
+                    console.log('Request:', req.url);
+                    return [4 /*yield*/, (0, index_1.W3)(res, req, url)];
+                case 8:
+                    _a.sent();
+                    return [3 /*break*/, 12];
+                case 9:
+                    if (!(pathname === '/w3/')) return [3 /*break*/, 10];
+                    res.writeHead(301, { Location: '/w3/core/' });
+                    return [3 /*break*/, 12];
+                case 10: return [4 /*yield*/, handle(req, res, parsedUrl)];
+                case 11:
+                    _a.sent();
+                    _a.label = 12;
+                case 12: return [3 /*break*/, 14];
+                case 13:
                     err_1 = _a.sent();
                     console.error('Error occurred handling', req.url, err_1);
                     res.statusCode = 500;
                     res.end('internal server error');
-                    return [3 /*break*/, 8];
-                case 8: return [2 /*return*/];
+                    return [3 /*break*/, 14];
+                case 14: return [2 /*return*/];
             }
         });
     }); })
@@ -102,8 +119,8 @@ app.prepare().then(function () {
         console.error(err);
         process.exit(1);
     })
-        .listen(port, function () {
-        console.log("> Ready on http://".concat(hostname, ":").concat(port));
+        .listen(3000, function () {
+        console.log("> Ready on http://localhost:3000");
     });
 });
 // authriztion handler for basic

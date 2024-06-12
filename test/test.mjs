@@ -1,2 +1,1 @@
-import { Octokit } from "octokit";
-console.log(Octokit.VERSION);
+console.log(process.env.GITHUB_KEY)

@@ -1,18 +1,15 @@
-import { z } from "zod";
 import { createHash } from 'crypto'
 
-export async function authCallbackHandler(res, req, url) {
-    const pst = z.string();
-    const serverkey = process.env.GITHUB_KEY;
-    const key_str = pst.parse(serverkey);
-    //const datajsonformatted
-    fetch("https://api.github.com/user", {
+export async function authCallbackHandler(res, req, url) {    
+    const key_str = process.env.GITHUB_TOKEN;
+    fetch("https://api.github.com/users/nknighta", {
         headers: {
             Authorization: `Bearer ${key_str}`,
             "X-GitHub-Api-Version": "2022-11-28",
         },
     })
         .then(response => {
+            console.log("key", key_str);
             if (!response.ok) {
                 throw new Error(`Network response was not ok: ${response.status}`);
             }
@@ -27,12 +24,12 @@ export async function authCallbackHandler(res, req, url) {
             const hash = createHash('sha256');
             const str = match_live[1];
             const hashedp = hash.update(str);
-            res.writeHead(301, {
-                Location: `http://localhost:3000/dashboard?user=${data.login}&authcode=${hashedp.digest('hex')}`
-            });
+            
+            //console.log(`${baseurl}/dashboard?user=${data.login}&authcode=${hashedp.digest('hex')}`)
+            res.writeHead(301 , {Location: `http://localhost:3000/dashboard?user=${data.login}`})
             res.end(JSON.stringify({
                 message: "vx v0.5",
-                id: data.login,
+                id: data.id,
                 name: data.name,
                 email: data.email,
                 image: data.avatar_url,
@@ -44,8 +41,7 @@ export async function authCallbackHandler(res, req, url) {
             res.end(JSON.stringify({
                 message: "vx v0.5",
                 error: "faild to fetch data from github",
-                error_detail: error,
+                error_detail: error.message,
             }));
         });
-    res.statusCode = 200;
-}
+    }

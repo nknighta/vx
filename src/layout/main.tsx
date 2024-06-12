@@ -55,7 +55,6 @@ const Layout = ({ children }: any) => {
             padding: '3px 0',
           }}>
           <VLink page='/' text='Home' />
-
               <VLink page='/dashboard' text='dashboard' />
               <VLink page='/dashboard/project' text='Project' />
             <VLink page='/account/signin' text='Signin' />

@@ -7,12 +7,13 @@ import dashstyle from '../../styles/dashboard.module.sass'
 import { getWindowWidth } from 'scripts/getWidth'
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 // dash_container
+import { setCookie,getCookie } from 'cookies-next';
 
 type Props = {
   queryParam: string
 }
 
-export default function Dash({queryParam}: Props) {
+export default function Dash({ queryParam }: Props) {
   const router = useRouter();
   const width = getWindowWidth();
   const [isMobile, setIsMobile] = useState<boolean>(false);
@@ -28,26 +29,37 @@ export default function Dash({queryParam}: Props) {
   const [useremail, setEmail] = useState<string>("")
   const [userid, setUerId] = useState<string>("")
   const [userimage, setImage] = useState<string>("")
+  const [loginedData, setLoginedData] = useState<string>()
+
   const user = router.query.user
-  console.log(`http://localhost:3000/auth/github/?user=${user}`)
+  // get user data from github
   useEffect(() => {
     const fetchdata = async () => {
       const data = await fetch(`http://localhost:3000/auth/github/?user=${user}`);
       return data.json()
     }
+    // variables initialization
     fetchdata()
       .then((data) => {
         setName(data.name)
         if (data.email == null) {
           data.email = "<email is not set.>"
         }
+        // set email
         setEmail(data.email)
+        // from github id
         setUerId(data.id)
+        // from github id
         setImage(data.image)
       })
   }, [])
-  //console.log(queryParam.match(/user=([^&]*)/))
+  //console.log(queryParam.match(/user=([^&]*)/))   
   // redirect to signin page if no session
+  useEffect(() => {
+    setCookie('userids',"test", {maxAge: 30 * 24 * 60 * 60});
+
+    setLoginedData(getCookie('userids'));
+  }, [])
   return (
     <Layout>
       <div>
@@ -73,11 +85,12 @@ export default function Dash({queryParam}: Props) {
           </div>
         </div>
       </div>
-      <p>{user}</p>
+      <p>cookie text:{loginedData}</p>
     </Layout>
   )
 }
 
+// loading text
 const DisplayInfo = (props: { context: string, value: string, style: any }) => {
   return (
     <div className={props.style}>
@@ -89,6 +102,7 @@ const DisplayInfo = (props: { context: string, value: string, style: any }) => {
   )
 }
 
+// get query param from url
 export const getServerSideProps = (
   context: GetServerSidePropsContext
 ): GetServerSidePropsResult<Props> => {

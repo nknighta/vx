@@ -23,14 +23,13 @@ export default function Post({ posts }: any) {
       <HMeta
         pageTitle={'Blog and Release '}
         pageDescription={'official blog and other'}
-        pageImg={'/api/og?title=Blog'}
       />
       <div>
         {posts.map((post) => (
           <div>
             <Link href={`/blog/${post.slug}`} key={post.slug}>
               <Image
-                src={`https://media.varius.technology/api/og?title=${post.frontMatter.title}&description=${post.frontMatter.description}`}
+                src={`/api/og?title=${post.frontMatter.title}&description=${post.frontMatter.description}`}
                 width={400}
                 height={200}
                 alt={`${post.frontMatter.description}-preview.png`}

@@ -4,7 +4,6 @@ interface MetaProps {
   pageTitle?: string
   pageDescription?: string
   pagePath?: string
-  pageImg?: any
   pageImgWidth?: number
   pageImgHeight?: number
 }
@@ -15,7 +14,6 @@ const HMeta: React.FC<MetaProps> = ({
   pageTitle,
   pageDescription,
   pagePath,
-  pageImg,
   pageImgWidth,
   pageImgHeight,
 }) => {
@@ -42,7 +40,7 @@ const HMeta: React.FC<MetaProps> = ({
       <meta property="og:type" content="website" />
       <meta
         property="og:image"
-        content={`https://media.varius.technology${pageImg}&description=${description}`}
+        content={`https://varius.technology/api/og?title=${pageTitle}&description=${description}`}
       />
       <meta property="og:image:width" content={String(imgWidth)} />
       <meta property="og:image:height" content={String(imgHeight)} />
@@ -50,14 +48,14 @@ const HMeta: React.FC<MetaProps> = ({
       <meta property="twitter:description" content="VARIUS development" />
       <meta
         name="twitter:image"
-        content={`https://media.varius.technology${pageImg}&description=${description}`}
-      />
+        content={`https://varius.technology/api/og?title=${pageTitle}&description=${description}`}
+      />  
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@ama_dev_1" />
       <meta name="twitter:title" content={title} />
       <link
         rel="icon"
-        href={'https://varius.technology/favicon.ico'}
+        href={'favicon.ico'}
         sizes="any"
       />
       <link rel="canonical" href={url} />

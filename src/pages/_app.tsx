@@ -3,7 +3,7 @@ import { NextPage } from 'next'
 import Script from "next/script";
 import type { AppProps } from 'next/app'
 import './global.css'
-import { SessionProvider } from 'next-auth/react'
+
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPage & {

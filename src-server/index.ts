@@ -5,19 +5,22 @@ import { parse } from "url";
 import { z } from "zod";
 import { authGithubHandler } from "./auth/github";
 import { authCallbackHandler } from "./auth/callbacked";
+import { W3 } from "./w3/index";
 import next from 'next'
 const dev = process.env.NODE_ENV !== 'production'
-const hostname = 'localhost'
-const port = 3000
 // when using middleware `hostname` and `port` must be provided below
-const app = next({ dev, hostname, port })
+const app = next({ dev})
 const handle = app.getRequestHandler()
+// Get command line arguments
 
 app.prepare().then(() => {
   createServer(async (req, res) => {
     try {
       // Be sure to pass `true` as the second argument to `url.parse`.
       // This tells it to parse the query portion of the URL.
+      
+      //if (args[0] == '--open') {
+      //}
       const pz = z.string();
       const url = pz.parse(req.url);
       const parsedUrl = parse(url, true)
@@ -28,12 +31,17 @@ app.prepare().then(() => {
         res.end(JSON.stringify({ message: 'Hello World' }))
       } else if (pathname === '/auth') {
         console.log('Request:', req.url)
-        authBasicHandler(res, req, pathname)
+        await authBasicHandler(res, req, pathname)
       } else if (pathname === '/auth/github/') {
-        authGithubHandler(res, req, url)
+        await authGithubHandler(res, req, url)
       } else if (pathname === '/auth/callback/') {
         console.log('Request:', req.url)
-        authCallbackHandler(res, req, url)
+        await  authCallbackHandler(res, req, url)
+      } else if (pathname == '/w3/core/') {
+        console.log('Request:', req.url)
+        await W3(res, req, url)
+      }  else if (pathname === '/w3/') {
+        res.writeHead(301, { Location: '/w3/core/' });
       }
       else {
         await handle(req, res, parsedUrl)
@@ -48,8 +56,8 @@ app.prepare().then(() => {
       console.error(err)
       process.exit(1)
     })
-    .listen(port, () => {
-      console.log(`> Ready on http://${hostname}:${port}`)
+    .listen(3000, () => {
+      console.log(`> Ready on http://localhost:3000`)
     })
 })
 
