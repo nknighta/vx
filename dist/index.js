@@ -49,6 +49,11 @@ var callbacked_1 = require("./auth/callbacked");
 var index_1 = require("./w3/index");
 var next_1 = __importDefault(require("next"));
 var dev = process.env.NODE_ENV !== 'production';
+<<<<<<< HEAD
+=======
+var hostname = 'localhost';
+var port = 3003;
+>>>>>>> 1de88a642b1f67ec54bef10e077551533c22de4a
 // when using middleware `hostname` and `port` must be provided below
 var app = (0, next_1.default)({ dev: dev });
 var handle = app.getRequestHandler();
