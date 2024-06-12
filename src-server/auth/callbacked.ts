@@ -24,15 +24,9 @@ export async function authCallbackHandler(res, req, url) {
             const hash = createHash('sha256');
             const str = match_live[1];
             const hashedp = hash.update(str);
-<<<<<<< HEAD
             
             //console.log(`${baseurl}/dashboard?user=${data.login}&authcode=${hashedp.digest('hex')}`)
             res.writeHead(301 , {Location: `http://localhost:3000/dashboard?user=${data.login}`})
-=======
-            res.writeHead(301, {
-                Location: `http://varius.technology:3003/dashboard?user=${data.login}&authcode=${hashedp.digest('hex')}`
-            });
->>>>>>> 1de88a642b1f67ec54bef10e077551533c22de4a
             res.end(JSON.stringify({
                 message: "vx v0.5",
                 id: data.id,
@@ -50,9 +44,4 @@ export async function authCallbackHandler(res, req, url) {
                 error_detail: error.message,
             }));
         });
-<<<<<<< HEAD
     }
-=======
-    res.statusCode = 200;
-}
->>>>>>> 1de88a642b1f67ec54bef10e077551533c22de4a

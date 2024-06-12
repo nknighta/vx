@@ -8,11 +8,6 @@ import { authCallbackHandler } from "./auth/callbacked";
 import { W3 } from "./w3/index";
 import next from 'next'
 const dev = process.env.NODE_ENV !== 'production'
-<<<<<<< HEAD
-=======
-const hostname = 'localhost'
-const port = 3003
->>>>>>> 1de88a642b1f67ec54bef10e077551533c22de4a
 // when using middleware `hostname` and `port` must be provided below
 const app = next({ dev})
 const handle = app.getRequestHandler()

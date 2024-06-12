@@ -32,10 +32,7 @@ export default function Dash({ queryParam }: Props) {
   const [loginedData, setLoginedData] = useState<string>()
 
   const user = router.query.user
-<<<<<<< HEAD
   // get user data from github
-=======
->>>>>>> 1de88a642b1f67ec54bef10e077551533c22de4a
   useEffect(() => {
     const fetchdata = async () => {
       const data = await fetch(`http://varius.technology:3003/auth/github/?user=${user}`);
