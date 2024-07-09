@@ -1,15 +1,11 @@
 // using sample code from https://nextjs.org/docs/pages/building-your-application/configuring/custom-server
 import { createServer } from "http";
-import { authBasicHandler } from "./auth/basic";
 import { parse } from "url";
 import { z } from "zod";
-import { authGithubHandler } from "./auth/github";
-import { authCallbackHandler } from "./auth/callbacked";
-import { W3 } from "./w3/index";
 import next from 'next'
 const dev = process.env.NODE_ENV !== 'production'
 // when using middleware `hostname` and `port` must be provided below
-const app = next({ dev})
+const app = next({ dev })
 const handle = app.getRequestHandler()
 // Get command line arguments
 
@@ -18,7 +14,7 @@ app.prepare().then(() => {
     try {
       // Be sure to pass `true` as the second argument to `url.parse`.
       // This tells it to parse the query portion of the URL.
-      
+
       //if (args[0] == '--open') {
       //}
       const pz = z.string();
@@ -29,18 +25,7 @@ app.prepare().then(() => {
         res.statusCode = 200
         res.setHeader('Content-Type', 'application/json')
         res.end(JSON.stringify({ message: 'Hello World' }))
-      } else if (pathname === '/auth') {
-        console.log('Request:', req.url)
-        await authBasicHandler(res, req, pathname)
-      } else if (pathname === '/auth/github/') {
-        await authGithubHandler(res, req, url)
-      } else if (pathname === '/auth/callback/') {
-        console.log('Request:', req.url)
-        await  authCallbackHandler(res, req, url)
-      } else if (pathname == '/w3/core/') {
-        console.log('Request:', req.url)
-        await W3(res, req, url)
-      }  else if (pathname === '/w3/') {
+      } else if (pathname === '/w3/') {
         res.writeHead(301, { Location: '/w3/core/' });
       }
       else {

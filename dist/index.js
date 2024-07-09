@@ -41,7 +41,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 // using sample code from https://nextjs.org/docs/pages/building-your-application/configuring/custom-server
 var http_1 = require("http");
-var basic_1 = require("./auth/basic");
 var url_1 = require("url");
 var zod_1 = require("zod");
 var github_1 = require("./auth/github");
@@ -49,11 +48,6 @@ var callbacked_1 = require("./auth/callbacked");
 var index_1 = require("./w3/index");
 var next_1 = __importDefault(require("next"));
 var dev = process.env.NODE_ENV !== 'production';
-<<<<<<< HEAD
-=======
-var hostname = 'localhost';
-var port = 3003;
->>>>>>> 1de88a642b1f67ec54bef10e077551533c22de4a
 // when using middleware `hostname` and `port` must be provided below
 var app = (0, next_1.default)({ dev: dev });
 var handle = app.getRequestHandler();
@@ -64,7 +58,7 @@ app.prepare().then(function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 13, , 14]);
+                    _a.trys.push([0, 11, , 12]);
                     pz = zod_1.z.string();
                     url = pz.parse(req.url);
                     parsedUrl = (0, url_1.parse)(url, true);
@@ -73,50 +67,43 @@ app.prepare().then(function () {
                     res.statusCode = 200;
                     res.setHeader('Content-Type', 'application/json');
                     res.end(JSON.stringify({ message: 'Hello World' }));
-                    return [3 /*break*/, 12];
+                    return [3 /*break*/, 10];
                 case 1:
-                    if (!(pathname === '/auth')) return [3 /*break*/, 3];
-                    console.log('Request:', req.url);
-                    return [4 /*yield*/, (0, basic_1.authBasicHandler)(res, req, pathname)];
+                    if (!(pathname === '/auth/github/')) return [3 /*break*/, 3];
+                    return [4 /*yield*/, (0, github_1.authGithubHandler)(res, req, url)];
                 case 2:
                     _a.sent();
-                    return [3 /*break*/, 12];
+                    return [3 /*break*/, 10];
                 case 3:
-                    if (!(pathname === '/auth/github/')) return [3 /*break*/, 5];
-                    return [4 /*yield*/, (0, github_1.authGithubHandler)(res, req, url)];
-                case 4:
-                    _a.sent();
-                    return [3 /*break*/, 12];
-                case 5:
-                    if (!(pathname === '/auth/callback/')) return [3 /*break*/, 7];
+                    if (!(pathname === '/auth/callback/')) return [3 /*break*/, 5];
                     console.log('Request:', req.url);
                     return [4 /*yield*/, (0, callbacked_1.authCallbackHandler)(res, req, url)];
-                case 6:
+                case 4:
                     _a.sent();
-                    return [3 /*break*/, 12];
-                case 7:
-                    if (!(pathname == '/w3/core/')) return [3 /*break*/, 9];
+                    return [3 /*break*/, 10];
+                case 5:
+                    if (!(pathname == '/w3/core/')) return [3 /*break*/, 7];
                     console.log('Request:', req.url);
                     return [4 /*yield*/, (0, index_1.W3)(res, req, url)];
-                case 8:
+                case 6:
                     _a.sent();
-                    return [3 /*break*/, 12];
-                case 9:
-                    if (!(pathname === '/w3/')) return [3 /*break*/, 10];
+                    return [3 /*break*/, 10];
+                case 7:
+                    if (!(pathname === '/w3/')) return [3 /*break*/, 8];
                     res.writeHead(301, { Location: '/w3/core/' });
-                    return [3 /*break*/, 12];
-                case 10: return [4 /*yield*/, handle(req, res, parsedUrl)];
-                case 11:
+                    return [3 /*break*/, 10];
+                case 8: return [4 /*yield*/, handle(req, res, parsedUrl)];
+                case 9:
                     _a.sent();
-                    _a.label = 12;
-                case 12: return [3 /*break*/, 14];
-                case 13:
+                    _a.label = 10;
+                case 10: return [3 /*break*/, 12];
+                case 11:
                     err_1 = _a.sent();
                     console.error('Error occurred handling', req.url, err_1);
                     res.statusCode = 500;
                     res.end('internal server error');
-                    return [3 /*break*/, 14];
-                case 14: return [2 /*return*/];
+                    return [3 /*break*/, 12];
+                case 12: return [2 /*return*/];
             }
         });
     }); })

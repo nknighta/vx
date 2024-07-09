@@ -5,7 +5,7 @@ export const config = {
   runtime: 'edge',
 };
 
-export default function oghandler(request: NextRequest) {
+export default function handler(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
 

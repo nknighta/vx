@@ -1,9 +1,9 @@
 import React from 'react'
-import Link from 'next/link'
 import { AiFillGithub } from 'react-icons/ai'
 import { getWindowWidth, getWindowHight } from '../scripts/getWidth'
-import VLink from 'components/link'
+import VLink from '../components/link'
 import stylebase from '../styles/style.module.sass'
+import { setCookie } from 'cookies-next'
 const Layout = ({ children }: any) => {
   const width = getWindowWidth();
   const height = getWindowHight();
@@ -11,33 +11,10 @@ const Layout = ({ children }: any) => {
 
   return (
     <>
-      <header
-        style={{
-          margin: '0 auto',
-          background: '#000000',
-        }}
-      >
-      </header>
-      {process.env.NODE_ENV == 'development' ? (
-        <div style={{
-          width: '500px',
-          color: 'white',
-          position: 'fixed',
-          zIndex: 999,
-        }}>
-          debug mode
-          <div>
-            meta data
-            {width}
-          </div>
-        </div>
-      ) : (
-        ''
-      )}
       <div
         style={{
           padding: isMobile ? '0 3vh' : '0 10vh',
-          height: '100vh',
+          height: '100%',
         }}
       >
         {children}
@@ -54,11 +31,17 @@ const Layout = ({ children }: any) => {
             alignItems: 'center',
             padding: '3px 0',
           }}>
-          <VLink page='/' text='Home' />
-              <VLink page='/dashboard' text='dashboard' />
-              <VLink page='/dashboard/project' text='Project' />
-            <VLink page='/account/signin' text='Signin' />
-          <AiFillGithub />
+          <VLink page='/' linkevent={() => {
+            setCookie('act', 'homebtn')
+          }}>
+            <p>Home</p>
+          </VLink>
+          <VLink page='/about'>
+            <p>About</p>
+          </VLink>
+          <VLink page='https://github.com/nknighta/vx' opentarget="_blank">
+            <AiFillGithub />
+          </VLink>
           © 2024 - nknighta
         </div>
       </footer>
@@ -66,5 +49,4 @@ const Layout = ({ children }: any) => {
   )
 }
 
-// https://github.com/login/oauth/authorize?scope=user,repo&client_id=Iv1.f70fe782834c0370&redirect_uri=http://varius.technology:3003/dashboard`
 export default Layout

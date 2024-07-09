@@ -2,8 +2,8 @@ import { ReactElement, ReactNode } from 'react'
 import { NextPage } from 'next'
 import Script from "next/script";
 import type { AppProps } from 'next/app'
-import './global.css'
-
+import '../styles/globals.css'
+import { SessionProvider } from 'next-auth/react'
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPage & {
@@ -23,13 +23,8 @@ export default function App({
       return page
     })
   return getLayout(
-    <>
-      {process.env.NODE_ENV === 'development' ? (
-          <>
-            <Script src="http://localhost:8097"></Script>
-          </>
-      ) : ("")}
+    <SessionProvider>
       <Component {...pageProps} />
-    </>,
+    </SessionProvider>,
   )
 }

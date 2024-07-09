@@ -4,8 +4,10 @@ interface MetaProps {
   pageTitle?: string
   pageDescription?: string
   pagePath?: string
+  pageImg?: any
   pageImgWidth?: number
-  pageImgHeight?: number
+  pageImgHeight?: number,
+  defaultfavicon?: string
 }
 
 export const metaDataImage = async () => {}
@@ -14,8 +16,10 @@ const HMeta: React.FC<MetaProps> = ({
   pageTitle,
   pageDescription,
   pagePath,
+  pageImg,
   pageImgWidth,
   pageImgHeight,
+  defaultfavicon
 }) => {
   const defaultTitle = 'VARIUS'
   const defaultDescription = 'Web3 development'
@@ -24,6 +28,7 @@ const HMeta: React.FC<MetaProps> = ({
   const url = `https://varius.technology${pagePath == undefined ? '/' : pagePath}`
   const imgWidth = pageImgWidth ? pageImgWidth : 1280
   const imgHeight = pageImgHeight ? pageImgHeight : 640
+  const favicon = defaultfavicon ? defaultfavicon : '/images/favicon.ico'
   //const imgx = require("/images/favicon.ico");
   return (
     <Head>
@@ -40,7 +45,7 @@ const HMeta: React.FC<MetaProps> = ({
       <meta property="og:type" content="website" />
       <meta
         property="og:image"
-        content={`https://varius.technology/api/og?title=${pageTitle}&description=${description}`}
+        content={`https://media.varius.technology/api/og?title=${title}&description=${description}`}
       />
       <meta property="og:image:width" content={String(imgWidth)} />
       <meta property="og:image:height" content={String(imgHeight)} />
@@ -48,14 +53,14 @@ const HMeta: React.FC<MetaProps> = ({
       <meta property="twitter:description" content="VARIUS development" />
       <meta
         name="twitter:image"
-        content={`https://varius.technology/api/og?title=${pageTitle}&description=${description}`}
-      />  
+        content={`https://.varius.technology/${title}&description=${description}`}
+      />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@ama_dev_1" />
       <meta name="twitter:title" content={title} />
       <link
         rel="icon"
-        href={'favicon.ico'}
+        href={favicon}
         sizes="any"
       />
       <link rel="canonical" href={url} />
