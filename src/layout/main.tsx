@@ -7,18 +7,18 @@ import { setCookie } from 'cookies-next'
 const Layout = ({ children }: any) => {
   const width = getWindowWidth();
   const height = getWindowHight();
-  const isMobile: boolean = width > 960 ? false : true
-
+  const isMobile: boolean = width > 960 ? false : true;
   return (
     <>
       <div
         style={{
-          padding: isMobile ? '0 3vh' : '0 10vh',
+          padding: isMobile ? '0 1vh': '0 10vh',
           height: '100%',
         }}
       >
         {children}
       </div>
+	  <div>{width}</div>
       <footer
         className={stylebase.fstyle}
         style={{
@@ -38,6 +38,9 @@ const Layout = ({ children }: any) => {
           </VLink>
           <VLink page='/about'>
             <p>About</p>
+          </VLink>
+          <VLink page='/blog'>
+            <p>Blog</p>
           </VLink>
           <VLink page='https://github.com/nknighta/vx' opentarget="_blank">
             <AiFillGithub />

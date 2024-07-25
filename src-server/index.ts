@@ -12,11 +12,6 @@ const handle = app.getRequestHandler()
 app.prepare().then(() => {
   createServer(async (req, res) => {
     try {
-      // Be sure to pass `true` as the second argument to `url.parse`.
-      // This tells it to parse the query portion of the URL.
-
-      //if (args[0] == '--open') {
-      //}
       const pz = z.string();
       const url = pz.parse(req.url);
       const parsedUrl = parse(url, true)
@@ -46,4 +41,4 @@ app.prepare().then(() => {
     })
 })
 
-// authriztion handler for basic
+export default app;
