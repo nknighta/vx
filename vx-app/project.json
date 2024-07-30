@@ -1,0 +1,9 @@
+{
+  "name": "vx-app",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "vx-app",
+  "projectType": "application",
+  "tags": ["frontend", "nextjs"],
+  "// targets": "to see all targets run: nx show project vx-app --web",
+  "targets": {}
+}

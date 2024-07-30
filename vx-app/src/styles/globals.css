@@ -1,0 +1,34 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Noto Sans JP";
+  background-color: #000011;
+  color: #fff;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "Noto Sans JP";
+  src: url("/fonts/NotoSansJP-Regular.ttf")
+}
+
+::selection {
+  background: #7856ffaa;
+  color: #fff;
+}
+
+a {
+  text-decoration: none;
+  color: #b8a7ff;
+}
