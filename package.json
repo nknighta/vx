@@ -8,6 +8,7 @@
     "test": "nx test",
     "show:vx": "nx show project vx-app",
     "run:vx": "nx run vx-app:dev",
+    "dev:": "nx nx run-many --target=serve,vx-app --all --maxParallel=10",
     "vx:graph": "nx graph --affected",
     "vx:ui": "nx g @nx/next:library ui",
     "vx:component": "nx g @nx/next:component ui/src/lib/button"
