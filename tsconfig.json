@@ -9,15 +9,32 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2020", "dom"],
+    "lib": [
+      "es2020",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {},
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "allowJs": true,
+    "strict": false,
+    "noEmit": true,
+    "incremental": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "files": [],
-  "include": [],
+  "include": [
+    ".next/types/**/*.ts"
+  ],
   "references": [
     {
       "path": "./tsconfig.app.json"
@@ -26,5 +43,8 @@
       "path": "./tsconfig.spec.json"
     }
   ],
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }

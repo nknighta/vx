@@ -3,11 +3,11 @@
 # Build the docker image with `npx nx docker-build varius.dev`.
 # Tip: Modify "docker-build" options in project.json to change docker build args.
 #
-# Run the container with `docker run -p 3000:3000 -t varius.dev`.
+# Run the container with `docker run -p 3001:3001 -t varius.dev`.
 FROM docker.io/node:lts-alpine
 
 ENV HOST=0.0.0.0
-ENV PORT=3000
+ENV PORT=3001
 
 WORKDIR /app
 
