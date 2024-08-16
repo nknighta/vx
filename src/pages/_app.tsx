@@ -5,6 +5,7 @@ import type { AppProps } from 'next/app'
 import '../styles/globals.css'
 import { SessionProvider } from 'next-auth/react'
 
+
 type AppPropsWithLayout = AppProps & {
   Component: NextPage & {
     getLayout?: (page: ReactElement) => ReactNode

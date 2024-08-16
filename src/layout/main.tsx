@@ -1,9 +1,14 @@
 import React from 'react'
-import { AiFillGithub } from 'react-icons/ai'
-import { getWindowWidth, getWindowHight } from '../scripts/getWidth'
-import VLink from '../components/link'
-import stylebase from '../styles/style.module.sass'
-import { setCookie } from 'cookies-next'
+import { getWindowWidth, getWindowHight } from '../scripts/getWidth';
+import VLink from '../components/link';
+import stylebase from '../styles/style.module.sass';
+import ProductMenu from './menu';
+// disable ssr for styled-components hydration error
+// https://zenn.dev/luvmini511/articles/71f65df05716ca
+
+/**
+ * width is debug 
+ */
 const Layout = ({ children }: any) => {
   const width = getWindowWidth();
   const height = getWindowHight();
@@ -12,13 +17,12 @@ const Layout = ({ children }: any) => {
     <>
       <div
         style={{
-          padding: isMobile ? '0 1vh': '0 10vh',
+          padding: isMobile ? '0 1vh' : '0 10vh',
           height: '100%',
         }}
       >
         {children}
       </div>
-	  <div>{width}</div>
       <footer
         className={stylebase.fstyle}
         style={{
@@ -29,23 +33,20 @@ const Layout = ({ children }: any) => {
           style={{
             display: 'flex',
             alignItems: 'center',
-            padding: '3px 0',
+            justifyContent: 'start',
+            height: '100%',
+            borderRadius: '10px',
           }}>
-          <VLink page='/' linkevent={() => {
-            setCookie('act', 'homebtn')
-          }}>
-            <p>Home</p>
+          <VLink page='/'>
+            Home
           </VLink>
           <VLink page='/about'>
-            <p>About</p>
+            About
           </VLink>
-          <VLink page='/blog'>
-            <p>Blog</p>
+          <VLink page='/blog' >
+            Blog
           </VLink>
-          <VLink page='https://github.com/nknighta/vx' opentarget="_blank">
-            <AiFillGithub />
-          </VLink>
-          © 2024 - nknighta
+          © 2024 - <VLink page='https://nknighta.github.io'>nknighta</VLink>
         </div>
       </footer>
     </>

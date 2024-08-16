@@ -2,10 +2,11 @@
 
 .next
 .idea
-node_modules
+node_modules/
 prisma/migrations
-.vercel
-env
-dist
+.vercel;
+env/
+.dist/
 
 .env
+*storybook.log

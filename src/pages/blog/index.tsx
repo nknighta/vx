@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
 import HMeta from '../../components/headmeta'
 import { PrismaClient } from '@prisma/client'
 import Layout from 'layout/main'
+import {BlogStyle} from 'components/styles';
+
 export default function Blog({ posts }) {
     return (
         <Layout>
@@ -9,13 +10,13 @@ export default function Blog({ posts }) {
             <h1>blog</h1>
             <ul>
                 {posts.map((post) => (
-                    <li key={post.id}>
+                    <BlogStyle key={post.id}>
                         <a href={`/blog/${post.id}`}>
                             <h2>{post.title}</h2>
-                            <p>{post.content}</p>
+                            <p>{post.content}...</p>
                             <p>{post.authorId}</p>
                         </a>
-                    </li>
+                    </BlogStyle>
                 ))}
             </ul>
         </Layout>
@@ -23,16 +24,13 @@ export default function Blog({ posts }) {
 }
 export const getServerSideProps = async () => {
     const prisma = new PrismaClient()
-    const feed = await prisma.post.findMany({
-
-    })
+    const feed = await prisma.post.findMany({})
     const rex = feed.map((post) => ({
         id: post.id,
         title: post.title,
-        content: post.content,
+        content: post.content.slice(0, 18),
         authorId: post.authorId,
     }))
-    console.log(rex)
     return {
         props: {
             posts: rex,

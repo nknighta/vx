@@ -3,6 +3,7 @@ import { createServer } from "http";
 import { parse } from "url";
 import { z } from "zod";
 import next from 'next'
+
 const dev = process.env.NODE_ENV !== 'production'
 // when using middleware `hostname` and `port` must be provided below
 const app = next({ dev })
@@ -22,10 +23,24 @@ app.prepare().then(() => {
         res.end(JSON.stringify({ message: 'Hello World' }))
       } else if (pathname === '/w3/') {
         res.writeHead(301, { Location: '/w3/core/' });
+      } else if (pathname === '/api/info') {
+        res.statusCode = 200
+        res.setHeader('Content-Type', 'application/json')
+        res.end(
+          JSON.stringify({
+            message: 'welcome to vx!', version: {
+              global: '0.6.5',
+              api: '0.1.3',
+              ethlog: '0.2.1',
+              auth: '0.1.1'
+            },
+            server: "jp"
+          }))
       }
       else {
         await handle(req, res, parsedUrl)
       }
+
     } catch (err) {
       console.error('Error occurred handling', req.url, err)
       res.statusCode = 500

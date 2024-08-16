@@ -44,6 +44,8 @@ var http_1 = require("http");
 var url_1 = require("url");
 var zod_1 = require("zod");
 var next_1 = __importDefault(require("next"));
+var github_1 = require("./auth/github");
+var callbacked_1 = require("./auth/callbacked");
 var dev = process.env.NODE_ENV !== 'production';
 // when using middleware `hostname` and `port` must be provided below
 var app = (0, next_1.default)({ dev: dev });
@@ -55,32 +57,58 @@ app.prepare().then(function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 5, , 6]);
+                    _a.trys.push([0, 10, , 11]);
                     pz = zod_1.z.string();
                     url = pz.parse(req.url);
                     parsedUrl = (0, url_1.parse)(url, true);
                     pathname = parsedUrl.pathname;
-                    if (!(pathname === '/hello')) return [3 /*break*/, 1];
+                    if (!(pathname === '/auth/github')) return [3 /*break*/, 2];
+                    return [4 /*yield*/, (0, github_1.authGithubHandler)(res, req, url)];
+                case 1:
+                    _a.sent();
+                    return [3 /*break*/, 9];
+                case 2:
+                    if (!(pathname === '/auth/callbacked')) return [3 /*break*/, 4];
+                    return [4 /*yield*/, (0, callbacked_1.authCallbackHandler)(res, req, url)];
+                case 3:
+                    _a.sent();
+                    return [3 /*break*/, 9];
+                case 4:
+                    if (!(pathname === '/hello')) return [3 /*break*/, 5];
                     res.statusCode = 200;
                     res.setHeader('Content-Type', 'application/json');
                     res.end(JSON.stringify({ message: 'Hello World' }));
-                    return [3 /*break*/, 4];
-                case 1:
-                    if (!(pathname === '/w3/')) return [3 /*break*/, 2];
-                    res.writeHead(301, { Location: '/w3/core/' });
-                    return [3 /*break*/, 4];
-                case 2: return [4 /*yield*/, handle(req, res, parsedUrl)];
-                case 3:
-                    _a.sent();
-                    _a.label = 4;
-                case 4: return [3 /*break*/, 6];
+                    return [3 /*break*/, 9];
                 case 5:
+                    if (!(pathname === '/w3/')) return [3 /*break*/, 6];
+                    res.writeHead(301, { Location: '/w3/core/' });
+                    return [3 /*break*/, 9];
+                case 6:
+                    if (!(pathname === '/api/info')) return [3 /*break*/, 7];
+                    res.statusCode = 200;
+                    res.setHeader('Content-Type', 'application/json');
+                    res.end(JSON.stringify({
+                        message: 'welcome to vx!', version: {
+                            global: '0.6.1',
+                            api: '0.1.2',
+                            ethlog: '0.2.1',
+                            auth: '0.1.1'
+                        },
+                        server: "jp"
+                    }));
+                    return [3 /*break*/, 9];
+                case 7: return [4 /*yield*/, handle(req, res, parsedUrl)];
+                case 8:
+                    _a.sent();
+                    _a.label = 9;
+                case 9: return [3 /*break*/, 11];
+                case 10:
                     err_1 = _a.sent();
                     console.error('Error occurred handling', req.url, err_1);
                     res.statusCode = 500;
                     res.end('internal server error');
-                    return [3 /*break*/, 6];
-                case 6: return [2 /*return*/];
+                    return [3 /*break*/, 11];
+                case 11: return [2 /*return*/];
             }
         });
     }); })
