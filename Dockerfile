@@ -3,14 +3,16 @@ FROM docker.io/node:lts-alpine
 ENV PORT=3000
 ENV HOST=0.0.0.0
 
-RUN mkdir /source-code
+WORKDIR .
 
-WORKDIR /source-code
-
-RUN git clone https://github.com/nknighta/vx.git .
+COPY package.json .
 
 RUN npm install
 
-RUN npm --prefix varius.dev --omit=dev -f install
-
-CMD [ "node", "varius.dev" ]
+COPY src/ src/
+COPY public/ public/
+COPY prisma/ prisma/
+COPY vx-app/ vx-app/
+COPY nx.json nx.json
+COPY project.json project.json
+COPY tsconfig.json tsconfig.json
