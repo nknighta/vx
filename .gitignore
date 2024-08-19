@@ -6,7 +6,7 @@ node_modules/
 prisma/migrations
 .vercel;
 env/
-.dist/
+dist/
 
 .env
 *storybook.log
