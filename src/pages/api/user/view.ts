@@ -12,11 +12,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         }
     );
-    const data = prisma.user.findMany();
-    console.log(data);
     try {
-        res.json({ name, email,  user, data });
+        res.json({ name, email, user});
+        prisma.$disconnect();
     } catch (error) {
         res.status(400).json({ error: 'invaild syntax' });
+        prisma.$disconnect();
     }
 }
