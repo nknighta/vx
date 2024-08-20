@@ -1,5 +1,6 @@
 import { ImageResponse } from '@vercel/og';
 import { NextRequest } from 'next/server';
+import Image from 'next/image';
 
 export const config = {
   runtime: 'edge',
@@ -19,8 +20,7 @@ export default function handler(request: NextRequest) {
     const description = hasDescription
       ? searchParams.get('description')?.slice(0, 100)
       : ' sample description';
-
-        return new ImageResponse(
+    return new ImageResponse(
       (
         <div
           style={{
@@ -44,8 +44,7 @@ export default function handler(request: NextRequest) {
               borderRadius: "10px",
               width: "100%",
               height: "90%",
-            }}
-          >
+            }}>
             <p style={{ fontSize: 60, fontWeight: 700, color: "#fff" }}>
               {title}
             </p>
