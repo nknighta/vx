@@ -2,7 +2,6 @@ import { ComponentType, useEffect, useState, memo, use } from 'react'
 import Layout from '../layout/main'
 import HMeta from '../components/headmeta'
 import dynamic from 'next/dynamic'
-import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import popstyle from '../styles/popup.module.sass'
 import { getWindowHight } from '../scripts/getWidth'
@@ -87,7 +86,6 @@ function CookieAcceptPopUp() {
       setIsPopUp(true);
     }
   }, [auth]);
-  console.log({ assepted: assepted, isPopup: isPopup });
   return (
     <>
       <div className={popstyle.baseddisplay}>

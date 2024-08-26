@@ -1,14 +1,22 @@
 import { useSession, signIn, signOut } from "next-auth/react"
 import Layout from "layout/main"
+import { useSearchParams } from "next/navigation";
 
 export default function Component() {
     const { data: session } = useSession()
     const user = session?.user?.name
-    console.log('email:', session?.id)
+    const searchParams = useSearchParams();
+    const callbackUrl = searchParams.get("callbackUrl") || "https://varius.technology"; 
+    console.log("callbackUrl", callbackUrl);
     if (session) {
         return (
             <>
                 name: {user} <br />
+                <pre>
+                    <code>
+                        {JSON.stringify(session, null, 2)}
+                    </code>
+                </pre>
                 <button onClick={() => signOut()}>Sign out</button>
             </>
         )
@@ -16,7 +24,8 @@ export default function Component() {
     return (
         <>
             Not signed in <br />
-            <button onClick={() => signIn()}>Sign in</button>
+            <button onClick={() => signIn("github", {
+            })}>Sign in</button>
         </>
     )
 }

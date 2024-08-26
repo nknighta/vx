@@ -46,6 +46,10 @@ const Layout = ({ children }: any) => {
           <VLink page='/blog' >
             Blog
           </VLink>
+          
+          <VLink page='/signin' >
+            sign in
+          </VLink>
           © 2024 - <VLink page='https://nknighta.github.io'>nknighta</VLink>
         </div>
       </footer>
