@@ -40,70 +40,56 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 // using sample code from https://nextjs.org/docs/pages/building-your-application/configuring/custom-server
-var http_1 = require("http");
-var url_1 = require("url");
-var zod_1 = require("zod");
+var express_1 = __importDefault(require("express"));
 var next_1 = __importDefault(require("next"));
 var dev = process.env.NODE_ENV !== 'production';
+var port = 3000;
 // when using middleware `hostname` and `port` must be provided below
 var app = (0, next_1.default)({ dev: dev });
 var handle = app.getRequestHandler();
-// Get command line arguments
-app.prepare().then(function () {
-    (0, http_1.createServer)(function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-        var pz, url, parsedUrl, pathname, err_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 6, , 7]);
-                    pz = zod_1.z.string();
-                    url = pz.parse(req.url);
-                    parsedUrl = (0, url_1.parse)(url, true);
-                    pathname = parsedUrl.pathname;
-                    if (!(pathname === '/hello')) return [3 /*break*/, 1];
-                    res.statusCode = 200;
-                    res.setHeader('Content-Type', 'application/json');
-                    res.end(JSON.stringify({ message: 'Hello World' }));
-                    return [3 /*break*/, 5];
-                case 1:
-                    if (!(pathname === '/w3/')) return [3 /*break*/, 2];
-                    res.writeHead(301, { Location: '/w3/core/' });
-                    return [3 /*break*/, 5];
-                case 2:
-                    if (!(pathname === '/api/info')) return [3 /*break*/, 3];
-                    res.statusCode = 200;
-                    res.setHeader('Content-Type', 'application/json');
+var github_oauth_url = "https://github.com/login/oauth/authorize?client_id=".concat(process.env.GITHUB_CLIENT_ID);
+/**
+ * api paths
+ * /w3
+ * /auth/x9
+ * /api
+ * /api/info
+ */
+(function () { return __awaiter(void 0, void 0, void 0, function () {
+    var server, apiresponsepath;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, app.prepare()];
+            case 1:
+                _a.sent();
+                server = (0, express_1.default)();
+                apiresponsepath = "/api/v1";
+                // api test
+                //server.use("/apps", apps);
+                // /api/v1/user?id=1
+                //server.use(`${apiresponsepath}/user`, userdata);
+                server.use("".concat(apiresponsepath, "/info"), function (req, res) {
+                    res.setHeader("Content-Type", "application/json");
                     res.end(JSON.stringify({
-                        message: 'welcome to vx!', version: {
-                            global: '0.6.5',
-                            api: '0.1.3',
-                            ethlog: '0.2.1',
-                            auth: '0.1.1'
-                        },
-                        server: "jp"
+                        message: "vx v0.5",
                     }));
-                    return [3 /*break*/, 5];
-                case 3: return [4 /*yield*/, handle(req, res, parsedUrl)];
-                case 4:
-                    _a.sent();
-                    _a.label = 5;
-                case 5: return [3 /*break*/, 7];
-                case 6:
-                    err_1 = _a.sent();
-                    console.error('Error occurred handling', req.url, err_1);
-                    res.statusCode = 500;
-                    res.end('internal server error');
-                    return [3 /*break*/, 7];
-                case 7: return [2 /*return*/];
-            }
-        });
-    }); })
-        .once('error', function (err) {
-        console.error(err);
-        process.exit(1);
-    })
-        .listen(3000, function () {
-        console.log("> Ready on http://localhost:3000");
+                    res.statusCode = 200;
+                });
+                server.all("*", function (req, res) {
+                    return handle(req, res);
+                });
+                server.get("*", function (req, res) {
+                    console.log("request to " + req.url);
+                    return handle(req, res);
+                });
+                server.post("*", function (req, res) {
+                    console.log("request to " + req.url);
+                    return handle(req, res);
+                });
+                server.listen(port, function () {
+                    console.log("> Ready on http://127.0.0.1:".concat(port, "/ - env ").concat(process.env.NODE_ENV));
+                });
+                return [2 /*return*/];
+        }
     });
-});
-exports.default = app;
+}); })();
