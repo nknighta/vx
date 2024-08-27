@@ -1,24 +1,17 @@
 import { useSession, signIn, signOut } from "next-auth/react"
 import Layout from "layout/main"
 import { useSearchParams } from "next/navigation";
-
+import { useRouter } from "next/router";
 export default function Component() {
     const { data: session } = useSession()
-    const user = session?.user?.name
+    const router = useRouter();
     const searchParams = useSearchParams();
     const callbackUrl = searchParams.get("callbackUrl") || "https://varius.technology"; 
     console.log("callbackUrl", callbackUrl);
     if (session) {
+        router.push("/dashboard");
         return (
-            <>
-                name: {user} <br />
-                <pre>
-                    <code>
-                        {JSON.stringify(session, null, 2)}
-                    </code>
-                </pre>
-                <button onClick={() => signOut()}>Sign out</button>
-            </>
+            <></>
         )
     }
     return (

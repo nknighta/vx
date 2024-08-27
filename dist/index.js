@@ -87,7 +87,12 @@ var github_oauth_url = "https://github.com/login/oauth/authorize?client_id=".con
                     return handle(req, res);
                 });
                 server.listen(port, function () {
-                    console.log("> Ready on http://127.0.0.1:".concat(port, "/ - env ").concat(process.env.NODE_ENV));
+                    if (dev || process.env.NODE_ENV === "development") {
+                        console.log("\n      | ------------------------------------------ |\n      > Ready on http://127.0.0.1:".concat(port, "/ \n      > Ready on http://localhost:").concat(port, "/\n      - env ").concat(process.env.NODE_ENV, "\n      | ------------------------------------------ |\n      "));
+                    }
+                    else {
+                        return null;
+                    }
                 });
                 return [2 /*return*/];
         }

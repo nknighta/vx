@@ -48,6 +48,16 @@ const github_oauth_url = `https://github.com/login/oauth/authorize?client_id=${p
   });
 
   server.listen(port, () => {
-    console.log(`> Ready on http://127.0.0.1:${port}/ - env ${process.env.NODE_ENV}`);
+    if (dev || process.env.NODE_ENV === "development") {
+    console.log(`
+      | ------------------------------------------ |
+      > Ready on http://127.0.0.1:${port}/ 
+      > Ready on http://localhost:${port}/
+      - env ${process.env.NODE_ENV}
+      | ------------------------------------------ |
+      `);
+    } else {
+      return null;
+    }
   });
 })();

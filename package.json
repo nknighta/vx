@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "dev": ".\\node_modules\\.bin\\tsc.cmd -p tsconfig.server.json && cross-env NODE_ENV=\"development\" node ./dist/index.js",
-    "prod": ".\\node_modules\\.bin\\next build && .\\node_modules\\.bin\\tsc.cmd -p tsconfig.server.json && cross-env NODE_ENV=\"production\" node ./dist/index.js",
+    "prod": ".\\node_modules\\.bin\\next build && .\\node_modules\\.bin\\tsc.cmd -p tsconfig.server.json && node --env-file=.env ./dist/index.js",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
