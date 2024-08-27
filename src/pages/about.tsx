@@ -6,13 +6,13 @@ export default function About() {
         <>
             <Layout>
                 <HMeta
-                    pageTitle="About"
+                    pageTitle="About VARIUS"
                     pageDescription="VARIUS development team"
                     pagePath="/about"
                     pageImg={'/api/og?title=VX-WEB3&description=VARIUS%20development%20team'}
                 />
                 <h1>About</h1>
-                <Image src={"/images/header.png"} width={1280 / 2 } height={720 / 2} alt='image' quality={100}/>
+                <Image src={"/images/header.png"} width={1280 / 2 } height={720 / 2} alt='team image' quality={80} loading={"lazy"}/>
             </Layout>
         </>
     )

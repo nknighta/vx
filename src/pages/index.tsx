@@ -15,26 +15,20 @@ export default function Home() {
       ssr: true,
     },
   )
-  //appEnv
   return (
     <Layout>
       <HMeta
         pageTitle="Home"
         pageDescription="VARIUS development team"
         pagePath="/"
-        pageImg={'/api/og?title=VX-WEB3&description=VARIUS%20development%20team'}
+        pageImg={'/api/og?title=Welcome&description=VARIUS%20development%20team'}
       />
       <LazyComponent />
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100%',
-        }}
-      >
-        <h1>Welcome!</h1>
-        <p>this is varius website and vx console.</p>
+      <div>
+        welcome to web3 development
+      </div>
+      <div>
+        next content here
       </div>
       <MemoCookieAcceptPopUp />
     </Layout>
@@ -67,7 +61,6 @@ function CookieAcceptPopUp() {
   useEffect(() => {
     if (getCookie('cookie') === 'accepted') {
       setAssepted(true);
-      router.push({ query: { cokieassept: 'true' } });
       if (router.query.act == "homebtn") {
         router.push({ query: { cokieassept: 'true', act: 'homebtn' } });
         setCookie(
@@ -89,7 +82,7 @@ function CookieAcceptPopUp() {
   return (
     <>
       <div className={popstyle.baseddisplay}>
-        {!isPopup || !assepted ? (
+        {!isPopup ? "":(
           <div className={popstyle.main}
             style={{
               top: `${height - height * 0.27}px`,
@@ -109,7 +102,7 @@ function CookieAcceptPopUp() {
               accept
             </button>
           </div>
-        ) : ""}
+        ) }
       </div>
     </>
   )
