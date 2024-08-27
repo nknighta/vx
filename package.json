@@ -25,6 +25,7 @@
     "@types/react": "^18.2.64",
     "@types/styled-components": "^5.1.28",
     "@types/three": "^0.155.1",
+    "@unocss/postcss": "^0.62.3",
     "@vercel/og": "^0.6.2",
     "cookies-next": "^4.2.1",
     "cross-env": "^7.0.3",
@@ -36,7 +37,6 @@
     "html-webpack-plugin": "^5.5.3",
     "next": "^14.2.5",
     "next-auth": "^4.24.7",
-    "octokit": "^4.0.2",
     "path": "^0.12.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -46,6 +46,7 @@
     "sass": "^1.77.0",
     "styled-components": "^6.0.7",
     "three": "^0.155.0",
+    "unocss": "^0.62.3",
     "zod": "^3.23.8"
   },
   "devDependencies": {
