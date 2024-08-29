@@ -1,11 +1,6 @@
 # vx 
 
 Welcome VX README :D
-## test for unocss
-
-[official docs](https://unocss.dev/)
-
-[web app & blog](https://varius.technology/ )
 
 ## libraries
 - Next.js
