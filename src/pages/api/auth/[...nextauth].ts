@@ -13,6 +13,9 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GITHUB_CLIENT_SECRET ?? '',
     }),
   ],
+  pages: {
+    signIn:"/api/auth/signin"
+  },
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
       return true
