@@ -15,10 +15,10 @@ export default function Component() {
         )
     }
     return (
-        <>
+        <Layout>
             Not signed in <br />
             <button onClick={() => signIn("github")}>Sign in</button>
-        </>
+        </Layout>
     )
 }
 
