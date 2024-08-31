@@ -11,7 +11,6 @@ x9.get('/x9/', (req, res) => {
 }
 );
 
-
 x9.get('/x9/auth/callback/', (req, res) => {
     //console.log(req.query.country)
     const URL = 'https://github.com/login/oauth/access_token';
@@ -66,33 +65,8 @@ x9.get('/x9/auth/callback/', (req, res) => {
                         image: data.avatar_url,
                         created_at: data.created_at,
                         provider: "github",
-                        rescode: `/dashborad?code=${req.query.code}`,
                     }));
                 })
-                /*
-                
-                .then(data => {
-                    console.log(data);
-                    res.setHeader("Content-Type", "text/html");
-                    res.send(
-                        `
-                            <div>
-                            <h1>${data.name}</h1>
-                                <img src="${data.avatar_url}" alt="${data.name}" />
-                                <p>${data.bio}</p>
-                                <style>
-                                * {
-                                    font-family: Arial, sans-serif;
-                                    padding: 0;
-                                    margin: 0;
-                                }
-                                </style>
-                                <a href="/">logout</a>
-                            <div>
-                                `
-                    );
-                })
-                    */
                 .catch(error => {
                     console.error('Error:', error);
                     res.setHeader("Content-Type", "text/html");
