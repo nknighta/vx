@@ -17,7 +17,9 @@ export default function Component() {
     return (
         <Layout>
             Not signed in <br />
-            <button onClick={() => signIn("github")}>Sign in</button>
+            <button onClick={() => 
+                router.push("/x9/main")
+            }>Sign in</button>
         </Layout>
     )
 }

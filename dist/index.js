@@ -48,6 +48,7 @@ var port = 3000;
 var app = (0, next_1.default)({ dev: dev });
 var handle = app.getRequestHandler();
 var github_oauth_url = "https://github.com/login/oauth/authorize?client_id=".concat(process.env.GITHUB_CLIENT_ID);
+var main_1 = __importDefault(require("./x9/main"));
 /**
  * api paths
  * /w3
@@ -55,20 +56,21 @@ var github_oauth_url = "https://github.com/login/oauth/authorize?client_id=".con
  * /api
  * /api/info
  */
+var server = (0, express_1.default)();
 (function () { return __awaiter(void 0, void 0, void 0, function () {
-    var server, apiresponsepath;
+    var apiresponsepath;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, app.prepare()];
             case 1:
                 _a.sent();
-                server = (0, express_1.default)();
                 apiresponsepath = "/api/v1";
                 // api test
                 //server.use("/apps", apps);
                 // /api/v1/user?id=1
                 //server.use(`${apiresponsepath}/user`, userdata);
-                server.use("".concat(apiresponsepath, "/info"), function (req, res) {
+                server.use(main_1.default);
+                server.get("".concat(apiresponsepath, "/info"), function (req, res) {
                     res.setHeader("Content-Type", "application/json");
                     res.end(JSON.stringify({
                         message: "vx v0.5",
@@ -88,7 +90,7 @@ var github_oauth_url = "https://github.com/login/oauth/authorize?client_id=".con
                 });
                 server.listen(port, function () {
                     if (dev || process.env.NODE_ENV === "development") {
-                        console.log("\n      | ------------------------------------------ |\n      > Ready on http://127.0.0.1:".concat(port, "/ \n      > Ready on http://localhost:").concat(port, "/\n      - env ").concat(process.env.NODE_ENV, "\n      | ------------------------------------------ |\n      "));
+                        console.log("\n      | ------------------------------------------ |\n      > Ready on http://127.0.0.1:".concat(port, "/ \n      > Ready on http://localhost:").concat(port, "/\n      >> API LINKS\n        > http://localhost:").concat(port, "/\n      - env ").concat(process.env.NODE_ENV, "\n      | ------------------------------------------ |\n      "));
                     }
                     else {
                         return null;

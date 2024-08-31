@@ -5,6 +5,7 @@
   "scripts": {
     "dev": ".\\node_modules\\.bin\\tsc.cmd -p tsconfig.server.json && cross-env NODE_ENV=\"development\" node ./dist/index.js",
     "prod": ".\\node_modules\\.bin\\next build && .\\node_modules\\.bin\\tsc.cmd -p tsconfig.server.json && node --env-file=.env ./dist/index.js",
+    "dev:ts": "cross-env NODE_ENV=development nodemon",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -37,6 +38,7 @@
     "html-webpack-plugin": "^5.5.3",
     "next": "^14.2.5",
     "next-auth": "^4.24.7",
+    "nodemon": "^3.1.4",
     "path": "^0.12.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

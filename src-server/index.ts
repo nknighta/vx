@@ -10,6 +10,8 @@ const app = next({ dev })
 const handle = app.getRequestHandler()
 
 const github_oauth_url = `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}`;
+
+import x9 from "./x9/main";
 /**
  * api paths
  * /w3
@@ -17,16 +19,17 @@ const github_oauth_url = `https://github.com/login/oauth/authorize?client_id=${p
  * /api
  * /api/info
  */
+const server = express();
 
 (async () => {
   await app.prepare();
-  const server = express();
   let apiresponsepath = "/api/v1";
   // api test
   //server.use("/apps", apps);
   // /api/v1/user?id=1
   //server.use(`${apiresponsepath}/user`, userdata);
-  server.use(`${apiresponsepath}/info`, (req: Request, res: Response) => {
+  server.use(x9);
+  server.get(`${apiresponsepath}/info`, (req: Request, res: Response) => {
     res.setHeader("Content-Type", "application/json");
     res.end(JSON.stringify({
       message: "vx v0.5",
@@ -49,10 +52,12 @@ const github_oauth_url = `https://github.com/login/oauth/authorize?client_id=${p
 
   server.listen(port, () => {
     if (dev || process.env.NODE_ENV === "development") {
-    console.log(`
+      console.log(`
       | ------------------------------------------ |
       > Ready on http://127.0.0.1:${port}/ 
       > Ready on http://localhost:${port}/
+      >> API LINKS
+        > http://localhost:${port}/
       - env ${process.env.NODE_ENV}
       | ------------------------------------------ |
       `);
