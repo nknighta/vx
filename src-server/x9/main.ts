@@ -56,16 +56,8 @@ x9.get('/x9/auth/callback/', (req, res) => {
                     return response.json();
                 })
                 .then(data => {
-                    res.setHeader("Content-Type", "application/json");
-                    res.end(JSON.stringify({
-                        user: data.login,
-                        id: data.login,
-                        name: data.name,
-                        email: data.email,
-                        image: data.avatar_url,
-                        created_at: data.created_at,
-                        provider: "github",
-                    }));
+                    res.status(301);
+                    res.redirect(`/dashboard?user=${data.login}&provider=github`);
                 })
                 .catch(error => {
                     console.error('Error:', error);
