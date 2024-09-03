@@ -1,6 +1,4 @@
-
-
-module.exports = {
+nextconfig = {
     images: {
         domains: [
             'avatars.githubusercontent.com',
@@ -16,5 +14,7 @@ module.exports = {
     },
     experimental: {
         forceSwcTransforms: false,
-    },
+    }
 };
+
+module.exports = nextconfig

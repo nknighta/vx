@@ -26,9 +26,11 @@ export default function Dash() {
             <HMeta pageTitle="Dashboard" pageDescription="check your profile" pagePath="/dashboard" />
             <div>
                 {user ? (
-                    <>
-                        {user} is signed in
-                    </>
+                    <div>
+                        <p className="">
+                            Welcome back {user}!
+                        </p>
+                    </div>
                 ) : (<>
                     <div>not signed in</div>
                     <button onClick={() => router.push('/signin')}>Sign in</button>

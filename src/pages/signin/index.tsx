@@ -3,23 +3,16 @@ import Layout from "layout/main"
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
 export default function Component() {
-    const { data: session } = useSession()
     const router = useRouter();
     const searchParams = useSearchParams();
     const callbackUrl = searchParams.get("callbackUrl") || "https://varius.technology"; 
     console.log("callbackUrl", callbackUrl);
-    if (session) {
-        router.push("/dashboard");
-        return (
-            <></>
-        )
-    }
     return (
         <Layout>
             Not signed in <br />
             <button onClick={() => 
-                router.push("/x9/main")
-            }>Sign in</button>
+                router.push("/x9")
+            }>Sign in With<p className={"bg-black"}>github</p></button>
         </Layout>
     )
 }

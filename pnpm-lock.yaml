@@ -41,6 +41,12 @@ importers:
       '@unocss/postcss':
         specifier: ^0.62.3
         version: 0.62.3(postcss@8.4.41)
+      '@unocss/preset-uno':
+        specifier: ^0.62.3
+        version: 0.62.3
+      '@unocss/webpack':
+        specifier: ^0.62.3
+        version: 0.62.3(rollup@4.21.1)(webpack@5.94.0(esbuild@0.23.1))
       '@vercel/og':
         specifier: ^0.6.2
         version: 0.6.2
@@ -106,7 +112,7 @@ importers:
         version: 0.155.0
       unocss:
         specifier: ^0.62.3
-        version: 0.62.3(postcss@8.4.41)(rollup@4.21.1)(vite@5.4.2(@types/node@20.16.2)(sass@1.77.8)(terser@5.31.6))
+        version: 0.62.3(@unocss/webpack@0.62.3(rollup@4.21.1)(webpack@5.94.0(esbuild@0.23.1)))(postcss@8.4.41)(rollup@4.21.1)(vite@5.4.2(@types/node@20.16.2)(sass@1.77.8)(terser@5.31.6))
       zod:
         specifier: ^3.23.8
         version: 3.23.8
@@ -1115,6 +1121,11 @@ packages:
     resolution: {integrity: sha512-RrqF6Go8s0BGpwRfkOiLuO+n3CUE/CXxGqb0ipbUARhmNWJlekE3YPfayqImSEnCcImpaPgtVGv6Y0u3kLGG/w==}
     peerDependencies:
       vite: ^2.9.0 || ^3.0.0-0 || ^4.0.0 || ^5.0.0-0
+
+  '@unocss/webpack@0.62.3':
+    resolution: {integrity: sha512-Emacl2uNau0pa7/wEFCQxAxwK3nkIa+Kp2CAcJdlwcaNBcqtowkTga0FOdq71YUENXv+aziK7mV6lrjdS/hgcA==}
+    peerDependencies:
+      webpack: ^4 || ^5
 
   '@vercel/og@0.6.2':
     resolution: {integrity: sha512-OTe0KE37F5Y2eTys6eMnfopC+P4qr2ooXUTFyFPTplYSPwowmFk/HLD1FXtbKLjqsIH0SgekcJWad+C5uX4nkg==}
@@ -2844,6 +2855,10 @@ packages:
     resolution: {integrity: sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ==}
     engines: {node: '>= 0.8'}
 
+  unplugin@1.12.3:
+    resolution: {integrity: sha512-my8DH0/T/Kx33KO+6QXAqdeMYgyy0GktlOpdQjpagfHKw5DrD0ctPr7SHUyOT3g4ZVpzCQGt/qcpuoKJ/pniHA==}
+    engines: {node: '>=14.0.0'}
+
   update-browserslist-db@1.1.0:
     resolution: {integrity: sha512-EdRAaAyk2cUE1wOf2DkEhzxqOQvFOoRJFNS6NeyJ01Gp2beMRpBAINjM2iDXE3KCuKhwnvHIQCJm6ThL2Z+HzQ==}
     hasBin: true
@@ -2918,6 +2933,9 @@ packages:
   webpack-sources@3.2.3:
     resolution: {integrity: sha512-/DyMEOrDgLKKIG0fmvtz+4dUX/3Ghozwgm6iPp8KRhvn+eQf9+Q7GWxVNMk3+uCPWfdXYC4ExGBckIXdFEfH1w==}
     engines: {node: '>=10.13.0'}
+
+  webpack-virtual-modules@0.6.2:
+    resolution: {integrity: sha512-66/V2i5hQanC51vBQKPH4aI8NMAcBW59FVBs+rC7eGHupMyfn34q7rZIE+ETlJ+XTevqfUhVVBgSUNSW2flEUQ==}
 
   webpack@5.94.0:
     resolution: {integrity: sha512-KcsGn50VT+06JH/iunZJedYGUJS5FGjow8wb9c0v5n1Om8O1g4L6LjtfxwlXIATopoQu+vOXXa7gYisWxCoPyg==}
@@ -3948,6 +3966,22 @@ snapshots:
       magic-string: 0.30.11
       tinyglobby: 0.2.5
       vite: 5.4.2(@types/node@20.16.2)(sass@1.77.8)(terser@5.31.6)
+    transitivePeerDependencies:
+      - rollup
+      - supports-color
+
+  '@unocss/webpack@0.62.3(rollup@4.21.1)(webpack@5.94.0(esbuild@0.23.1))':
+    dependencies:
+      '@ampproject/remapping': 2.3.0
+      '@rollup/pluginutils': 5.1.0(rollup@4.21.1)
+      '@unocss/config': 0.62.3
+      '@unocss/core': 0.62.3
+      chokidar: 3.6.0
+      magic-string: 0.30.11
+      tinyglobby: 0.2.5
+      unplugin: 1.12.3
+      webpack: 5.94.0(esbuild@0.23.1)
+      webpack-sources: 3.2.3
     transitivePeerDependencies:
       - rollup
       - supports-color
@@ -5943,7 +5977,7 @@ snapshots:
 
   universalify@2.0.1: {}
 
-  unocss@0.62.3(postcss@8.4.41)(rollup@4.21.1)(vite@5.4.2(@types/node@20.16.2)(sass@1.77.8)(terser@5.31.6)):
+  unocss@0.62.3(@unocss/webpack@0.62.3(rollup@4.21.1)(webpack@5.94.0(esbuild@0.23.1)))(postcss@8.4.41)(rollup@4.21.1)(vite@5.4.2(@types/node@20.16.2)(sass@1.77.8)(terser@5.31.6)):
     dependencies:
       '@unocss/astro': 0.62.3(rollup@4.21.1)(vite@5.4.2(@types/node@20.16.2)(sass@1.77.8)(terser@5.31.6))
       '@unocss/cli': 0.62.3(rollup@4.21.1)
@@ -5966,6 +6000,7 @@ snapshots:
       '@unocss/transformer-variant-group': 0.62.3
       '@unocss/vite': 0.62.3(rollup@4.21.1)(vite@5.4.2(@types/node@20.16.2)(sass@1.77.8)(terser@5.31.6))
     optionalDependencies:
+      '@unocss/webpack': 0.62.3(rollup@4.21.1)(webpack@5.94.0(esbuild@0.23.1))
       vite: 5.4.2(@types/node@20.16.2)(sass@1.77.8)(terser@5.31.6)
     transitivePeerDependencies:
       - postcss
@@ -5973,6 +6008,12 @@ snapshots:
       - supports-color
 
   unpipe@1.0.0: {}
+
+  unplugin@1.12.3:
+    dependencies:
+      acorn: 8.12.1
+      webpack-sources: 3.2.3
+      webpack-virtual-modules: 0.6.2
 
   update-browserslist-db@1.1.0(browserslist@4.23.3):
     dependencies:
@@ -6025,6 +6066,8 @@ snapshots:
       graceful-fs: 4.2.11
 
   webpack-sources@3.2.3: {}
+
+  webpack-virtual-modules@0.6.2: {}
 
   webpack@5.94.0(esbuild@0.23.1):
     dependencies:

@@ -21,12 +21,12 @@ export default function Home() {
         pageImg={'/api/og?title=Welcome&description=VARIUS%20development%20team'}
       />
       <LazyComponent />
-      <div>
+      <div className='mt-10'>
         welcome to web3 development
       </div>
       <CookieAcceptPopUp />
       <div>
-        next step <a href="/x9">sign up</a>
+        next step <a className='c-indigo' href="/x9">sign up</a>
       </div>
     </Layout>
   )

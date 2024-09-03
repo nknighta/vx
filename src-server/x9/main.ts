@@ -1,4 +1,5 @@
-import express, { Request, Response } from "express";
+import express from "express";
+import { PrismaClient } from "@prisma/client";
 
 const x9 = express();
 
@@ -68,6 +69,20 @@ x9.get('/x9/auth/callback/', (req, res) => {
         // エラーはまとめて処理
         .catch(err => console.error(err));
 });
+
+x9.get("/x9/loader/", (req, res) => {
+    if (req.query.code) {
+        const data = fetch("https://api.github.com/user", {
+            headers: {
+
+                Authorization: `Bearer ` + req.query.code,
+                "X-GitHub-Api-Version": "2022-11-28",
+            }
+        })
+    } else {
+        res.send({ msg: "not available code" })
+    }
+})
 
 x9.get('/x9/main/', (req, res) => {
     res.send(`
