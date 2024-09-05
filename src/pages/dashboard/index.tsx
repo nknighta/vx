@@ -8,9 +8,11 @@ import { setCookie, getCookie } from 'cookies-next';
 export default function Dash() {
     const router = useRouter();
     const [user, setUser] = useState('');
+    const [data, setData] = useState<any>(null);
     // get oauth code from que
     useEffect(() => {
-        const { username, provider } = router.query;
+        const { username, provider, code } = router.query;
+      
         if (username && provider) {
             setCookie('user', username);
         }
@@ -24,11 +26,13 @@ export default function Dash() {
     return (
         <Layout>
             <HMeta pageTitle="Dashboard" pageDescription="check your profile" pagePath="/dashboard" />
+            
             <div>
                 {user ? (
                     <div>
                         <p className="">
                             Welcome back {user}!
+
                         </p>
                     </div>
                 ) : (<>

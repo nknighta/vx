@@ -32,6 +32,7 @@ x9.get('/x9/auth/callback/', (req, res) => {
         })
     };
     // HTTP POST リクエストを送信
+    // 1
     fetch(URL, fetchOption)
         .then(res => {
             if (!res.ok) {
@@ -44,6 +45,7 @@ x9.get('/x9/auth/callback/', (req, res) => {
             // 一時コードを使ってアクセストークンを取得
             const giturl = `https://api.github.com/user`;
             // アクセストークンからユーザー情報を取得
+            // 2
             fetch(giturl, {
                 headers: {
                     Authorization: `Bearer ` + data.access_token,
@@ -57,32 +59,27 @@ x9.get('/x9/auth/callback/', (req, res) => {
                     return response.json();
                 })
                 .then(data => {
-                    res.status(301);
-                    res.redirect(`/dashboard?user=${data.login}&provider=github`);
+                    res.setHeader("Content-Type", "application/json");
+                    res.end(JSON.stringify({
+                        user: data.login,
+                        id: data.login,
+                        name: data.name,
+                        email: data.email,
+                        image: data.avatar_url,
+                        created_at: data.created_at,
+                        provider: "github",
+                        data: data
+                    }));
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    res.setHeader("Content-Type", "text/html");
-                    res.send(`<div>faild github login back to <a href="/">home</a></div>`);
+                    res.json({'Error:': error});
                 });
         })
         // エラーはまとめて処理
         .catch(err => console.error(err));
 });
 
-x9.get("/x9/loader/", (req, res) => {
-    if (req.query.code) {
-        const data = fetch("https://api.github.com/user", {
-            headers: {
-
-                Authorization: `Bearer ` + req.query.code,
-                "X-GitHub-Api-Version": "2022-11-28",
-            }
-        })
-    } else {
-        res.send({ msg: "not available code" })
-    }
-})
 
 x9.get('/x9/main/', (req, res) => {
     res.send(`
