@@ -1,6 +1,6 @@
 import {Prisma, PrismaClient } from "@prisma/client";
 
-interface CreateAccountDataProps extends PrismaClient {
+interface CreateAccountDataProps {
     name: string,
     iconpath: string,
     userage: number;
@@ -12,33 +12,34 @@ async function createUser ({name, iconpath, createUserFromData, userage, email}:
     const prisma = new PrismaClient();
     let includeAccount = createUserFromData == null ? true: createUserFromData;
     let postdata: Prisma.AccountCreateInput;
-
     if (includeAccount) {
         postdata = {
-            accountname: "",
+            accountname: name !== undefined ? iconpath : "/images/default.png" ,
             icon: iconpath !== undefined ? iconpath : "/images/default.png",
             user: {
                 create: {
                     name: name
                 }
             },
-            email: "",
+            email: email !== undefined ? email : "",
             age: userage
         }
     } else {
         postdata ={
-            accountname: "",
-            icon: "",
-            email: ""
+            accountname: name !== undefined ? iconpath : "/images/default.png" ,
+            icon: iconpath !== undefined ? iconpath : "/images/default.png",
+            email: email !== undefined ? email : "",
+            age: userage
         }
     }
 
     try {
         const resultPostDB = await prisma.account.create({data: postdata})
+        console.log(resultPostDB)
         return {resultPostDB};
     } catch(e) {
         return e;
     }
 }
 
-export {createUser};
+export default createUser;

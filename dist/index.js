@@ -90,7 +90,7 @@ var server = (0, express_1.default)();
                 });
                 server.listen(port, function () {
                     if (dev || process.env.NODE_ENV === "development") {
-                        console.log("\n      | ------------------------------------------ |\n      > Ready on http://127.0.0.1:".concat(port, "/ \n      > Ready on http://localhost:").concat(port, "/\n      >> API LINKS\n        > http://localhost:").concat(port, "/\n      - env ").concat(process.env.NODE_ENV, "\n      | ------------------------------------------ |\n      "));
+                        console.log("\n   ------------------------------------------ |\n  > Ready on http://127.0.0.1:".concat(port, "/ \n  > Ready on http://localhost:").concat(port, "/\n  - env ").concat(process.env.NODE_ENV, "\n   ------------------------------------------ |\n      "));
                     }
                     else {
                         return null;

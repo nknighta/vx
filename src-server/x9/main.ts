@@ -1,6 +1,5 @@
-import express from "express";
-import { PrismaClient } from "@prisma/client";
-
+import express, { Request, Response } from "express";
+import { Prisma, PrismaClient } from "@prisma/client";
 const x9 = express();
 
 //const username = process.argv[2];
@@ -32,7 +31,6 @@ x9.get('/x9/auth/callback/', (req, res) => {
         })
     };
     // HTTP POST リクエストを送信
-    // 1
     fetch(URL, fetchOption)
         .then(res => {
             if (!res.ok) {
@@ -45,7 +43,6 @@ x9.get('/x9/auth/callback/', (req, res) => {
             // 一時コードを使ってアクセストークンを取得
             const giturl = `https://api.github.com/user`;
             // アクセストークンからユーザー情報を取得
-            // 2
             fetch(giturl, {
                 headers: {
                     Authorization: `Bearer ` + data.access_token,
@@ -58,9 +55,13 @@ x9.get('/x9/auth/callback/', (req, res) => {
                     }
                     return response.json();
                 })
-                .then(data => {
+                .then(data = async () => {
                     res.setHeader("Content-Type", "application/json");
-                    res.end(JSON.stringify({
+                    // name, iconpath, createUserFromData, userage, email
+                    const prisma = new PrismaClient();
+                    let postdata: Prisma.AccountCreateInput;
+                    console.log("running....")
+                    const block = {
                         user: data.login,
                         id: data.login,
                         name: data.name,
@@ -68,18 +69,33 @@ x9.get('/x9/auth/callback/', (req, res) => {
                         image: data.avatar_url,
                         created_at: data.created_at,
                         provider: "github",
-                        data: data
-                    }));
+                    }
+                    postdata = {
+                        accountname: block.name,
+                        icon: block.image,
+                        email: block.email,
+                        user: {
+                            create: {
+                                name: block.name
+                            }
+                        },
+                        age: 0,
+                    };
+                    console.log(postdata)
+                    
+                    const resultPostDB = await prisma.account.create({ data: postdata })
+                    
+                    res.end(JSON.stringify(block));
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    res.json({'Error:': error});
+                    res.setHeader("Content-Type", "text/html");
+                    res.send(`<div>faild github login back to <a href="/">home</a></div>`);
                 });
         })
         // エラーはまとめて処理
         .catch(err => console.error(err));
 });
-
 
 x9.get('/x9/main/', (req, res) => {
     res.send(`

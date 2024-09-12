@@ -8,7 +8,7 @@ const TestBox = ({ props }: any) => {
 
   return (
     <mesh {...props} ref={mesh}>
-      <boxGeometry args={[2, 2, 2]} />
+      <boxGeometry args={[4, 4, 4]} />
       <meshStandardMaterial color={'purple'} />
     </mesh>
   )

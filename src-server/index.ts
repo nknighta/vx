@@ -53,13 +53,11 @@ const server = express();
   server.listen(port, () => {
     if (dev || process.env.NODE_ENV === "development") {
       console.log(`
-      | ------------------------------------------ |
-      > Ready on http://127.0.0.1:${port}/ 
-      > Ready on http://localhost:${port}/
-      >> API LINKS
-        > http://localhost:${port}/
-      - env ${process.env.NODE_ENV}
-      | ------------------------------------------ |
+   ------------------------------------------ |
+  > Ready on http://127.0.0.1:${port}/ 
+  > Ready on http://localhost:${port}/
+  - env ${process.env.NODE_ENV}
+   ------------------------------------------ |
       `);
     } else {
       return null;
