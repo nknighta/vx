@@ -56,6 +56,10 @@ const Layout = ({ children }: any) => {
             {menuopen ?
               <div className='fixed bottom-22 h-20 px-4 h-auto bg-black py-2 rounded-md'>
                 <MenuTitle>Account</MenuTitle>
+
+                <Link href={"/dashboard"}>
+                  <p>Dashborad</p>
+                </Link>
                 <Link href={"/dashboard"}>
                   <p>Settings </p>
                 </Link>
@@ -63,6 +67,7 @@ const Layout = ({ children }: any) => {
                 <Link href={"/dashboard"}>
                   <p>Dashborad</p>
                 </Link>
+
                 <button
                   className='bg-blue-900 p-1 rounded'
                   onClick={() => {
@@ -75,6 +80,10 @@ const Layout = ({ children }: any) => {
           </div>
           <VLink page='/'>
             Home
+          </VLink>
+          
+          <VLink page='/signin'>
+            SignIn
           </VLink>
         </div>
       </footer>

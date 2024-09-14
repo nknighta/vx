@@ -7,6 +7,7 @@
     "prod": ".\\node_modules\\.bin\\next build && .\\node_modules\\.bin\\tsc.cmd -p tsconfig.server.json && node --env-file=.env ./dist/index.js",
     "dev:ts": "cross-env NODE_ENV=development nodemon",
     "build": "next build",
+    "build:ts": ".\\node_modules\\.bin\\tsc.cmd -p tsconfig.server.json && cross-env NODE_ENV=\"development\" node ./dist/index.js",
     "start": "next start",
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
@@ -50,8 +51,7 @@
     "sass": "^1.77.0",
     "styled-components": "^6.0.7",
     "three": "^0.155.0",
-    "unocss": "^0.62.3",
-    "zod": "^3.23.8"
+    "unocss": "^0.62.3"
   },
   "devDependencies": {
     "@types/node": "^20.12.11",
