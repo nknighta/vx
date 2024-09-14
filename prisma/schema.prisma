@@ -7,18 +7,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        String    @id @default(cuid())
-  name      String?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  wallet    wallet[]
-  Account   Account[]
-}
-
 model wallet {
   id               String   @id @default(cuid())
-  owner            User     @relation(fields: [authorId], references: [id])
+  owner            Account   @relation(fields: [authorId], references: [accountid])
   authorId         String
   balance          Float
   createdAt        DateTime @default(now())
@@ -27,13 +18,13 @@ model wallet {
 }
 
 model Account {
-  accountid String @id @default(cuid()) @unique
-  accountname String @default(cuid())
-  icon      String @unique
-  user      User   @relation(fields: [accountid], references: [id])
-  email     String @unique
+  accountid String @id @unique
+  accountname String @unique
+  icon      String? @unique
+  email     String? @unique
   age       Int?
   Session   Session[]
+  wallet    wallet[]
 }
 model Session {
   sessionid String @id @default(cuid())

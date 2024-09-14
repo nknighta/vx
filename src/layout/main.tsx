@@ -3,6 +3,7 @@ import { getWindowWidth, getWindowHight } from '../scripts/getWidth';
 import VLink from '../components/link';
 import AccuntBotton from "components/accountbtn";
 import { useState } from 'react';
+import Link from 'next/link';
 // disable ssr for styled-components hydration error
 // https://zenn.dev/luvmini511/articles/71f65df05716ca
 
@@ -53,19 +54,22 @@ const Layout = ({ children }: any) => {
               Menu {menuopen}
             </button>
             {menuopen ?
-              <div className='fixed bottom-22 h-20 px-2 h-auto'>
-                <div>
-                  <MenuTitle>Account</MenuTitle>
-                  <p>settings</p>
-                  <MenuTitle>Apps</MenuTitle>
-                  <button
-                    className='bg-blue-900 p-2 rounded-lg'
-                    onClick={() => {
-                      isMenuopen(false)
-                    }}>
-                    Close
-                  </button>
-                </div>
+              <div className='fixed bottom-22 h-20 px-4 h-auto bg-black py-2 rounded-md'>
+                <MenuTitle>Account</MenuTitle>
+                <Link href={"/dashboard"}>
+                  <p>Settings </p>
+                </Link>
+                <MenuTitle>Apps</MenuTitle>
+                <Link href={"/dashboard"}>
+                  <p>Dashborad</p>
+                </Link>
+                <button
+                  className='bg-blue-900 p-1 rounded'
+                  onClick={() => {
+                    isMenuopen(false)
+                  }}>
+                  Close
+                </button>
               </div>
               : ""}
           </div>

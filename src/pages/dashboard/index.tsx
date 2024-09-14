@@ -12,7 +12,6 @@ export default function Dash() {
     // get oauth code from que
     useEffect(() => {
         const { username, provider, code } = router.query;
-      
         if (username && provider) {
             setCookie('user', username);
         }
@@ -26,13 +25,11 @@ export default function Dash() {
     return (
         <Layout>
             <HMeta pageTitle="Dashboard" pageDescription="check your profile" pagePath="/dashboard" />
-            
             <div>
                 {user ? (
                     <div>
                         <p className="">
                             Welcome back {user}!
-
                         </p>
                     </div>
                 ) : (<>

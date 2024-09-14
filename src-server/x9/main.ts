@@ -55,37 +55,34 @@ x9.get('/x9/auth/callback/', (req, res) => {
                     }
                     return response.json();
                 })
-                .then(data = async () => {
+                .then(userdata => {
                     res.setHeader("Content-Type", "application/json");
-                    // name, iconpath, createUserFromData, userage, email
+
                     const prisma = new PrismaClient();
-                    let postdata: Prisma.AccountCreateInput;
-                    console.log("running....")
-                    const block = {
-                        user: data.login,
-                        id: data.login,
-                        name: data.name,
-                        email: data.email,
-                        image: data.avatar_url,
-                        created_at: data.created_at,
-                        provider: "github",
-                    }
-                    postdata = {
-                        accountname: block.name,
-                        icon: block.image,
-                        email: block.email,
-                        user: {
-                            create: {
-                                name: block.name
+                    async function postDBdata() {
+                        let data: Prisma.AccountCreateInput;
+                        data = {
+                            accountid: userdata.login,
+                            accountname: userdata.name,
+                            icon: userdata.avatar_url,
+                            email: userdata.email
+                        }
+                        const resultPostDB = await prisma.account.create(
+                            {
+                                data: data
                             }
-                        },
-                        age: 0,
-                    };
-                    console.log(postdata)
-                    
-                    const resultPostDB = await prisma.account.create({ data: postdata })
-                    
-                    res.end(JSON.stringify(block));
+                        )
+                    }
+                    postDBdata();
+                    res.end(JSON.stringify({
+                        user: userdata.login,
+                        id: userdata.login,
+                        name: userdata.name,
+                        email: userdata.email,
+                        image: userdata.avatar_url,
+                        created_at: userdata.created_at,
+                        provider: "github",
+                    }))
                 })
                 .catch(error => {
                     console.error('Error:', error);
