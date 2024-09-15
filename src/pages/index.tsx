@@ -1,8 +1,9 @@
-import { ComponentType } from 'react'
-import Layout from '../layout/main'
-import HMeta from '../components/headmeta'
-import dynamic from 'next/dynamic'
-import CookieAcceptPopUp from '../components/assept-cookie'
+import { ComponentType } from 'react';
+import Layout from '../layout/main';
+import HMeta from '../components/headmeta';
+import dynamic from 'next/dynamic';
+import CookieAcceptPopUp from '../components/assept-cookie';
+import { Dots } from 'components/svgloader'
 
 export default function Home() {
   const LazyComponent: ComponentType<{}> = dynamic(
@@ -21,12 +22,15 @@ export default function Home() {
         pageImg={'/api/og?title=Welcome&description=VARIUS%20development%20team'}
       />
       <LazyComponent />
-      <div className='mt-10'>
+      <div className='pt-10'>
         welcome to web3 development
       </div>
+      <div className='pt-2'>
+        this is VARIUS development team
+      </div>
       <CookieAcceptPopUp />
-      <div>
-        next step <a className='c-indigo' href="/x9">sign up</a>
+      <div className="flex flex-col items-center justify-between">
+        <Dots className="text-blue-400" />
       </div>
     </Layout>
   )

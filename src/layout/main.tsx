@@ -24,11 +24,11 @@ const Layout = ({ children }: any) => {
   const isMobile: boolean = width > 960 ? false : true;
   const [menuopen, isMenuopen] = useState<boolean>(false);
   return (
-    <>
+    <div>
       <div
         style={{
           padding: isMobile ? '0 1vh' : '0 7vh',
-          height: '100%',
+          background: "#00000000"
         }}
       >
         {children}
@@ -67,7 +67,6 @@ const Layout = ({ children }: any) => {
                 <Link href={"/dashboard"}>
                   <p>Dashborad</p>
                 </Link>
-
                 <button
                   className='bg-blue-900 p-1 rounded'
                   onClick={() => {
@@ -81,13 +80,13 @@ const Layout = ({ children }: any) => {
           <VLink page='/'>
             Home
           </VLink>
-          
+
           <VLink page='/signin'>
             SignIn
           </VLink>
         </div>
       </footer>
-    </>
+    </div>
   )
 }
 

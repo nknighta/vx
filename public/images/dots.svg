@@ -1,0 +1,6 @@
+<svg width="25" height="25" viewBox="0 0 25 25" fill="currentColor"
+  xmlns="http://www.w3.org/2000/svg">
+  <circle class="flash" cx="4.5" cy="12.5" r="2" />
+  <circle class="flash" style="animation-delay: 300ms;" cx="12.5" cy="12.5" r="2" />
+  <circle class="flash" style="animation-delay: 600ms;" cx="20.5" cy="12.5" r="2" />
+</svg>
