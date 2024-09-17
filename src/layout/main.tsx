@@ -28,7 +28,8 @@ const Layout = ({ children }: any) => {
       <div
         style={{
           padding: isMobile ? '0 1vh' : '0 7vh',
-          background: "#00000000"
+          height: '100vh',
+          zIndex: -1,
         }}
       >
         {children}
@@ -56,7 +57,6 @@ const Layout = ({ children }: any) => {
             {menuopen ?
               <div className='fixed bottom-22 h-20 px-4 h-auto bg-black py-2 rounded-md'>
                 <MenuTitle>Account</MenuTitle>
-
                 <Link href={"/dashboard"}>
                   <p>Dashborad</p>
                 </Link>

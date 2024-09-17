@@ -29,9 +29,6 @@ export default function Home() {
         this is VARIUS development team
       </div>
       <CookieAcceptPopUp />
-      <div className="flex flex-col items-center justify-between">
-        <Dots className="text-blue-400" />
-      </div>
     </Layout>
   )
 }
