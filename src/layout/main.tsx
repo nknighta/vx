@@ -1,15 +1,10 @@
 import React from 'react'
 import { getWindowWidth, getWindowHight } from '../scripts/getWidth';
 import VLink from '../components/link';
-import AccuntBotton from "components/accountbtn";
 import { useState } from 'react';
 import Link from 'next/link';
 // disable ssr for styled-components hydration error
 // https://zenn.dev/luvmini511/articles/71f65df05716ca
-
-/**
- * width is debug 
- */
 
 function MenuTitle({ options, children }: { options?: any[], children: any }) {
   return (
@@ -28,8 +23,7 @@ const Layout = ({ children }: any) => {
       <div
         style={{
           padding: isMobile ? '0 1vh' : '0 7vh',
-          height: '100vh',
-          zIndex: -1,
+          height: '100vh'
         }}
       >
         {children}

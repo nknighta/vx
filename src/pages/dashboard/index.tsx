@@ -4,32 +4,39 @@ import HMeta from 'components/headmeta';
 import { useRouter } from 'next/router';
 import { setCookie, getCookie, deleteCookie } from 'cookies-next';
 import Image from 'next/image';
-import { get } from 'http';
+
 // this is dashboad page
+interface DashClientProps {
+    username: string;
+    status: boolean;
+    localCookie: string;
+}
 
 export default function Dash() {
     const router = useRouter();
-    const [status, setStatetus] = useState<boolean>(false);
-    const [localCookie, setLocalCookie] = useState<string>('');
-    const [localdebug, setLocalDebug] = useState<string>('');
+    const [data, setData] = useState<DashClientProps>({
+        username: '',
+        status: false,
+        localCookie: ''
+    });
     const username = router.query.username;
     const x = getCookie('username');
-    const debug1 = getCookie("login")
     useEffect(() => {
-        if (x !== undefined)
-        {   
+        // load dara when settinged from cookie
+        if (x !== undefined) {
             setCookie('login', 'settinged login');
-            setStatetus(false);
-            setLocalCookie(x as string);
-            setLocalDebug(debug1 as string);
+            router.push('/dashboard');
+            setData({ username: x as string, status: true, localCookie: x as string });
+            
         }
-        else if (username) {
+        // load data when settinged from x9 authentification
+        else if (username !== undefined || x !== undefined) {
             setCookie('login', 'x9 router passed');
-            setStatetus(true);
-            setCookie('username', username as string);
-            setLocalCookie(getCookie('username') as string);
-            setLocalDebug(debug1 as string);
+            router.push('/dashboard');
+            setData({ username: username as string, status: true, localCookie: username as string });
+            
         } else {
+            // failed to load data
             router.push('/signin');
             deleteCookie('login');
             deleteCookie('username');
@@ -37,14 +44,17 @@ export default function Dash() {
     }, [username])
     return (
         <Layout>
-            <HMeta pageTitle="Dashboard" pageDescription="check your profile" pagePath="/dashboard" />
-            <p>{localCookie}</p>
-            <pre>
-                <code>
-                    {
-                        JSON.stringify({ status: status, username: username , localCookie: localCookie, login: localdebug}, null, 1)}
-                </code>
-            </pre>
+            <div className='text-black'>
+                <HMeta pageTitle="Dashboard" pageDescription="check your profile" pagePath="/dashboard" />
+                <input type="text"  className='bg-blue' disabled={!data.status}/>
+                <h1 className='text-3xl'>Dashboard</h1>
+                <p>username: {data.username}</p>
+                <pre>
+                    <code>
+                        {JSON.stringify(data, null, 1)}
+                    </code>
+                </pre>
+            </div>
         </Layout >
     )
 }

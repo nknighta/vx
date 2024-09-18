@@ -3,16 +3,11 @@ import Layout from '../layout/main';
 import HMeta from '../components/headmeta';
 import dynamic from 'next/dynamic';
 import CookieAcceptPopUp from '../components/assept-cookie';
-import { Dots } from 'components/svgloader'
 
 export default function Home() {
-  const LazyComponent: ComponentType<{}> = dynamic(
-    () => import('../components/threebox'),
-    {
-      loading: () => <Loading />,
-      ssr: false,
-    },
-  )
+  const LazyComponent = dynamic(() => import('../components/threebox'), {
+    loading: () => <Loading />,
+  }) as ComponentType;
   return (
     <Layout>
       <HMeta
@@ -21,13 +16,13 @@ export default function Home() {
         pagePath="/"
         pageImg={'/api/og?title=Welcome&description=VARIUS%20development%20team'}
       />
-      <LazyComponent />
       <div className='pt-10'>
         welcome to web3 development
       </div>
       <div className='pt-2'>
         this is VARIUS development team
       </div>
+      <LazyComponent />
       <CookieAcceptPopUp />
     </Layout>
   )

@@ -14,7 +14,7 @@ type AppPropsWithLayout = AppProps & {
 // import from 'components/provider'
 export default function App({
   Component,
-  pageProps: { session, ...pageProps },
+  pageProps: { ...pageProps },
 }: AppPropsWithLayout) {
   const getLayout =
     Component.getLayout ||

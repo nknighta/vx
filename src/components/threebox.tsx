@@ -21,7 +21,7 @@ const ThreeBox = () => {
         display: 'flex',
         justifyContent: 'center',
         position: 'fixed',
-        height: '600px',
+        height: '500px',
         width: '100%',
         zIndex: -1,
       }}
@@ -33,7 +33,7 @@ const ThreeBox = () => {
         }}
       >
         <ambientLight />
-        <color attach="background" args={['#000011']} />
+        <color attach="background" args={['#000022']} />
         <pointLight position={[-90, 0, -30]} />
         <TestBox />
       </Canvas>
