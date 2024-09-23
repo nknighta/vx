@@ -42,7 +42,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // using sample code from https://nextjs.org/docs/pages/building-your-application/configuring/custom-server
 var express_1 = __importDefault(require("express"));
 var next_1 = __importDefault(require("next"));
-// import body parser
+var main_1 = __importDefault(require("./x9/main"));
 var dev = process.env.NODE_ENV !== 'production';
 var port = 3000;
 // when using middleware `hostname` and `port` must be provided below
@@ -58,7 +58,6 @@ var github_1 = __importDefault(require("./idata/github"));
  * /api/info
  */
 var server = (0, express_1.default)();
-server.use(express_1.default.json());
 (function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -69,6 +68,10 @@ server.use(express_1.default.json());
                 //server.use("/apps", apps);
                 // /api/v1/user?id=1
                 //server.use(`${apiresponsepath}/user`, userdata);
+                // userdata api from github
+                server.use(github_1.default);
+                // x9 api routes
+                server.use(main_1.default);
                 server.get("/data/info", function (req, res) {
                     res.setHeader("Content-Type", "application/json");
                     res.end(JSON.stringify({
@@ -76,7 +79,6 @@ server.use(express_1.default.json());
                     }));
                     res.statusCode = 200;
                 });
-                server.use(github_1.default);
                 server.all("*", function (req, res) {
                     return handle(req, res);
                 });
@@ -90,11 +92,11 @@ server.use(express_1.default.json());
                 });
                 server.listen(port, function () {
                     if (dev || process.env.NODE_ENV === "development") {
-                        process.stdout.write("------------------------------------------ | \n");
+                        process.stdout.write("------------------------------------------ |\n");
                         process.stdout.write("> Ready on http://localhost:".concat(port, "/ \n"));
                         process.stdout.write("> Ready on http://127.0.0.1:".concat(port, "/ \n"));
                         process.stdout.write("> env - ".concat(process.env.NODE_ENV, " \n"));
-                        process.stdout.write("------------------------------------------ |");
+                        process.stdout.write("------------------------------------------ |\n");
                     }
                     else {
                         return null;

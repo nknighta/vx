@@ -15,7 +15,6 @@ x9gitapi.use(bodyParser.urlencoded({
     extended: true
 }));
 x9gitapi.use(bodyParser.json());
-
 // Middleware to parse JSON bodies
 x9gitapi.get('/vx-inter-api/datainfo/', (req, res) => {
     res.status(200).send({ msg: "'GET request received'" });
