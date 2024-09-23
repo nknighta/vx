@@ -22,7 +22,9 @@ export default function Home() {
       <div className='pt-2'>
         this is VARIUS development team
       </div>
-      <LazyComponent />
+      <div className='fixed'>
+        <LazyComponent />
+      </div> 
       <CookieAcceptPopUp />
     </Layout>
   )

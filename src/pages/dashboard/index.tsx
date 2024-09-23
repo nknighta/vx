@@ -22,29 +22,10 @@ export default function Dash() {
     const username = router.query.username;
     const x = getCookie('username');
     useEffect(() => {
-        // load dara when settinged from cookie
-        if (x !== undefined) {
-            setCookie('login', 'settinged login');
-            router.push('/dashboard');
-            setData({ username: x as string, status: true, localCookie: x as string });
-            
-        }
-        // load data when settinged from x9 authentification
-        else if (username !== undefined || x !== undefined) {
-            setCookie('login', 'x9 router passed');
-            router.push('/dashboard');
-            setData({ username: username as string, status: true, localCookie: username as string });
-            
-        } else {
-            // failed to load data
-            router.push('/signin');
-            deleteCookie('login');
-            deleteCookie('username');
-        }
     }, [username])
     return (
         <Layout>
-            <div className='text-black'>
+            <div>
                 <HMeta pageTitle="Dashboard" pageDescription="check your profile" pagePath="/dashboard" />
                 <input type="text"  className='bg-blue' disabled={!data.status}/>
                 <h1 className='text-3xl'>Dashboard</h1>

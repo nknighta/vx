@@ -63,7 +63,7 @@ x9.get('/x9/auth/callback/', (req, res) => {
                     // 
                     async function postDBdata() {
                         if (await user) {
-                            res.redirect(`/dashboard/?username=${userdata.login}&provider=github`);
+                            res.redirect(`/signin/authgo/?username=${userdata.login}&provider=github`);
                         } else {
                             res.send(`<div>Would you like to continue with this account? ${userdata.login}</div>`);
                             let data: Prisma.AccountCreateInput;

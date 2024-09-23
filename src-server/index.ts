@@ -1,6 +1,8 @@
 // using sample code from https://nextjs.org/docs/pages/building-your-application/configuring/custom-server
-import express, { Request, Response } from "express";
-import next from 'next'
+import Express , { Request, Response } from "express";
+import next from 'next';
+
+// import body parser
 
 const dev = process.env.NODE_ENV !== 'production'
 
@@ -11,7 +13,7 @@ const handle = app.getRequestHandler()
 
 const github_oauth_url = `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}`;
 
-import x9 from "./x9/main";
+import x9gitapi from "./idata/github";
 /**
  * api paths
  * /w3
@@ -19,23 +21,23 @@ import x9 from "./x9/main";
  * /api
  * /api/info
  */
-const server = express();
+const server = Express();
+server.use(Express.json());
 
 (async () => {
   await app.prepare();
-  let apiresponsepath = "/api/v1";
   // api test
   //server.use("/apps", apps);
   // /api/v1/user?id=1
   //server.use(`${apiresponsepath}/user`, userdata);
-  server.use(x9);
-  server.get(`${apiresponsepath}/info`, (req: Request, res: Response) => {
+  server.get(`/data/info`, (req: Request, res: Response) => {
     res.setHeader("Content-Type", "application/json");
     res.end(JSON.stringify({
       message: "vx v0.5",
     }));
     res.statusCode = 200;
   });
+  server.use(x9gitapi);
 
   server.all("*", (req: Request, res: Response) => {
     return handle(req, res);
@@ -52,13 +54,11 @@ const server = express();
 
   server.listen(port, () => {
     if (dev || process.env.NODE_ENV === "development") {
-      console.log(`
-   ------------------------------------------ |
-  > Ready on http://127.0.0.1:${port}/ 
-  > Ready on http://localhost:${port}/
-  - env ${process.env.NODE_ENV}
-   ------------------------------------------ |
-      `);
+      process.stdout.write(`------------------------------------------ | \n`);
+      process.stdout.write(`> Ready on http://localhost:${port}/ \n`);
+      process.stdout.write(`> Ready on http://127.0.0.1:${port}/ \n`);
+      process.stdout.write(`> env - ${process.env.NODE_ENV} \n`);
+      process.stdout.write(`------------------------------------------ |`)
     } else {
       return null;
     }

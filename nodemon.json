@@ -3,5 +3,5 @@
         "./src-server"
     ],
     "ext": "ts",
-    "exec": "ts-node ./src-server/index.ts"
+    "exec": "pnpm dev"
 }

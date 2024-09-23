@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { getWindowWidth, getWindowHight } from '../scripts/getWidth';
 import VLink from '../components/link';
 import { useState } from 'react';
 import Link from 'next/link';
+import { getCookie } from 'cookies-next';
 // disable ssr for styled-components hydration error
 // https://zenn.dev/luvmini511/articles/71f65df05716ca
 
@@ -13,17 +14,46 @@ function MenuTitle({ options, children }: { options?: any[], children: any }) {
     </h2>
   )
 }
+
+function Menu({ children }: { children: any }) {
+  return (
+    <div className={`fixed bottom-22 h-20 px-4 h-auto bg-blue-900 py-2 px-2 rounded-md text-white`}>
+      <div className=' bg-purple-600 p-1 rounded-md'>
+        {children}
+      </div>
+    </div>
+  )
+}
+
+function MenuLink({ text, href }: { text: string, href: string }) {
+  return (
+    <Link href={href}>
+      <p>{text}</p>
+    </Link>
+  )
+}
+
 const Layout = ({ children }: any) => {
   const width = getWindowWidth();
   const height = getWindowHight();
   const isMobile: boolean = width > 960 ? false : true;
   const [menuopen, isMenuopen] = useState<boolean>(false);
+  const [userdata, setUserData] = useState<any>({});
+
+  useEffect(() => {
+    const auth = getCookie('username');
+    if (auth) {
+      setUserData({ username: auth });
+    }
+  }, [])
   return (
-    <div>
+    <>
       <div
+        className='w-full bg-black text-white'
         style={{
           padding: isMobile ? '0 1vh' : '0 7vh',
-          height: '100vh'
+          height: '100vh',
+          color: 'white',
         }}
       >
         {children}
@@ -49,18 +79,14 @@ const Layout = ({ children }: any) => {
               Menu {menuopen}
             </button>
             {menuopen ?
-              <div className='fixed bottom-22 h-20 px-4 h-auto bg-black py-2 rounded-md'>
+              <Menu>
                 <MenuTitle>Account</MenuTitle>
-                <Link href={"/dashboard"}>
-                  <p>Dashborad</p>
-                </Link>
-                <Link href={"/dashboard"}>
-                  <p>Settings </p>
-                </Link>
+                <MenuLink href='/dashboard' text='Dashboard' />
+                <MenuLink href='/signin' text='SignIn' />
+
                 <MenuTitle>Apps</MenuTitle>
-                <Link href={"/dashboard"}>
-                  <p>Dashborad</p>
-                </Link>
+                <MenuLink href='/apps' text='Apps' />
+
                 <button
                   className='bg-blue-900 p-1 rounded'
                   onClick={() => {
@@ -68,19 +94,23 @@ const Layout = ({ children }: any) => {
                   }}>
                   Close
                 </button>
-              </div>
+              </Menu>
               : ""}
           </div>
           <VLink page='/'>
             Home
           </VLink>
-
-          <VLink page='/signin'>
-            SignIn
-          </VLink>
+          {userdata && userdata.username ?
+            <VLink page='/dashboard'>
+              Dashboard
+            </VLink>
+            : 
+            <VLink page='/signin'>
+              SignIn
+            </VLink>}
         </div>
       </footer>
-    </div>
+    </>
   )
 }
 

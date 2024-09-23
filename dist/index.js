@@ -42,13 +42,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // using sample code from https://nextjs.org/docs/pages/building-your-application/configuring/custom-server
 var express_1 = __importDefault(require("express"));
 var next_1 = __importDefault(require("next"));
+// import body parser
 var dev = process.env.NODE_ENV !== 'production';
 var port = 3000;
 // when using middleware `hostname` and `port` must be provided below
 var app = (0, next_1.default)({ dev: dev });
 var handle = app.getRequestHandler();
 var github_oauth_url = "https://github.com/login/oauth/authorize?client_id=".concat(process.env.GITHUB_CLIENT_ID);
-var main_1 = __importDefault(require("./x9/main"));
+var github_1 = __importDefault(require("./idata/github"));
 /**
  * api paths
  * /w3
@@ -57,26 +58,25 @@ var main_1 = __importDefault(require("./x9/main"));
  * /api/info
  */
 var server = (0, express_1.default)();
+server.use(express_1.default.json());
 (function () { return __awaiter(void 0, void 0, void 0, function () {
-    var apiresponsepath;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, app.prepare()];
             case 1:
                 _a.sent();
-                apiresponsepath = "/api/v1";
                 // api test
                 //server.use("/apps", apps);
                 // /api/v1/user?id=1
                 //server.use(`${apiresponsepath}/user`, userdata);
-                server.use(main_1.default);
-                server.get("".concat(apiresponsepath, "/info"), function (req, res) {
+                server.get("/data/info", function (req, res) {
                     res.setHeader("Content-Type", "application/json");
                     res.end(JSON.stringify({
                         message: "vx v0.5",
                     }));
                     res.statusCode = 200;
                 });
+                server.use(github_1.default);
                 server.all("*", function (req, res) {
                     return handle(req, res);
                 });
@@ -90,7 +90,11 @@ var server = (0, express_1.default)();
                 });
                 server.listen(port, function () {
                     if (dev || process.env.NODE_ENV === "development") {
-                        console.log("\n   ------------------------------------------ |\n  > Ready on http://127.0.0.1:".concat(port, "/ \n  > Ready on http://localhost:").concat(port, "/\n  - env ").concat(process.env.NODE_ENV, "\n   ------------------------------------------ |\n      "));
+                        process.stdout.write("------------------------------------------ | \n");
+                        process.stdout.write("> Ready on http://localhost:".concat(port, "/ \n"));
+                        process.stdout.write("> Ready on http://127.0.0.1:".concat(port, "/ \n"));
+                        process.stdout.write("> env - ".concat(process.env.NODE_ENV, " \n"));
+                        process.stdout.write("------------------------------------------ |");
                     }
                     else {
                         return null;
