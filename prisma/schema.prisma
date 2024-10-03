@@ -9,31 +9,37 @@ datasource db {
 
 model wallet {
   id               String   @id @default(cuid())
-  owner            Account   @relation(fields: [authorId], references: [accountid])
   authorId         String
   balance          Float
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
   sessionSessionid String?
+  owner            Account  @relation(fields: [authorId], references: [accountid])
 }
 
 model Account {
-  accountid String @id @unique
-  accountname String @unique
-  icon      String? @unique
-  email     String? @unique
-  age       Int?
-  Session   Session[]
-  wallet    wallet[]
+  accountid   String    @id @unique
+  email       String?   @unique
+  age         Int?
+  accountname String    @unique
+  icon        String?   @unique
+  Session     Session[]
+  wallet      wallet[]
+  Apps        Apps[]
 }
+
 model Session {
-  sessionid String @id @default(cuid())
+  sessionid String  @id @default(cuid())
   userid    String
   Account   Account @relation(fields: [userid], references: [accountid])
 }
+
 model Apps {
-  appid   String @id @default(uuid())
-  appname String
+  appid     String  @id @default(cuid())
+  appicon   String
+  appname   String
+  authorId  String  @default(cuid())
   downloadc Int?
-  appicon String
+  appurl    String
+  account   Account @relation(fields: [authorId], references: [accountid])
 }

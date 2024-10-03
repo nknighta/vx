@@ -94,9 +94,7 @@ var server = (0, express_1.default)();
                     if (dev || process.env.NODE_ENV === "development") {
                         process.stdout.write("------------------------------------------ |\n");
                         process.stdout.write("> Ready on http://localhost:".concat(port, "/ \n"));
-                        process.stdout.write("> Ready on http://127.0.0.1:".concat(port, "/ \n"));
-                        process.stdout.write("> env - ".concat(process.env.NODE_ENV, " \n"));
-                        process.stdout.write("------------------------------------------ |\n");
+                        process.stdout.write("> Ready on http://");
                     }
                     else {
                         return null;

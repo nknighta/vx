@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { lazy, useEffect, useState } from 'react';
 import Layout from 'layout/main';
 import HMeta from 'components/headmeta';
 import { useRouter } from 'next/router';
 import { setCookie, getCookie, deleteCookie } from 'cookies-next';
 import Image from 'next/image';
+import Link from 'next/link';
+//import { useWin}
 
 // this is dashboad page
 interface DashClientProps {
@@ -38,6 +40,9 @@ export default function Dash() {
     const username = router.query.username;
     const localcookie = getCookie('username');
     useEffect(() => {
+        let x1 = document.cookie.split(';');
+        console.dir(document.cookie.split(';'));
+        console.log(x1[3]);
         if (username) {
             fetch(`/vx-inter-api/userdata/search/github/`, {
                 method: 'POST',
@@ -66,7 +71,7 @@ export default function Dash() {
                     setCookie('usericon', gdata.data.icon);
                     setCookie('userstatus', 'true');
 
-                    router.push(`/dashboard`);
+                    router.push(`/dashboard/p2`);
                 })
                 .catch(err => console.log(err))
         } else if (localcookie) {
@@ -81,13 +86,36 @@ export default function Dash() {
                 id: id as string
             });
         }
+
     }, [username])
+    const handleLogout = () => {
+        deleteCookie('username');
+        deleteCookie('userid');
+        deleteCookie('usericon');
+        deleteCookie('userstatus');
+        setData({
+            username: '',
+            status: false,
+            localCookie: '',
+            icon: '',
+            id: ''
+        });
+        router.push('/signin');
+    }
     return (
         <Layout>
             <div>
                 <HMeta pageTitle="Dashboard" pageDescription="check your profile" pagePath="/dashboard" />
                 <h1 className='text-3xl'>Dashboard</h1>
-                <Image src={data.icon} alt="icon" width={150} height={150} />
+                <Image
+                    src={data.icon}
+                    alt="icon"
+                    width={100}
+                    height={100} style={{
+                        borderRadius: '50%',
+                        objectFit: 'cover'
+                    }}
+                />
                 <div className='bg-purple-7 w-auto py-3'>
                     <p className='text-2xl'>{data.username}</p>
                     <div>
@@ -101,6 +129,10 @@ export default function Dash() {
                             CopyID
                         </button>
                     </div>
+                </div>
+                <Link href='/dashboard/apps'>apps</Link>
+                <div>
+                    <button onClick={handleLogout}>Logout</button>
                 </div>
             </div>
         </Layout>

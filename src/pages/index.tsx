@@ -1,13 +1,13 @@
-import { ComponentType } from 'react';
 import Layout from '../layout/main';
 import HMeta from '../components/headmeta';
 import dynamic from 'next/dynamic';
-import CookieAcceptPopUp from '../components/assept-cookie';
+import Link from 'next/link';
 
 export default function Home() {
   const LazyComponent = dynamic(() => import('../components/threebox'), {
     loading: () => <Loading />,
-  }) as ComponentType;
+    ssr: false,
+  });
   return (
     <Layout>
       <HMeta
@@ -16,17 +16,46 @@ export default function Home() {
         pagePath="/"
         pageImg={'/api/og?title=Welcome&description=VARIUS%20development%20team'}
       />
-      <div className='pt-10'>
-        welcome to web3 development
+      <div className='py-5 pl-5 text-purple-300 text-4xl'>
+        <Link href='/'>
+          VARIUS.web
+        </Link>
       </div>
-      <div className='pt-2'>
-        this is VARIUS development team
+      <HRDash />
+      <div className='py-16 pl-5 text-2xl'>
+        Web3 development
       </div>
-      <div className='fixed'>
+      <HRDash />
+      <div className='py-16 pl-5 text-2xl'>
+        Virtual Currency Networks
+      </div>
+      <HRDash />
+      <div className='py-16 pl-5 text-2xl'>
+        Smart Contracts
+      </div>
+      <HRDash />
+      <div>
         <LazyComponent />
-      </div> 
-      <CookieAcceptPopUp />
+      </div>
+      <ul className={`w-100 py-4`}>
+        <li className={`pl-5 py-1`}>
+          <Link href='/works'>
+            Works
+          </Link>
+        </li>
+        <li className={`pl-5 py-1`}>
+          <Link href='/about'>
+            About
+          </Link>
+        </li>
+      </ul>
     </Layout>
+  )
+}
+
+function HRDash() {
+  return (
+    <hr className='border-2 border-sky-500 border-dashed border-1 ml-4 w-3/5' />
   )
 }
 
@@ -34,14 +63,9 @@ function Loading(): JSX.Element {
   return (
     <div
       style={{
-        fontSize: '30px',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
         height: '100%',
       }}
     >
-      {'>_ : '}Loading...
     </div>
   )
 }

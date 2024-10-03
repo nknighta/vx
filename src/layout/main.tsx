@@ -72,7 +72,7 @@ const Layout = ({ children }: any) => {
           }}>
           <div className='px-3'>
             <button
-              className='bg-black'
+              className='bg-black text-white'
               onClick={() => {
                 menuopen ? isMenuopen(false) : isMenuopen(true)
               }}>

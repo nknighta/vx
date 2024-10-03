@@ -1,5 +1,5 @@
 // using sample code from https://nextjs.org/docs/pages/building-your-application/configuring/custom-server
-import Express , { Request, Response } from "express";
+import Express, { Request, Response } from "express";
 import next from 'next';
 import x9 from "./x9/main";
 const dev = process.env.NODE_ENV !== 'production'
@@ -27,12 +27,12 @@ const server = Express();
   //server.use("/apps", apps);
   // /api/v1/user?id=1
   //server.use(`${apiresponsepath}/user`, userdata);
-  
+
   // userdata api from github
   server.use(x9gitapi);
   // x9 api routes
   server.use(x9);
-  
+
   server.get(`/data/info`, (req: Request, res: Response) => {
     res.setHeader("Content-Type", "application/json");
     res.end(JSON.stringify({
@@ -58,9 +58,7 @@ const server = Express();
     if (dev || process.env.NODE_ENV === "development") {
       process.stdout.write(`------------------------------------------ |\n`);
       process.stdout.write(`> Ready on http://localhost:${port}/ \n`);
-      process.stdout.write(`> Ready on http://127.0.0.1:${port}/ \n`);
-      process.stdout.write(`> env - ${process.env.NODE_ENV} \n`);
-      process.stdout.write(`------------------------------------------ |\n`)
+      process.stdout.write(`> Ready on http://`);
     } else {
       return null;
     }

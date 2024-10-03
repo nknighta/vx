@@ -12,6 +12,9 @@ nextconfig = {
         });
         return config;
     },
+    compiler: {
+        removeConsole: true,
+      },
     images: {
         domains: [
             'avatars.githubusercontent.com',
