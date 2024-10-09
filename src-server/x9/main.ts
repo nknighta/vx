@@ -4,8 +4,8 @@ import { addedUserDataSearch } from "./auth/db";
 const x9 = express();
 
 //const username = process.argv[2];
-const github_oauth_url = `https://github.com/login/oauth/authorize?client_id=Iv23liPZ52IzTbEuz76C`;
-
+const loadenv = process.env.GITHUB_CLIENT_ID;
+const github_oauth_url = `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&scope=user:read`;
 x9.get('/x9/', (req, res) => {
     //console.log(req.query.country)
     res.redirect(github_oauth_url)

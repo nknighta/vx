@@ -56,11 +56,11 @@ const server = Express();
 
   server.listen(port, () => {
     if (dev || process.env.NODE_ENV === "development") {
-      process.stdout.write(`------------------------------------------ |\n`);
-      process.stdout.write(`> Ready on http://localhost:${port}/ \n`);
-      process.stdout.write(`> Ready on http://`);
+      console.log(startUpMsg("localhost", port, "development"));
     } else {
       return null;
     }
   });
 })();
+
+const startUpMsg = (addres, port, mode) => `> Ready on http://${addres}:${port}/ in ${mode} mode`;
