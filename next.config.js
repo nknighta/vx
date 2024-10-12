@@ -1,11 +1,24 @@
 
-
-module.exports = {
+nextconfig = {
+    webpack: (config) => {
+        config.module.rules.push({
+            test: /\.svg$/,
+            use: [
+                {
+                    loader: "@svgr/webpack",
+                    
+                },
+            ],
+        });
+        return config;
+    },
+    compiler: {
+        removeConsole: true,
+      },
     images: {
         domains: [
             'avatars.githubusercontent.com',
             'fonts.googleapis.com',
-            'media.varius.technology',
         ],
         unoptimized: true
     },
@@ -16,5 +29,7 @@ module.exports = {
     },
     experimental: {
         forceSwcTransforms: false,
-    },
+    }
 };
+
+module.exports = nextconfig

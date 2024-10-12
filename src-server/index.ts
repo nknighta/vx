@@ -1,7 +1,7 @@
 // using sample code from https://nextjs.org/docs/pages/building-your-application/configuring/custom-server
-import express, { Request, Response } from "express";
-import next from 'next'
-
+import Express, { Request, Response } from "express";
+import next from 'next';
+import x9 from "./x9/main";
 const dev = process.env.NODE_ENV !== 'production'
 
 const port = 3000;
@@ -11,7 +11,7 @@ const handle = app.getRequestHandler()
 
 const github_oauth_url = `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}`;
 
-import x9 from "./x9/main";
+import x9gitapi from "./idata/github";
 /**
  * api paths
  * /w3
@@ -19,17 +19,21 @@ import x9 from "./x9/main";
  * /api
  * /api/info
  */
-const server = express();
+const server = Express();
 
 (async () => {
   await app.prepare();
-  let apiresponsepath = "/api/v1";
   // api test
   //server.use("/apps", apps);
   // /api/v1/user?id=1
   //server.use(`${apiresponsepath}/user`, userdata);
+
+  // userdata api from github
+  server.use(x9gitapi);
+  // x9 api routes
   server.use(x9);
-  server.get(`${apiresponsepath}/info`, (req: Request, res: Response) => {
+
+  server.get(`/data/info`, (req: Request, res: Response) => {
     res.setHeader("Content-Type", "application/json");
     res.end(JSON.stringify({
       message: "vx v0.5",
@@ -52,17 +56,11 @@ const server = express();
 
   server.listen(port, () => {
     if (dev || process.env.NODE_ENV === "development") {
-      console.log(`
-      | ------------------------------------------ |
-      > Ready on http://127.0.0.1:${port}/ 
-      > Ready on http://localhost:${port}/
-      >> API LINKS
-        > http://localhost:${port}/
-      - env ${process.env.NODE_ENV}
-      | ------------------------------------------ |
-      `);
+      console.log(startUpMsg("localhost", port, "development"));
     } else {
       return null;
     }
   });
 })();
+
+const startUpMsg = (addres, port, mode) => `> Ready on http://${addres}:${port}/ in ${mode} mode`;

@@ -1,10 +1,11 @@
-import express, { Request, Response } from "express";
-
+import express from "express";
+import { Prisma, PrismaClient } from "@prisma/client";
+import { addedUserDataSearch } from "./auth/db";
 const x9 = express();
 
 //const username = process.argv[2];
-const github_oauth_url = `https://github.com/login/oauth/authorize?client_id=Iv23liPZ52IzTbEuz76C`;
-
+const loadenv = process.env.GITHUB_CLIENT_ID;
+const github_oauth_url = `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&scope=user:read`;
 x9.get('/x9/', (req, res) => {
     //console.log(req.query.country)
     res.redirect(github_oauth_url)
@@ -55,17 +56,31 @@ x9.get('/x9/auth/callback/', (req, res) => {
                     }
                     return response.json();
                 })
-                .then(data => {
+                .then(userdata => {
                     res.setHeader("Content-Type", "application/json");
-                    res.end(JSON.stringify({
-                        user: data.login,
-                        id: data.login,
-                        name: data.name,
-                        email: data.email,
-                        image: data.avatar_url,
-                        created_at: data.created_at,
-                        provider: "github",
-                    }));
+                    const user = addedUserDataSearch(userdata.login, userdata.email);
+                    const prisma = new PrismaClient();
+                    // 
+                    async function postDBdata() {
+                        if (await user) {
+                            res.redirect(`/dashboard/?username=${userdata.login}&provider=github`);
+                        } else {
+                            res.send(`<div>Would you like to continue with this account? ${userdata.login}</div>`);
+                            let data: Prisma.AccountCreateInput;
+                            data = {
+                                accountid: userdata.login,
+                                accountname: userdata.name,
+                                icon: userdata.avatar_url,
+                                email: userdata.email
+                            }
+                            const resultPostDB = await prisma.account.create(
+                                {
+                                    data: data
+                                }
+                            )
+                        }
+                    }
+                    postDBdata();
                 })
                 .catch(error => {
                     console.error('Error:', error);

@@ -9,7 +9,7 @@ const TestBox = ({ props }: any) => {
   return (
     <mesh {...props} ref={mesh}>
       <boxGeometry args={[2, 2, 2]} />
-      <meshStandardMaterial color={'purple'} />
+      <meshStandardMaterial color={'darkblue'} />
     </mesh>
   )
 }
@@ -18,22 +18,14 @@ const ThreeBox = () => {
   return (
     <div
       style={{
-        display: 'flex',
-        justifyContent: 'center',
+        height: '80vh',
+        width: '130vw',
         position: 'fixed',
-        height: '600px',
-        width: '100%',
         zIndex: -1,
       }}
     >
-      <Canvas
-        style={{
-          height: '900px',
-          width: '100%',
-        }}
-      >
+      <Canvas>
         <ambientLight />
-        <color attach="background" args={['#000011']} />
         <pointLight position={[-90, 0, -30]} />
         <TestBox />
       </Canvas>

@@ -1,10 +1,8 @@
 import { ReactElement, ReactNode } from 'react'
 import { NextPage } from 'next'
-import Script from "next/script";
 import type { AppProps } from 'next/app'
 import '../styles/globals.css'
-import { SessionProvider } from 'next-auth/react'
-
+import '@unocss/reset/tailwind.css'
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPage & {
@@ -16,7 +14,7 @@ type AppPropsWithLayout = AppProps & {
 // import from 'components/provider'
 export default function App({
   Component,
-  pageProps: { session, ...pageProps },
+  pageProps: { ...pageProps },
 }: AppPropsWithLayout) {
   const getLayout =
     Component.getLayout ||
@@ -24,8 +22,8 @@ export default function App({
       return page
     })
   return getLayout(
-    <SessionProvider session={session} >
+    <>
       <Component {...pageProps} />
-    </SessionProvider>,
+    </>,
   )
 }

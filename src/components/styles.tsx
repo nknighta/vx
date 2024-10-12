@@ -5,6 +5,7 @@ const BlogStyle = ({children}) => {
             listStyleType: 'none',
             maxWidth: '500px',
             overflow: 'hidden',
+            padding: "20px 0"
         }}>
             {children}
         </li>

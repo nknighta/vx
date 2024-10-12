@@ -4,10 +4,10 @@ import { NextApiRequest, NextApiResponse } from 'next';
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const prisma = new PrismaClient();
     const { name, email } = req.body;
-    const user = await prisma.user.findMany(
+    const user = await prisma.account.findMany(
         {
             where: {
-                name: name,
+                accountname: name,
                 email: email,
             }
         }

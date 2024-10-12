@@ -4,9 +4,9 @@
 .idea
 node_modules/
 prisma/migrations
-.vercel;
+.vercel
 env/
-dist/
+dist
 
 .env
 *storybook.log
