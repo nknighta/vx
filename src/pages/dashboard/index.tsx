@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { setCookie, getCookie, deleteCookie } from 'cookies-next';
 import Image from 'next/image';
 import Link from 'next/link';
-//import { useWin}
+import { getWindowWidth } from 'scripts/getWidth';
 
 // this is dashboad page
 interface DashClientProps {
@@ -24,17 +24,15 @@ interface DashServerProps {
 
 export default function Dash() {
     const router = useRouter();
+    const width = getWindowWidth();
+    
+    const home = router.query.home ? true : false;
     const [data, setData] = useState<DashClientProps>({
         username: '',
         status: false,
         localCookie: '',
         icon: "",
         id: ""
-    });
-    const [serverData, setServerData] = useState<DashServerProps>({
-        accountid: '',
-        accountname: '',
-        icon: ''
     });
 
     const username = router.query.username;
@@ -54,11 +52,7 @@ export default function Dash() {
                 .then(res => res.json())
                 .then(gdata => {
                     console.log(gdata);
-                    setServerData({
-                        accountid: gdata.data.accountid,
-                        accountname: gdata.data.accountname,
-                        icon: gdata.data.icon
-                    });
+                    
                     setData({
                         username: gdata.data.accountname,
                         status: true,
@@ -104,35 +98,31 @@ export default function Dash() {
     }
     return (
         <Layout>
-            <div>
-                <HMeta pageTitle="Dashboard" pageDescription="check your profile" pagePath="/dashboard" />
-                <h1 className='text-3xl'>Dashboard</h1>
-                <Image
-                    src={data.icon}
-                    alt="icon"
-                    width={100}
-                    height={100} style={{
-                        borderRadius: '50%',
-                        objectFit: 'cover'
-                    }}
-                />
-                <div className='bg-purple-7 w-auto py-3'>
-                    <p className='text-2xl'>{data.username}</p>
-                    <div>
-                        <p>@{data.id}</p>
-                        <button
-                            className='bg-purple-9 p-1 rounded-md'
-                            onClick={() => {
-                                navigator.clipboard.writeText(`@${data.id}`);
-                                alert('copied');
-                            }}>
-                            CopyID
-                        </button>
-                    </div>
-                </div>
-                <Link href='/dashboard/apps'>apps</Link>
+            <HMeta pageTitle="Dashboard" pageDescription="check your profile" pagePath="/dashboard" />
+            <div className={width > 960 ? 'flex': 'py-6 px-2'}>
                 <div>
-                    <button onClick={handleLogout}>Logout</button>
+                    <Image
+                        src={data.icon}
+                        alt="icon"
+                        width={100}
+                        height={100} style={{
+                            borderRadius: '50%',
+                            objectFit: 'cover'
+                        }}
+                    />
+                </div>
+                <span className='w-2px bg-purple-7 mx-4' />
+                <div>
+                    <div className='bg-purple-7 w-auto py-3 px-2 rounded-lg'>
+                        <p className='text-2xl'>{data.username}</p>
+                        <div>
+                            <p>@{data.id}</p>
+                        </div>
+                    </div>
+                    <Link href='/dashboard/apps'>apps</Link>
+                    <div>
+                        <button onClick={handleLogout}>Logout</button>
+                    </div>
                 </div>
             </div>
         </Layout>

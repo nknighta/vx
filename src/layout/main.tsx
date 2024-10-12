@@ -4,6 +4,7 @@ import VLink from '../components/link';
 import { useState } from 'react';
 import Link from 'next/link';
 import { getCookie } from 'cookies-next';
+import { useRouter } from 'next/router';
 // disable ssr for styled-components hydration error
 // https://zenn.dev/luvmini511/articles/71f65df05716ca
 
@@ -39,7 +40,6 @@ const Layout = ({ children }: any) => {
   const isMobile: boolean = width > 960 ? false : true;
   const [menuopen, isMenuopen] = useState<boolean>(false);
   const [userdata, setUserData] = useState<any>({});
-
   useEffect(() => {
     const auth = getCookie('username');
     if (auth) {
@@ -97,14 +97,11 @@ const Layout = ({ children }: any) => {
               </Menu>
               : ""}
           </div>
-          <VLink page='/'>
-            Home
-          </VLink>
           {userdata && userdata.username ?
             <VLink page='/dashboard'>
               Dashboard
             </VLink>
-            : 
+            :
             <VLink page='/signin'>
               SignIn
             </VLink>}
