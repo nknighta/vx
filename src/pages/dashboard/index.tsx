@@ -16,11 +16,6 @@ interface DashClientProps {
     id: string;
 }
 
-interface DashServerProps {
-    accountid: string;
-    accountname: string;
-    icon: string;
-}
 
 export default function Dash() {
     const router = useRouter();
@@ -31,18 +26,10 @@ export default function Dash() {
         icon: "",
         id: ""
     });
-    const [serverData, setServerData] = useState<DashServerProps>({
-        accountid: '',
-        accountname: '',
-        icon: ''
-    });
 
     const username = router.query.username;
     const localcookie = getCookie('username');
     useEffect(() => {
-        let x1 = document.cookie.split(';');
-        console.dir(document.cookie.split(';'));
-        console.log(x1[3]);
         if (username) {
             fetch(`/vx-inter-api/userdata/search/github/`, {
                 method: 'POST',
@@ -54,11 +41,7 @@ export default function Dash() {
                 .then(res => res.json())
                 .then(gdata => {
                     console.log(gdata);
-                    setServerData({
-                        accountid: gdata.data.accountid,
-                        accountname: gdata.data.accountname,
-                        icon: gdata.data.icon
-                    });
+                    
                     setData({
                         username: gdata.data.accountname,
                         status: true,

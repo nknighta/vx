@@ -25,7 +25,6 @@ model Account {
   icon        String?   @unique
   Session     Session[]
   wallet      wallet[]
-  Apps        Apps[]
 }
 
 model Session {
@@ -35,11 +34,8 @@ model Session {
 }
 
 model Apps {
-  appid     String  @id @default(cuid())
-  appicon   String
+  appid     String @id @default(cuid())
   appname   String
-  authorId  String  @default(cuid())
   downloadc Int?
-  appurl    String
-  account   Account @relation(fields: [authorId], references: [accountid])
+  appicon   String
 }
