@@ -3,11 +3,18 @@ import { useRouter } from 'next/router';
 
 export default function Dash() {
     const router = useRouter(); 
-    console.log("p2");
-    router.push('/dashboard');
     return (
         <div>
             <HMeta pageTitle="redirecting..." />
         </div>
     )
+}
+
+export async function getServerSideProps() {
+    return {
+        redirect: {
+            destination: '/dashboard',
+            permanent: false,
+        },
+    };
 }
