@@ -19,7 +19,7 @@ interface DashClientProps {
 export default function Dash() {
     const router = useRouter();
     const width = getWindowWidth();
-    
+
     const [data, setData] = useState<DashClientProps>({
         username: '',
         status: false,
@@ -29,41 +29,28 @@ export default function Dash() {
 
     const username = router.query.username;
     useEffect(() => {
-        if (username) {
-            fetch(`/vx-inter-api/userdata/search/github/`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ userid: username }),
+        fetch(`/vx-inter-api/userdata/search/github/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ userid: username }),
+        })
+            .then(res => res.json())
+            .then(gdata => {
+                setData({
+                    username: gdata.data.accountname,
+                    status: true,
+                    icon: gdata.data.icon,
+                    id: gdata.data.accountid
+                });
+                setCookie('username', gdata.data.accountname);
+                setCookie('userid', gdata.data.accountid);
+                setCookie('usericon', gdata.data.icon);
+                setCookie('userstatus', 'true');
+                router.push(`/dashboard/p2`);
             })
-                .then(res => res.json())
-                .then(gdata => {                    
-                    setData({
-                        username: gdata.data.accountname,
-                        status: true,
-                        icon: gdata.data.icon,
-                        id: gdata.data.accountid
-                    });
-                    setCookie('username', gdata.data.accountname);
-                    setCookie('userid', gdata.data.accountid);
-                    setCookie('usericon', gdata.data.icon);
-                    setCookie('userstatus', 'true');
-                    router.push(`/dashboard/p2`);
-                })
-                .catch(err => console.log(err))
-        } else  {
-            const id = getCookie('userid');
-            const namelocaled = getCookie('username');
-            const icon = getCookie('usericon');
-            setData({
-                username: namelocaled as string,
-                status: true,
-                icon: icon as string,
-                id: id as string
-            });
-            router.push(`/dashboard/p2?s=2`);
-        }
+            .catch(err => console.log(err))
     }, [username])
     const handleLogout = () => {
         deleteCookie('username');
@@ -81,7 +68,7 @@ export default function Dash() {
     return (
         <Layout>
             <HMeta pageTitle="Dashboard" pageDescription="check your profile" pagePath="/dashboard" />
-            <div className={width > 800 ? 'flex': 'py-6 px-2'}>
+            <div className={width > 800 ? 'flex' : 'py-6 px-2'}>
                 <div>
                     <Image
                         src={data.icon}
