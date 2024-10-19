@@ -44,7 +44,7 @@ var express_1 = __importDefault(require("express"));
 var next_1 = __importDefault(require("next"));
 var main_1 = __importDefault(require("./x9/main"));
 var dev = process.env.NODE_ENV !== 'production';
-var port = 3000;
+var port = 3001;
 // when using middleware `hostname` and `port` must be provided below
 var app = (0, next_1.default)({ dev: dev });
 var handle = app.getRequestHandler();
@@ -80,6 +80,10 @@ var server = (0, express_1.default)();
                     res.statusCode = 200;
                 });
                 server.all("*", function (req, res) {
+                    console.log(process.env.NODE_ENV === "development" ?
+                        "method: ".concat(req.method, " url:http://localhost:").concat(port).concat(req.url)
+                        :
+                            null);
                     return handle(req, res);
                 });
                 server.get("*", function (req, res) {
@@ -93,6 +97,7 @@ var server = (0, express_1.default)();
                 server.listen(port, function () {
                     if (dev || process.env.NODE_ENV === "development") {
                         console.log(startUpMsg("localhost", port, "development"));
+                        console.log("http://localhost:".concat(port, "/test"));
                     }
                     else {
                         return null;

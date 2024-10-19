@@ -9,6 +9,8 @@ const port = 3001;
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
+const github_oauth_url = `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}`;
+
 import x9gitapi from "./idata/github";
 /**
  * api paths
@@ -40,6 +42,10 @@ const server = Express();
   });
 
   server.all("*", (req: Request, res: Response) => {
+    console.log(process.env.NODE_ENV === "development" ? 
+      `method: ${req.method} url:http://localhost:${port}${req.url}`
+      : 
+      null)
     return handle(req, res);
   });
   server.get("*", (req: Request, res: Response) => {
@@ -55,6 +61,7 @@ const server = Express();
   server.listen(port, () => {
     if (dev || process.env.NODE_ENV === "development") {
       console.log(startUpMsg("localhost", port, "development"));
+      console.log(`http://localhost:${port}/test`);
     } else {
       return null;
     }

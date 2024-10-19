@@ -11,7 +11,6 @@ import { getWindowWidth } from 'scripts/getWidth';
 interface DashClientProps {
     username: string;
     status: boolean;
-    localCookie: string;
     icon: string;
     id: string;
 }
@@ -21,17 +20,14 @@ export default function Dash() {
     const router = useRouter();
     const width = getWindowWidth();
     
-    const home = router.query.home ? true : false;
     const [data, setData] = useState<DashClientProps>({
         username: '',
         status: false,
-        localCookie: '',
         icon: "",
         id: ""
     });
 
     const username = router.query.username;
-    const localcookie = getCookie('username');
     useEffect(() => {
         if (username) {
             fetch(`/vx-inter-api/userdata/search/github/`, {
@@ -46,7 +42,6 @@ export default function Dash() {
                     setData({
                         username: gdata.data.accountname,
                         status: true,
-                        localCookie: localcookie as string,
                         icon: gdata.data.icon,
                         id: gdata.data.accountid
                     });
@@ -57,14 +52,13 @@ export default function Dash() {
                     router.push(`/dashboard/p2`);
                 })
                 .catch(err => console.log(err))
-        } else if (localcookie) {
+        } else  {
             const id = getCookie('userid');
             const namelocaled = getCookie('username');
             const icon = getCookie('usericon');
             setData({
                 username: namelocaled as string,
                 status: true,
-                localCookie: localcookie,
                 icon: icon as string,
                 id: id as string
             });
@@ -79,7 +73,6 @@ export default function Dash() {
         setData({
             username: '',
             status: false,
-            localCookie: '',
             icon: '',
             id: ''
         });
@@ -88,7 +81,7 @@ export default function Dash() {
     return (
         <Layout>
             <HMeta pageTitle="Dashboard" pageDescription="check your profile" pagePath="/dashboard" />
-            <div className={width > 960 ? 'flex': 'py-6 px-2'}>
+            <div className={width > 800 ? 'flex': 'py-6 px-2'}>
                 <div>
                     <Image
                         src={data.icon}
@@ -108,7 +101,6 @@ export default function Dash() {
                             <p>@{data.id}</p>
                         </div>
                     </div>
-                    <Link href='/dashboard/apps'>apps</Link>
                     <div>
                         <button onClick={handleLogout}>Logout</button>
                     </div>

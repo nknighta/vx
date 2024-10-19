@@ -3,5 +3,5 @@
         "./src-server"
     ],
     "ext": "ts",
-    "exec": "pnpm dev"
+    "exec": "cross-env NODE_ENV=development ts-node ./src-server/index.ts"
 }
