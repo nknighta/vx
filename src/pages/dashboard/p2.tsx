@@ -10,10 +10,11 @@ export default function Dash() {
     )
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
+    const { req, res } = context;
     return {
         redirect: {
-            destination: '/dashboard',
+            destination: `/dashboard/`,
             permanent: false,
         },
     };

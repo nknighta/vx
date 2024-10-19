@@ -39,9 +39,7 @@ export default function Dash() {
                 body: JSON.stringify({ userid: username }),
             })
                 .then(res => res.json())
-                .then(gdata => {
-                    console.log(gdata);
-                    
+                .then(gdata => {                    
                     setData({
                         username: gdata.data.accountname,
                         status: true,
@@ -53,7 +51,6 @@ export default function Dash() {
                     setCookie('userid', gdata.data.accountid);
                     setCookie('usericon', gdata.data.icon);
                     setCookie('userstatus', 'true');
-
                     router.push(`/dashboard/p2`);
                 })
                 .catch(err => console.log(err))
@@ -68,8 +65,8 @@ export default function Dash() {
                 icon: icon as string,
                 id: id as string
             });
+            router.push(`/dashboard/p2?s=2`);
         }
-
     }, [username])
     const handleLogout = () => {
         deleteCookie('username');
