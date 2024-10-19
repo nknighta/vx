@@ -4,12 +4,10 @@ import next from 'next';
 import x9 from "./x9/main";
 const dev = process.env.NODE_ENV !== 'production'
 
-const port = 3000;
+const port = 3001;
 // when using middleware `hostname` and `port` must be provided below
 const app = next({ dev })
 const handle = app.getRequestHandler()
-
-const github_oauth_url = `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}`;
 
 import x9gitapi from "./idata/github";
 /**
