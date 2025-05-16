@@ -1,0 +1,19 @@
+{
+  "name": "vx-sdk",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "bin": {
+    "vx": "./dist/index.js"
+  },
+  "scripts": {
+    "start": "yarn build && yarn dev",
+    "build": "tsc",
+    "dev": "node dist/index.js"
+  },
+  "dependencies": {
+    "@types/node": "^22.15.15",
+    "ghats": "^0.10.0",
+    "typescript": "^5.8.3"
+  }
+}
