@@ -1,4 +1,5 @@
 #!/usr/bin/env node
-import Run from "./command/chains_list";
+import VX from "./command/main";
 
-export default Run;
+// Execute the Run function
+VX();
