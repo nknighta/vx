@@ -5,11 +5,13 @@
   "license": "MIT",
   "bin": {
     "vx": "./dist/index.js"
-  },
-  "scripts": {
+  },  "scripts": {
     "start": "yarn build && yarn dev",
     "build": "tsc",
-    "dev": "node dist/index.js"
+    "dev": "node dist/index.js",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "format": "prettier --write \"src/**/*.ts\""
   },
   "dependencies": {
     "@types/node": "^22.15.15",
