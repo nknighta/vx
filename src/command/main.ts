@@ -1,7 +1,7 @@
 import Run from './chains_list';
-import * as fs from 'fs';
-import * as path from 'path';
 import server from '../server/serve';
+import { init } from './pjmake';
+import { argsToString, shellAsync } from '../libs/shell';
 
 const args = process.argv.slice(2);
 
@@ -24,20 +24,13 @@ export default function VX() {
     case 'serve':
       server();
       break;
+    case 'create':
+      //args.map(arg => (arg.includes(' ') ? `"${arg}"` : arg)).join(' ');
+      console.log(argsToString(args.slice(1)));
+      break;
     default:
       console.error(`Unknown command: ${args[0]}`);
       help();
-  }
-}
-
-function init() {
-  const projectdir = process.cwd();
-  const projectDirPath = path.join(projectdir, args[1] || 'my-vx-project');
-  if (!fs.existsSync(projectDirPath)) {
-    fs.mkdirSync(projectDirPath, { recursive: true });
-    console.log(`Directory created at: ${projectDirPath}`);
-  } else {
-    console.log(`Directory already exists at: ${projectDirPath}`);
   }
 }
 
