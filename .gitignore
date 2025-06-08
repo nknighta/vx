@@ -1,6 +1,8 @@
 node_modules/
 dist/
+runtest/
 package-lock.json
 yarn-error.log
 *.log
+*.bin
 *.tsbuildinfo

@@ -2,8 +2,10 @@ import Run from './chains_list';
 import server from '../server/serve';
 import { init } from './pjmake';
 import { argsToString, shellAsync } from '../libs/shell';
+import {epcmager} from '../w3/contract';
 
 const args = process.argv.slice(2);
+// epcmager.main();
 
 export default function VX() {
   if (args.length === 0) {
