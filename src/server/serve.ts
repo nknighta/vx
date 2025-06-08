@@ -7,8 +7,11 @@ export default function server() {
         res.end("VX SDK Server is running\n");
     });
 
-    const PORT = process.env.PORT || 3000;
-    server.listen(PORT, () => {
-        console.log(`VX SDK Server is running on http://localhost:${PORT}`);
+    const args = process.argv.slice(2);
+    const port = args[1];
+    // Ensure PORT is a valid number, default to 3000 if not
+    const portNumber = isNaN(Number(port)) ? 3000 : Number(port);
+    server.listen(portNumber, () => {
+        console.log(`VX SDK Server is running on http://localhost:${portNumber}`);
     });
 }

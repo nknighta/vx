@@ -1,21 +1,33 @@
 import Run from "./chains_list";
 import * as fs from "fs";
 import * as path from "path";
+import server from "../server/serve";
 
 const args = process.argv.slice(2);
 
 export default function VX() {
-    if (args.length > 0 && args[0] === "chains") {
-        Run();
-        return;
-    } else if (args.length > 0 && args[0] === "help") {
+    if (args.length === 0) {
         help();
         return;
-    } else if (args.length > 0 && args[0] === "init") {
-        init();
-        return;
     }
-    console.log("VX command executed");
+
+    switch (args[0]) {
+        case "chains":
+            Run();
+            break;
+        case "init":
+            init();
+            break;
+        case "help":
+            help();
+            break;
+        case "serve":
+            server();
+            break;
+        default:
+            console.error(`Unknown command: ${args[0]}`);
+            help();
+    }
 }
 
 function init() {
@@ -38,10 +50,9 @@ function help() {
     console.log("  vx help - Show this help message \n");
     console.log("project generation:");
     console.log("  vx init [project-name] - Initialize a VX project in the current directory or specified name\n");
-    
     console.log("debug:");
     console.log("  vx serve - Start VX server for development");
-    console.log("  --\n");
+    console.log("  -p portnumber");
     console.log("options:")
     console.log("  --chais - Show available chains");
 }
