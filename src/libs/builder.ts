@@ -1,12 +1,18 @@
-const npmjsontemplate = `{
-  "name": "your-package-name",
-    "version": "1.0.0",
+
+
+import * as fs from 'fs';
+import * as path from 'path';
+
+export function createPackageJson(projectDir: string) {
+    const projectname = path.basename(projectDir);
+    const npmjsontemplate = `{
+  "name": "${projectname}",
+    "version": "0.1.0",
     "description": "A brief description of your package",
     "main": "index.js",
     "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "keywords": [],
     "author": "Your Name",
     "license": "ISC",
     "dependencies": {
@@ -18,16 +24,13 @@ const npmjsontemplate = `{
     }
 }`;
 
-import * as fs from 'fs';
-import * as path from 'path';
 
-export function createPackageJson(projectDir: string) {
-  const packageJsonPath = path.join(projectDir, 'package.json');
+    const packageJsonPath = path.join(projectDir, 'package.json');
 
-  if (!fs.existsSync(packageJsonPath)) {
-    fs.writeFileSync(packageJsonPath, npmjsontemplate, 'utf8');
-    console.log(`Created package.json at ${packageJsonPath}`);
-  } else {
-    console.log(`package.json already exists at ${packageJsonPath}`);
-  }
+    if (!fs.existsSync(packageJsonPath)) {
+        fs.writeFileSync(packageJsonPath, npmjsontemplate, 'utf8');
+        console.log(`Created package.json at ${packageJsonPath}`);
+    } else {
+        console.log(`package.json already exists at ${packageJsonPath}`);
+    }
 }

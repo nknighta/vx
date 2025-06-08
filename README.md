@@ -15,3 +15,32 @@ now available command:
 - `vx chains`
 
 authoer: [nknighta](https://nknighta.github.io/)
+## install
+### 1.Install globally
+```bash
+npm install -g @varius/vx-sdk
+```
+
+### 2. create a new project
+```bash
+npx vx create <project_name>
+```
+
+## sdk setup
+```typescript
+const vx = vx.client();
+vx.setup({
+});
+```
+
+## usage
+```bash
+npx vx init
+```
+```bash
+npx vx serve
+```
+
+### single endpoint
+```typescript
+```

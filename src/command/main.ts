@@ -1,8 +1,7 @@
 import Run from './chains_list';
 import server from '../server/serve';
 import { init } from './pjmake';
-import { argsToString, shellAsync } from '../libs/shell';
-import {epcmager} from '../w3/contract';
+import { argsToString } from '../libs/shell';
 
 const args = process.argv.slice(2);
 // epcmager.main();
@@ -29,6 +28,10 @@ export default function VX() {
     case 'create':
       //args.map(arg => (arg.includes(' ') ? `"${arg}"` : arg)).join(' ');
       console.log(argsToString(args.slice(1)));
+      const projectName = args[1] || 'vx-project';
+      const projectDir = process.cwd();
+      init();
+      console.log(`Project ${projectName} initialized in ${projectDir}`);
       break;
     default:
       console.error(`Unknown command: ${args[0]}`);
