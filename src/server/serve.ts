@@ -1,6 +1,10 @@
 // local development server for vx-sdk
 import { createServer } from 'http';
 
+export const instance = () => {
+  
+}
+
 export default function server() {
   const server = createServer((req, res) => {
     res.writeHead(200, { 'Content-Type': 'text/plain' });

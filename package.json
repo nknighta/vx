@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "license": "MIT",
   "bin": {
-    "vx": "./dist/index.js"
+    "vx": "./dist/cli.js"
   },
   "scripts": {
     "start": "yarn build && yarn dev",
