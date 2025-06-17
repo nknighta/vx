@@ -1,3 +1,4 @@
-import vx, { sub } from './core/contract';
+export * from './core/contract';
 
-export { vx, sub };
+// entry point for the library
+export * from './core/core';

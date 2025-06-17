@@ -1,9 +1,7 @@
 // local development server for vx-sdk
 import { createServer } from 'http';
 
-export const instance = () => {
-  
-}
+export const instance = () => {};
 
 export default function server() {
   const server = createServer((req, res) => {
