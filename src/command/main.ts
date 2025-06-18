@@ -1,4 +1,3 @@
-import { chainsList, selectMenu } from './chains_list';
 import server from '../server/serve';
 import { init } from './pjmake';
 import { argsToString } from '../libs/shell';
@@ -14,7 +13,7 @@ export default async function VX() {
 
   switch (args[0]) {
     case 'chains':
-      chainsList();
+      
       break;
     case 'init':
       init();
