@@ -1,4 +1,4 @@
-import Run from './chains_list';
+import { chainsList, selectMenu } from './chains_list';
 import server from '../server/serve';
 import { init } from './pjmake';
 import { argsToString } from '../libs/shell';
@@ -6,7 +6,7 @@ import { argsToString } from '../libs/shell';
 const args = process.argv.slice(2);
 // epcmager.main();
 
-export default function VX() {
+export default async function VX() {
   if (args.length === 0) {
     help();
     return;
@@ -14,7 +14,7 @@ export default function VX() {
 
   switch (args[0]) {
     case 'chains':
-      Run();
+      chainsList();
       break;
     case 'init':
       init();

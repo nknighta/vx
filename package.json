@@ -8,7 +8,7 @@
     "vx": "./dist/cli.js"
   },
   "scripts": {
-    "start": "yarn build && yarn dev",
+    "start": "yarn build && node ./dist/cli.js",
     "build": "tsc",
     "dev": "node dist/index.js",
     "lint": "eslint . --ext .ts",
