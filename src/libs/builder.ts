@@ -9,12 +9,13 @@ export function createPackageJson(projectDir: string) {
     "description": "A brief description of your package",
     "main": "index.js",
     "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1"
+      "start": "ts-node src/index.ts",
+      "build": "tsc"    
     },
     "author": "Your Name",
     "license": "ISC",
     "dependencies": {
-      "vx-sdk": "^1.0.0"
+      "@varius/vx": "^1.0.0"
     },
     "devDependencies": {
       "typescript": "^4.0.0",

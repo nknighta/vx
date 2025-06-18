@@ -4,18 +4,22 @@ import { createPackageJson } from '../libs/builder';
 
 const args = process.argv.slice(2);
 
-export function init() {
-  const projectdir = process.cwd();
-  const projectDirPath = path.join(projectdir, args[1] || 'my-vx-project');
+// set project name from cli tool or shell arguments
+export function init(
+  projectName?
+) {
+  //const createName = args[1] || projectName;
+  const createName = projectName;
+  const projectdir = process.cwd()
+  const projectDirPath = path.join(projectdir, createName || 'my-vx-project');
   if (!fs.existsSync(projectDirPath)) {
     fs.mkdirSync(projectDirPath, { recursive: true });
-
     // Copy the template files to the new project directory
     const templateDir = path.join(__dirname, '../../template');
     const files = fs.readdirSync(templateDir);
     // create a package.json file for vx project
     // if it does not exist
-    createPackageJson(args[1]);
+    createPackageJson(projectName);
     files.forEach((file) => {
       const srcFilePath = path.join(templateDir, file);
       const destFilePath = path.join(projectDirPath, file);

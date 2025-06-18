@@ -1,6 +1,7 @@
 import server from '../server/serve';
 import { init } from './pjmake';
 import { argsToString } from '../libs/shell';
+import shellhaldler from './input';
 
 const args = process.argv.slice(2);
 // epcmager.main();
@@ -12,9 +13,6 @@ export default async function VX() {
   }
 
   switch (args[0]) {
-    case 'chains':
-      
-      break;
     case 'init':
       init();
       break;
@@ -25,12 +23,7 @@ export default async function VX() {
       server();
       break;
     case 'create':
-      //args.map(arg => (arg.includes(' ') ? `"${arg}"` : arg)).join(' ');
-      console.log(argsToString(args.slice(1)));
-      const projectName = args[1] || 'vx-project';
-      const projectDir = process.cwd();
-      init();
-      console.log(`Project ${projectName} initialized in ${projectDir}`);
+      shellhaldler();
       break;
     default:
       console.error(`Unknown command: ${args[0]}`);
@@ -43,7 +36,7 @@ function help() {
   console.log(`VX CLI version ${packageJson.version}`);
   console.log('A command line interface for VX SDK\n');
   console.log('Usage:');
-  console.log('  vx chains - List available chains');
+  console.log('  vx qa - Start QA session');
   console.log('  vx help - Show this help message \n');
   console.log('project generation:');
   console.log(
