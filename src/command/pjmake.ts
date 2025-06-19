@@ -9,6 +9,13 @@ export function init(
   projectName?
 ) {
   //const createName = args[1] || projectName;
+  if (!projectName) {
+    if (args.length > 0) {
+      projectName = args[0];
+    } else {
+      projectName = 'my-vx-project';
+    }
+  }
   const createName = projectName;
   const projectdir = process.cwd()
   const projectDirPath = path.join(projectdir, createName || 'my-vx-project');

@@ -1,7 +1,7 @@
 {
   "name": "@varius/vx",
   "version": "0.0.1",
-  "description": "Varius VX - A CLI tool for Varius smart contracts",
+  "description": "A CLI tool for Varius smart contracts",
   "main": "dist/index.js",
   "license": "MIT",
   "bin": {

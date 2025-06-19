@@ -1,3 +1,5 @@
+import server from '../server/serve';
+
 export class createConfig {
   name: string;
   nodeconfigbuilder: any[];
@@ -8,6 +10,20 @@ export class createConfig {
   }
 
   userNodeConfigulation() {
-    console.log(`Creating contract on host: ${this.name} with config: ${this.nodeconfigbuilder}`);
+    if (this.nodeconfigbuilder.length === 0) {
+      console.log('No node configuration provided.');
+      return;
+    }
+
+    this.nodeconfigbuilder.forEach((nodeConfig) => {
+      server({
+        host: nodeConfig.host || 'localhost',
+        port: nodeConfig.port || 3000,
+        chains: nodeConfig.chains || [],
+        env: nodeConfig.env || 'development',
+        debug: nodeConfig.debug || false,
+        displaylogs: nodeConfig.displaylogs || false,
+      });
+    });
   }
 }

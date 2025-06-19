@@ -19,9 +19,6 @@ export default async function VX() {
     case 'help':
       help();
       break;
-    case 'serve':
-      server();
-      break;
     case 'create':
       shellhaldler();
       break;
