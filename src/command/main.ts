@@ -1,8 +1,6 @@
-import server from '../server/serve';
 import { init } from './pjmake';
-import { argsToString } from '../libs/shell';
-import { createConfig } from '../core/core';
 import shellhaldler from './input';
+import localServer from '../server/dev';
 
 const args = process.argv.slice(2);
 // epcmager.main();
@@ -23,13 +21,18 @@ export default async function VX() {
         break;
       case 'create':
         shellhaldler();
+        return;
+      case 'serve':
+        localServer();
+        return;
+      case 'dash':
+        console.log('🚀🚀🚀🚀\n');
+        console.log('build dashboard now. stay tuned!');
         break;
-      //case 'serve':
       default:
-        console.error(`Unknown command: ${args[0]}`);
+        console.error(`😑 < Unknown command: ${args[0]}`);
         help();
     }
-    process.exit(0);
   } catch (error) {
     console.error(`Error: ${error.message}`);
     process.exit(1);
