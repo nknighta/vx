@@ -12,21 +12,27 @@ export default async function VX() {
     help();
     return;
   }
+  try {
 
-  switch (args[0]) {
-    case 'init':
-      init();
-      break;
-    case 'help':
-      help();
-      break;
-    case 'create':
-      shellhaldler();
-      break;
-    case 'serve':
-    default:
-      console.error(`Unknown command: ${args[0]}`);
-      help();
+    switch (args[0]) {
+      case 'init':
+        init();
+        break;
+      case 'help':
+        help();
+        break;
+      case 'create':
+        shellhaldler();
+        break;
+      //case 'serve':
+      default:
+        console.error(`Unknown command: ${args[0]}`);
+        help();
+    }
+    process.exit(0);
+  } catch (error) {
+    console.error(`Error: ${error.message}`);
+    process.exit(1);
   }
 }
 
@@ -35,15 +41,6 @@ function help() {
   console.log(`VX CLI version ${packageJson.version}`);
   console.log('A command line interface for VX SDK\n');
   console.log('Usage:');
-  console.log('  vx qa - Start QA session');
-  console.log('  vx help - Show this help message \n');
   console.log('project generation:');
-  console.log(
-    '  vx init [project-name] - Initialize a VX project in the current directory or specified name\n'
-  );
-  console.log('debug:');
-  console.log('  vx serve - Start VX server for development');
-  console.log('  -p portnumber');
-  console.log('options:');
   console.log('  --chais - Show available chains');
 }

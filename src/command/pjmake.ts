@@ -11,7 +11,7 @@ export function init(
   //const createName = args[1] || projectName;
   if (!projectName) {
     if (args.length > 0) {
-      projectName = args[0];
+      projectName = args[1];
     } else {
       projectName = 'my-vx-project';
     }
