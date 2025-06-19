@@ -1,6 +1,7 @@
 import server from '../server/serve';
 import { init } from './pjmake';
 import { argsToString } from '../libs/shell';
+import { createConfig } from '../core/core';
 import shellhaldler from './input';
 
 const args = process.argv.slice(2);
@@ -22,6 +23,7 @@ export default async function VX() {
     case 'create':
       shellhaldler();
       break;
+    case 'serve':
     default:
       console.error(`Unknown command: ${args[0]}`);
       help();
