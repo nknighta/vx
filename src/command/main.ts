@@ -1,6 +1,7 @@
 import { init } from './pjmake';
 import shellhaldler from './input';
 import localServer from '../server/dev';
+import { connector } from '../core/connector';
 
 const args = process.argv.slice(2);
 // epcmager.main();
@@ -8,7 +9,6 @@ const args = process.argv.slice(2);
 export default async function VX() {
   if (args.length === 0) {
     help();
-    return;
   }
   try {
 
@@ -25,6 +25,13 @@ export default async function VX() {
       case 'serve':
         localServer();
         return;
+      case 'rpc':
+        connector();
+        return;
+      case '--version':
+        localServer();
+        return;
+
       case 'dash':
         console.log('🚀🚀🚀🚀\n');
         console.log('build dashboard now. stay tuned!');
@@ -41,9 +48,38 @@ export default async function VX() {
 
 function help() {
   const packageJson = require('../../package.json');
-  console.log(`VX CLI version ${packageJson.version}`);
-  console.log('A command line interface for VX SDK\n');
-  console.log('Usage:');
-  console.log('project generation:');
-  console.log('  --chais - Show available chains');
+  if (args.includes('--version') || args.includes('-v')) {
+    console.log(`VX CLI version: ${packageJson.version}`);
+    process.exit(0);
+  }
+
+  const stage = "dev";
+
+  const commandlist = [
+    {
+      command: 'init',
+      description: 'Initialize a new project with default settings.'
+    }, {
+      command: 'create',
+      description: 'Create a new project with the specified name.'
+    }, {
+      command: 'serve',
+      description: 'Start a local development server.'
+    }, {
+      command: 'dash',
+      description: 'Build and serve the dashboard.'
+    }, {
+      command: 'help',
+      description: 'Display this help message.'
+    }
+  ]
+
+  console.log(`\n🚀 VX CLI v${packageJson.version} ${stage}`);
+  console.log('Available commands:');
+  commandlist.forEach(cmd => {
+    console.log(`  ${cmd.command.padEnd(10)} - ${cmd.description}`);
+  });
+  console.log('\nUse "vx <command> --help" for more information on a specific command.\n');
+
+  process.exit(0);
 }
