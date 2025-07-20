@@ -1,5 +1,8 @@
 // local development server for vx-sdk
 import { createServer } from 'http';
+import { ethers } from "ethers";
+
+const provider = new ethers.JsonRpcProvider();
 
 // Helper functions to parse command-line arguments
 function getArgValue(args: string[], flag: string): string | undefined {
@@ -47,8 +50,26 @@ export default function localServer(options?: Partial<ServerOptions>) {
     const displaylogs = hasFlag(args, '--logs') || options?.displaylogs || false;
 
     const server = createServer((req, res) => {
-        res.writeHead(200, { 'Content-Type': 'text/plain' });
-        res.end("Welcome to VX SDK Server!\n");
+        // Handle /api endpoint
+        if (req.url === '/api' && req.method === 'GET') {
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ message: 'Welcome to the VX SDK API', status: 'success' }));
+        } else if (req.url === '/debug') {
+            // Handle /debug endpoint
+            let blognum = 0;
+            provider.getBlockNumber().then((blockNumber) => {
+                blognum = blockNumber;
+            }).catch((error) => {
+                console.error('Error fetching block number:', error);
+            });
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.end(`<html><head><title>VX debug tool</title></head><style>* {padding:0; margin:0; }</style><body><h1>Debug Endpoint ${blognum} num</h1><p>Server is running in debug mode.</p></body></html>\n`);
+        }
+        else {
+            // Default response for all other requests
+            res.writeHead(200, { 'Content-Type': 'text/plain' });
+            res.end("Welcome to VX SDK Server!\n");
+        }
     });
 
     // Ensure PORT is a valid number, default to 3000 if not
@@ -67,25 +88,15 @@ export default function localServer(options?: Partial<ServerOptions>) {
             return;
         }
     });
+    server.on('error', (err) => {
+        console.error('Server error:', err);
+        process.exit(1);
+    });
+
 
     if (server.listening) {
         console.log('already server is running');
     }
 
-    // 開発環境向けのグレースフルシャットダウン処理
-    process.once('SIGUSR2', function () {
-        server.close(function () {
-            console.log('server closed');
-            process.kill(process.pid, 'SIGUSR2');
-        });
-    });
-
-    // その他の終了シグナルに対応
-    process.on('SIGINT', () => {
-        server.close(() => {
-            console.log('Server closed gracefully');
-            process.exit(0);
-        });
-    });
 }
 

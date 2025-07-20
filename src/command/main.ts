@@ -3,6 +3,8 @@ import shellhaldler from './input';
 import localServer from '../server/dev';
 import { connector } from '../core/connector';
 
+const loadversion = require('../../package.json').version;
+
 const args = process.argv.slice(2);
 // epcmager.main();
 
@@ -29,8 +31,11 @@ export default async function VX() {
         connector();
         return;
       case '--version':
-        localServer();
-        return;
+        console.log(`VX CLI version: ${loadversion}`);
+        process.exit(0);
+      case '-v':
+        console.log(`VX CLI version: ${loadversion}`);
+        process.exit(0);
 
       case 'dash':
         console.log('🚀🚀🚀🚀\n');

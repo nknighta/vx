@@ -4,6 +4,12 @@
   "description": "A CLI tool for Varius smart contracts",
   "main": "dist/index.js",
   "license": "MIT",
+  "keywords": [
+    "web3",
+    "vx",
+    "cli",
+    "smart-contracts"
+  ],
   "bin": {
     "vx": "./dist/cli.js"
   },
@@ -22,6 +28,7 @@
   "dependencies": {
     "@types/node": "^22.15.15",
     "eslint-config-prettier": "^10.1.5",
+    "ethers": "^6.15.0",
     "ghats": "^0.10.0",
     "prettier": "^3.5.3",
     "typescript": "^5.8.3"

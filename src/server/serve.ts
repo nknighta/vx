@@ -30,13 +30,26 @@ export default function server({ host, port, chains, env, debug, displaylogs }: 
   server.listen(portNumber, host, () => {
     if (debug) {
       console.log(`Server on http://${host}:${portNumber} with debug mode`);
-      
+
     } else if (displaylogs) {
       console.log(`Server on http://${host}:${portNumber}`);
     } else {
       return;
     }
   });
+
+  // Create /api path to return a JSON response
+  server.on('request', (req, res) => {
+    if (req.url === '/api' && req.method === 'GET') {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ message: 'Welcome to the VX SDK API', status: 'success' }));
+    }
+  });
+  server.on('error', (err) => {
+    console.error('Server error:', err);
+    process.exit(1);
+  });
+
 
   if (server.listening) {
     console.log('already server is running');
