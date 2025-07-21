@@ -21,6 +21,7 @@
     "build": "rimraf dist && tsc",
     "clean": "rimraf dist",
     "dev": "node dist/cli.js",
+    "start": "npm run build && npx vx serve --debug",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "format": "prettier --write \"src/**/*.ts\""

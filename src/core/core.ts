@@ -1,5 +1,3 @@
-import server from '../server/serve';
-
 export class createConfig {
   name: string;
   nodeconfigbuilder: any[];
@@ -16,14 +14,6 @@ export class createConfig {
     }
 
     this.nodeconfigbuilder.forEach((nodeConfig) => {
-      server({
-        host: nodeConfig.host || 'localhost',
-        port: nodeConfig.port || 3000,
-        chains: nodeConfig.chains || [],
-        env: nodeConfig.env || 'development',
-        debug: nodeConfig.debug || false,
-        displaylogs: nodeConfig.displaylogs || false,
-      });
     });
   }
 }

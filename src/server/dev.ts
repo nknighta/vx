@@ -32,6 +32,54 @@ interface ServerOptions {
     displaylogs?: boolean;
 }
 
+interface LocalWebViewBuilderOptions {
+    blocknum?: number;
+    // Add other options as needed
+}
+
+function localWebViewBuilder({ blocknum }) {
+    // This function can be used to build a local web view with the provided block number
+    return `<html>
+        <head>
+            <title>VX Local Web View</title>
+        </head>
+        <style>
+            * { 
+                padding: 0; 
+                margin: 0; 
+                font-family: Noto Sans, sans-serif;
+                box-sizing: border-box;    
+            }
+
+            code {
+                background-color: #f4f4f4;
+                border-radius: 5px;
+                display: block;
+            }
+
+            pre {
+                background-color: #f4f4f4;
+                left: 0;
+                }
+        </style>
+        <body>
+            <h1 style="text-align: center; color: #333;">VX SDK Local Web View</h1>
+            <h2>Block Number: ${blocknum}</h2>
+            <p>This is a local web view for VX SDK.</p>
+            <a href="https://vx.varius.technology" target="_">Docs</a>
+            <h2>API sample</h2>
+            <code>
+                <pre>
+            {
+                "blockNumber": ${blocknum},
+                "status": "success"
+            }
+                </pre>
+            </code>
+        </body>
+    </html>`;
+}
+
 export default function localServer(options?: Partial<ServerOptions>) {
     // Parse command line arguments
     const args = process.argv.slice(2);
@@ -49,11 +97,17 @@ export default function localServer(options?: Partial<ServerOptions>) {
     const debug = hasFlag(args, '--debug') || options?.debug || false;
     const displaylogs = hasFlag(args, '--logs') || options?.displaylogs || false;
 
+    const API_ENDTPOINT = ['/api', '/debug'];
+
     const server = createServer((req, res) => {
         // Handle /api endpoint
         if (req.url === '/api' && req.method === 'GET') {
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ message: 'Welcome to the VX SDK API', status: 'success' }));
+        } else if (req.url === "/api/") {
+            // Handle /api/ endpoint
+            res.writeHead(301, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ message: 'Redirecting to /api', status: 'redirect' }));
         } else if (req.url === '/debug') {
             // Handle /debug endpoint
             let blognum = 0;
@@ -63,12 +117,13 @@ export default function localServer(options?: Partial<ServerOptions>) {
                 console.error('Error fetching block number:', error);
             });
             res.writeHead(200, { 'Content-Type': 'text/html' });
-            res.end(`<html><head><title>VX debug tool</title></head><style>* {padding:0; margin:0; }</style><body><h1>Debug Endpoint ${blognum} num</h1><p>Server is running in debug mode.</p></body></html>\n`);
-        }
-        else {
+            const htmlContent = localWebViewBuilder({ blocknum: blognum });
+            res.end(htmlContent);
+            res.end()
+        } else {
             // Default response for all other requests
-            res.writeHead(200, { 'Content-Type': 'text/plain' });
-            res.end("Welcome to VX SDK Server!\n");
+            res.writeHead(404, { 'Content-Type': 'text/plain' });
+            res.end("not found api endpoint....\n");
         }
     });
 
