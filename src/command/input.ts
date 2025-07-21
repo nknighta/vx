@@ -35,6 +35,4 @@ function shellInputHandler(index: number) {
 
 export default function shellhaldler() {
   shellInputHandler(0);
-
-
 }

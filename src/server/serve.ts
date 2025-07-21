@@ -20,6 +20,12 @@ export default function server({ host, port, chains, env, debug, displaylogs }: 
   const server = createServer((req, res) => {
     res.writeHead(200, { 'Content-Type': 'text/plain' });
     res.end("Welcome to VX SDK Server!\n");
+    server.on('request', (req, res) => {
+      if (req.url === '/api' && req.method === 'GET') {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ message: 'Welcome to the VX SDK API', status: 'success' }));
+      }
+    });
   });
 
   const args = process.argv.slice(2);
@@ -30,6 +36,7 @@ export default function server({ host, port, chains, env, debug, displaylogs }: 
   server.listen(portNumber, host, () => {
     if (debug) {
       console.log(`Server on http://${host}:${portNumber} with debug mode`);
+      console.log(`Docs available at https://vx.varius.technology/`);
 
     } else if (displaylogs) {
       console.log(`Server on http://${host}:${portNumber}`);
@@ -39,12 +46,7 @@ export default function server({ host, port, chains, env, debug, displaylogs }: 
   });
 
   // Create /api path to return a JSON response
-  server.on('request', (req, res) => {
-    if (req.url === '/api' && req.method === 'GET') {
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ message: 'Welcome to the VX SDK API', status: 'success' }));
-    }
-  });
+
   server.on('error', (err) => {
     console.error('Server error:', err);
     process.exit(1);
