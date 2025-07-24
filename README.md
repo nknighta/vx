@@ -15,6 +15,7 @@ now available command:
 - `vx chains`
 
 authoer: [nknighta](https://nknighta.github.io/)
+
 ## install
 ### 1.Install globally
 ```bash
@@ -43,4 +44,31 @@ npx vx serve
 
 ### single endpoint
 ```typescript
+```
+
+## Development
+
+### Building
+```bash
+npm run build
+```
+
+### Testing
+```bash
+# Run all tests
+npm test
+
+# Run tests with coverage
+npm run test:coverage
+
+# Run tests in watch mode
+npm run test:watch
+```
+
+For detailed testing information, see [docs/TESTING.md](docs/TESTING.md).
+
+### Linting
+```bash
+npm run lint
+npm run lint:fix
 ```
