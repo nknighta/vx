@@ -11,7 +11,7 @@ export default [
       ecmaVersion: "latest",
       sourceType: "module",
       globals: {
-        ...globals.node, 
+        ...globals.node,
       },
     },
     rules: {
@@ -19,4 +19,20 @@ export default [
   },
   js.configs.recommended,
   prettierConfig,
+  {
+    env: {
+      node: true,
+      jest: true, // Add Jest environment
+    },
+    extends: [
+      'eslint:recommended',
+    ],
+    parserOptions: {
+      ecmaVersion: 2020,
+      sourceType: 'module',
+    },
+    rules: {
+      // Add custom rules if needed
+    },
+  },
 ];
