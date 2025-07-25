@@ -2,6 +2,7 @@
  * @jest-environment node
  */
 
+import VX from './src/command/main';
 
 describe('VX CLI Commands', () => {
     const mockedLog = (output) => consoleOutput.push(output);
