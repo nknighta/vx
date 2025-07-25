@@ -3,6 +3,7 @@ import * as path from 'path';
 
 export function createPackageJson(projectDir: string) {
   const projectname = path.basename(projectDir);
+  const SDK_VERSION = require('../package.json').version;
   const npmjsontemplate = `{
   "name": "${projectname}",
     "version": "0.1.0",
@@ -15,7 +16,7 @@ export function createPackageJson(projectDir: string) {
     "author": "Your Name",
     "license": "ISC",
     "dependencies": {
-      "@varius/vx": "^1.0.0"
+      "@nknighta/vx": "^${SDK_VERSION}"
     },
     "devDependencies": {
       "typescript": "^4.0.0",

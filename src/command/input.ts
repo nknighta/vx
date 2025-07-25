@@ -12,25 +12,30 @@ const questions: string[] = [
 const answers: string[] = [];
 
 function shellInputHandler(index: number) {
-  if (index >= questions.length) {
-    rl.close();
-    console.log("\n project created");
-    questions.forEach((q, i) => {
-      console.log(`- ${q} ${answers[i]}`);
-    });
-    return;
-  }
-
-  rl.question(questions[index] + " ", (answer) => {
-    answers.push(answer);
-    shellInputHandler(index + 1);
-
-    if (index === questions.length - 1) {
-      init(answers[0]);
-    } else {
-      shellInputHandler(index + 1);
+  try {
+    if (index >= questions.length) {
+      rl.close();
+      console.log("\n project created");
+      questions.forEach((q, i) => {
+        console.log(`- ${q} ${answers[i]}`);
+      });
+      return;
     }
-  });
+
+    rl.question(questions[index] + " ", (answer) => {
+      answers.push(answer);
+      shellInputHandler(index + 1);
+
+      if (index === questions.length - 1) {
+        init(answers[0]);
+      } else {
+        shellInputHandler(index + 1);
+      }
+    });
+  } catch (error) {
+    console.error(`Error: ${error.message}`);
+    process.exit(1);
+  }
 }
 
 export default function shellhaldler() {

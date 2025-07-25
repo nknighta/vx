@@ -1,5 +1,9 @@
 function vx(a?: string) {
-  console.log('hello!' + a);
+  function node() {
+    console.log(`VX CLI version: ${a}`);
+  }
+
+  node();
 }
 
 export default vx;

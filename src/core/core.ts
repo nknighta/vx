@@ -1,19 +1,8 @@
-export class createConfig {
-  name: string;
-  nodeconfigbuilder: any[];
+import { ethers } from "ethers";
 
-  constructor(name: string, nodeconfigbuilder?: any[]) {
-    this.name = name;
-    this.nodeconfigbuilder = nodeconfigbuilder || [];
+export function node({ name, nodeconfigbuilder }: { name: string; nodeconfigbuilder?: any[] }) {
+  const newNode = {
+    name,
   }
-
-  userNodeConfigulation() {
-    if (this.nodeconfigbuilder.length === 0) {
-      console.log('No node configuration provided.');
-      return;
-    }
-
-    this.nodeconfigbuilder.forEach((nodeConfig) => {
-    });
-  }
+  console.log(`Node created: ${JSON.stringify(newNode)}`);
 }

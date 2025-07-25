@@ -2,6 +2,7 @@ import { init } from './pjmake';
 import shellhaldler from './input';
 import localServer from '../server/dev';
 import { connector } from '../core/connector';
+import interactWithContract from './contract';
 
 const loadversion = require('../../package.json').version;
 
@@ -29,6 +30,9 @@ export default async function VX() {
         return;
       case 'rpc':
         connector();
+        return;
+      case 'contract':
+        interactWithContract();
         return;
       case '--version':
         console.log(`VX CLI version: ${loadversion}`);
@@ -70,6 +74,9 @@ function help() {
     }, {
       command: 'serve',
       description: 'Start a local development server.'
+    }, {
+      command: 'contract',
+      description: 'Interact with a smart contract (browser-based example).'
     }, {
       command: 'dash',
       description: 'Build and serve the dashboard.'
