@@ -3,7 +3,9 @@
     "target": "es2021",
     "module": "commonjs",
     "outDir": "./dist",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "src/**/*.ts"

@@ -6,3 +6,8 @@ yarn-error.log
 *.log
 *.bin
 *.tsbuildinfo
+
+# Test artifacts
+coverage/
+.nyc_output/
+jest-coverage/

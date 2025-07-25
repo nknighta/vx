@@ -24,7 +24,11 @@
     "start": "npm run build && npx vx serve --debug",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
-    "format": "prettier --write \"src/**/*.ts\""
+    "format": "prettier --write \"src/**/*.ts\"",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:ci": "jest --ci --coverage --watchAll=false"
   },
   "dependencies": {
     "@types/node": "^22.15.15",
@@ -35,9 +39,12 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.28.0",
+    "@types/jest": "^30.0.0",
+    "@types/supertest": "^6.0.3",
     "eslint": "^9.28.0",
     "eslint-config-prettier": "^10.1.8",
     "globals": "^16.2.0",
+    "jest": "^30.0.5",
     "rimraf": "^6.0.1",
     "typescript-eslint": "^8.33.1"
   }
