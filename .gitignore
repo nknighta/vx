@@ -11,3 +11,6 @@ yarn-error.log
 coverage/
 .nyc_output/
 jest-coverage/
+
+.env
+vx.config.json

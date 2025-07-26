@@ -1,9 +1,9 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import { SDK_VERSION } from '../config';
 
 export function createPackageJson(projectDir: string) {
   const projectname = path.basename(projectDir);
-  const SDK_VERSION = require('../package.json').version;
   const npmjsontemplate = `{
   "name": "${projectname}",
     "version": "0.1.0",

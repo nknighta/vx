@@ -1,10 +1,10 @@
 import { init } from './pjmake';
 import shellhaldler from './input';
 import localServer from '../server/dev';
-import { connector } from '../core/connector';
-import interactWithContract from './contract';
+import { rpc } from '../core/rpc';
+import { SDK_VERSION } from '../config';
 
-const loadversion = require('../../package.json').version;
+const loadversion = SDK_VERSION
 
 const args = process.argv.slice(2);
 // epcmager.main();
@@ -29,10 +29,7 @@ export default async function VX() {
         localServer();
         return;
       case 'rpc':
-        connector();
-        return;
-      case 'contract':
-        interactWithContract();
+        rpc();
         return;
       case '--version':
         console.log(`VX CLI version: ${loadversion}`);
@@ -49,6 +46,8 @@ export default async function VX() {
         console.error(`😑 < Unknown command: ${args[0]}`);
         help();
     }
+
+    process.exit(0);
   } catch (error) {
     console.error(`Error: ${error.message}`);
     process.exit(1);
@@ -56,9 +55,8 @@ export default async function VX() {
 }
 
 function help() {
-  const packageJson = require('../../package.json');
   if (args.includes('--version') || args.includes('-v')) {
-    console.log(`VX CLI version: ${packageJson.version}`);
+    console.log(`VX CLI version: ${SDK_VERSION}`);
     process.exit(0);
   }
 
@@ -86,7 +84,7 @@ function help() {
     }
   ]
 
-  console.log(`\n🚀 VX CLI v${packageJson.version} ${stage}`);
+  console.log(`\n🚀 VX CLI v${SDK_VERSION} ${stage}`);
   console.log('Available commands:');
   commandlist.forEach(cmd => {
     console.log(`  ${cmd.command.padEnd(10)} - ${cmd.description}`);
