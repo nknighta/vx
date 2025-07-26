@@ -35,6 +35,7 @@
     "@types/node": "^22.15.15",
     "ethers": "^6.15.0",
     "prettier": "^3.5.3",
+    "readline-sync": "^1.4.10",
     "solc": "^0.8.30"
   },
   "devDependencies": {

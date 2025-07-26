@@ -1,7 +1,7 @@
 import { init } from './pjmake';
 import shellhaldler from './input';
 import localServer from '../server/dev';
-import { rpc } from '../core/rpc';
+import { rpc } from '../core/rpc/command';
 import { SDK_VERSION } from '../config';
 
 const loadversion = SDK_VERSION
