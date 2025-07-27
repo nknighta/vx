@@ -1,6 +1,6 @@
 import { load_rpc_config } from "./rpc/connect";
 
-function vx(configPath: string) {
+function intstance(configPath: string) {
   const config = load_rpc_config(configPath);
   if (!config) {
     console.error("No configuration found. Please run 'vx rpc init' to create a configuration.");
@@ -9,4 +9,4 @@ function vx(configPath: string) {
   console.log(JSON.stringify(config, null, 2));
 }
 
-export default vx;
+export default intstance;

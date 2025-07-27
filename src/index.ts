@@ -1,3 +1,3 @@
-import vx from './core/contract';
+import instance from './core/contract';
 
-export { vx };
+export { instance };

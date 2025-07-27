@@ -24,5 +24,5 @@ authoer: [nknighta](https://nknighta.github.io/)
 ```ts
 import vx from '@nknighta/vx';
 
-vx.vx('vx.config.json');
+vx.instance('vx.config.json');
 ```
