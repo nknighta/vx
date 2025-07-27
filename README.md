@@ -18,3 +18,11 @@ authoer: [nknighta](https://nknighta.github.io/)
 - express
   debug server
 - ethers.js
+
+## example
+
+```ts
+import vx from '@nknighta/vx';
+
+vx.vx('vx.config.json');
+```

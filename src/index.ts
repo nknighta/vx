@@ -1,6 +1,3 @@
+import vx from './core/contract';
 
-export * from './core/contract';
-
-// entry point for the library
-
-// the chains list
+export { vx };
