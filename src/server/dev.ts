@@ -1,8 +1,8 @@
 // local development server for vx-sdk
 import { createServer } from 'http';
 import { ethers } from "ethers";
-
-const provider = new ethers.JsonRpcProvider(process.env.NODE_URL || 'http://localhost:8545');
+import { getBlockNumber } from '../core/data/block';
+const bn = getBlockNumber(process.env.NODE_URL || 'http://localhost:8545');
 
 // Helper functions to parse command-line arguments
 function getArgValue(args: string[], flag: string): string | undefined {
@@ -69,6 +69,18 @@ function localWebViewBuilder({ blognum }) {
 {blognum: ${blognum}}
                 </pre>
             </code>
+            <h2>Code example</h2>
+            <code>
+                <pre>
+                import vx from '@nknighta/vx';
+                export const vx = new vx.node({});
+                const bn = vx.blocknum();
+            bn.then(
+                    (blockNumber) => res.end(localWebViewBuilder({ blognum: blockNumber }))
+                ).catch(() => res.end(localWebViewBuilder({ blognum: 0 })));
+            
+                </pre>
+            </code>
         </body>
     </html>`;
 }
@@ -103,22 +115,21 @@ export default function localServer(options?: Partial<ServerOptions>) {
             res.end(JSON.stringify({ message: 'Redirecting to /api', status: 'redirect' }));
         } else if (req.url === "/api/block") {
             // Handle /api/block endpoint
-            let blockNumber = 0;
-            provider.getBlockNumber().then((blockNumber) => {
+            bn.then((blockNumber) => {
                 res.writeHead(200, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ blockNumber }));
             });
         } else if (req.url === '/debug') {
             // Handle /debug endpoint
-            provider.getBlockNumber().then((blockNumber) => {
-                const htmlContent = localWebViewBuilder({ blognum: blockNumber });
+            if (debug) {
                 res.writeHead(200, { 'Content-Type': 'text/html' });
-                res.end(htmlContent);
-            }).catch((error) => {
-                console.error('Error fetching block number:', error);
-                res.writeHead(500, { 'Content-Type': 'text/plain' });
-                res.end("Internal Server Error: Unable to fetch block number.\n");
-            });
+                bn.then(
+                    (blockNumber) => res.end(localWebViewBuilder({ blognum: blockNumber }))
+                ).catch(() => res.end(localWebViewBuilder({ blognum: 0 })));
+            } else {
+                res.writeHead(404, { 'Content-Type': 'text/plain' });
+                res.end("Debug mode is off. No debug information available.\n");
+            }
         } else {
             // Default response for all other requests
             res.writeHead(404, { 'Content-Type': 'text/plain' });
