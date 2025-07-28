@@ -2,7 +2,7 @@
 import { createServer } from 'http';
 import { ethers } from "ethers";
 
-const provider = new ethers.JsonRpcProvider();
+const provider = new ethers.JsonRpcProvider(process.env.NODE_URL || 'http://localhost:8545');
 
 // Helper functions to parse command-line arguments
 function getArgValue(args: string[], flag: string): string | undefined {
@@ -32,12 +32,8 @@ interface ServerOptions {
     displaylogs?: boolean;
 }
 
-interface LocalWebViewBuilderOptions {
-    blocknum?: number;
-    // Add other options as needed
-}
 
-function localWebViewBuilder({ blocknum }) {
+function localWebViewBuilder({ blognum }) {
     // This function can be used to build a local web view with the provided block number
     return `<html>
         <head>
@@ -64,16 +60,13 @@ function localWebViewBuilder({ blocknum }) {
         </style>
         <body>
             <h1 style="text-align: center; color: #333;">VX SDK Local Web View</h1>
-            <h2>Block Number: ${blocknum}</h2>
             <p>This is a local web view for VX SDK.</p>
             <a href="https://vx.varius.technology" target="_">Docs</a>
             <h2>API sample</h2>
             <code>
                 <pre>
-            {
-                "blockNumber": ${blocknum},
-                "status": "success"
-            }
+
+{blognum: ${blognum}}
                 </pre>
             </code>
         </body>
@@ -108,18 +101,24 @@ export default function localServer(options?: Partial<ServerOptions>) {
             // Handle /api/ endpoint
             res.writeHead(301, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ message: 'Redirecting to /api', status: 'redirect' }));
+        } else if (req.url === "/api/block") {
+            // Handle /api/block endpoint
+            let blockNumber = 0;
+            provider.getBlockNumber().then((blockNumber) => {
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ blockNumber }));
+            });
         } else if (req.url === '/debug') {
             // Handle /debug endpoint
-            let blognum = 0;
             provider.getBlockNumber().then((blockNumber) => {
-                blognum = blockNumber;
+                const htmlContent = localWebViewBuilder({ blognum: blockNumber });
+                res.writeHead(200, { 'Content-Type': 'text/html' });
+                res.end(htmlContent);
             }).catch((error) => {
                 console.error('Error fetching block number:', error);
+                res.writeHead(500, { 'Content-Type': 'text/plain' });
+                res.end("Internal Server Error: Unable to fetch block number.\n");
             });
-            res.writeHead(200, { 'Content-Type': 'text/html' });
-            const htmlContent = localWebViewBuilder({ blocknum: blognum });
-            res.end(htmlContent);
-            res.end()
         } else {
             // Default response for all other requests
             res.writeHead(404, { 'Content-Type': 'text/plain' });
