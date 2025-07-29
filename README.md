@@ -1,3 +1,5 @@
+# [new repository is here](https://github.com/nknighta/xnv)
+
 # VX
 
 > useful web3 tools
