@@ -1,7 +1,7 @@
 // local development server for vx-sdk
 import { createServer } from 'http';
 import { ethers } from "ethers";
-import { getBlockNumber } from '../core/data/block';
+import { getBlockNumber } from '../core/data';
 const bn = getBlockNumber(process.env.NODE_URL || 'http://localhost:8545');
 
 // Helper functions to parse command-line arguments

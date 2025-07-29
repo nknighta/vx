@@ -12,7 +12,8 @@ export function view_rpc_config() {
     try {
         const configContent = fs.readFileSync(configPath, 'utf-8');
         //return JSON.parse(configContent);
-        console.log(configContent);
+        const parsedContent = JSON.parse(configContent);
+        console.log(`RPC : ${parsedContent[0].protocol}://${parsedContent[0].host}:${parsedContent[0].port}`);
         process.exit(0);
     } catch (error) {
         console.error(`Error reading vx.config.json: ${error.message}`);
