@@ -1,8 +1,11 @@
 // local development server for vx-sdk
 import { createServer } from 'http';
-import { ethers } from "ethers";
 import { getBlockNumber } from '../core/data';
-const bn = getBlockNumber(process.env.NODE_URL || 'http://localhost:8545');
+import { getRpcUrl } from '../core/contract';
+
+const rpc = getRpcUrl();
+console.log(`Using RPC URL: ${rpc}`);
+const bn = getBlockNumber(rpc);
 
 // Helper functions to parse command-line arguments
 function getArgValue(args: string[], flag: string): string | undefined {
